@@ -1,434 +1,240 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { useTheme } from '@/context/ThemeContext';
+import { BRAND_NAME, BRAND_TAGLINE } from '@/lib/constants';
 
 export function GatewayHero() {
-  const [hoveredSide, setHoveredSide] = useState<'none' | 'store' | 'labs'>('none');
-  const [activeTab, setActiveTab] = useState<'store' | 'labs'>('store');
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
+
+  // Subtle luxury soundscape generator using Web Audio API (No external files needed)
+  const toggleSoundscape = () => {
+    if (!isPlayingAudio) {
+      try {
+        const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+        const ctx = new AudioCtx();
+        audioCtxRef.current = ctx;
+
+        const masterGain = ctx.createGain();
+        masterGain.gain.setValueAtTime(0.04, ctx.currentTime);
+        masterGain.connect(ctx.destination);
+        gainNodeRef.current = masterGain;
+
+        // Warm harmonic luxury tones (C3, G3, E4 chord)
+        const freqs = [130.81, 196.00, 329.63, 392.00];
+        freqs.forEach((freq) => {
+          const osc = ctx.createOscillator();
+          const oscGain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime);
+          
+          oscGain.gain.setValueAtTime(0.015, ctx.currentTime);
+          osc.connect(oscGain);
+          oscGain.connect(masterGain);
+          osc.start();
+        });
+
+        setIsPlayingAudio(true);
+      } catch {
+        // Fallback gracefully if browser audio is blocked
+      }
+    } else {
+      if (audioCtxRef.current) {
+        audioCtxRef.current.close();
+        audioCtxRef.current = null;
+      }
+      setIsPlayingAudio(false);
+    }
+  };
 
   useEffect(() => {
-    setMounted(true);
+    return () => {
+      if (audioCtxRef.current) {
+        audioCtxRef.current.close();
+      }
+    };
   }, []);
 
-  const isLight = mounted && theme === 'light';
-  const currentHighlight = hoveredSide !== 'none' ? hoveredSide : activeTab;
-
   return (
-    <section 
-      className={cn(
-        "relative w-full overflow-hidden flex flex-col justify-center select-none transition-colors duration-300",
-        isLight ? "bg-[#F8F9FA]" : "bg-black"
-      )}
-      onMouseLeave={() => setHoveredSide('none')}
-    >
-      {/* Dynamic Ambient Background Glow */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center -z-10 opacity-25">
-        <div 
-          className={cn(
-            "w-[550px] h-[550px] rounded-full blur-3xl transition-all duration-500 ease-out",
-            currentHighlight === 'store' 
-              ? "bg-[#D49B6A]/35 lg:-translate-x-1/4 scale-110" 
-              : currentHighlight === 'labs' 
-                ? "bg-blue-600/35 lg:translate-x-1/4 scale-110" 
-                : "bg-gradient-to-r from-[#D49B6A]/20 to-blue-600/20"
-          )} 
-        />
+    <section className="relative w-full overflow-hidden bg-[#06090F] text-white">
+      {/* Dynamic Atmospheric Ambient Mist Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-amber-500/10 blur-[150px] pointer-events-none rounded-full animate-pulse" />
+      <div className="absolute bottom-10 right-10 w-[400px] h-[400px] bg-blue-900/10 blur-[140px] pointer-events-none rounded-full" />
+
+      {/* Floating Gold Particles Effect */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+        <div className="absolute top-1/4 left-1/5 w-1 h-1 rounded-full bg-amber-300 blur-[0.5px] animate-bounce" style={{ animationDuration: '6s' }} />
+        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 rounded-full bg-amber-400 blur-[0.5px] animate-ping" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-1/3 left-1/3 w-1 h-1 rounded-full bg-amber-200 blur-[0.5px] animate-pulse" />
       </div>
 
-      {/* Mobile Interactive Segmented Switcher (Tabs) */}
-      <div className="lg:hidden px-4 pt-3 pb-1 z-20">
-        <div className="flex p-1 bg-[#141820]/90 border border-gray-800 rounded-2xl shadow-xl max-w-sm mx-auto backdrop-blur-md">
-          <button
-            type="button"
-            onClick={() => setActiveTab('store')}
-            className={cn(
-              "flex-1 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all duration-300 cursor-pointer",
-              activeTab === 'store'
-                ? "bg-gradient-to-r from-[#D49B6A] to-[#e2ac7e] text-black shadow-lg shadow-[#D49B6A]/20 font-bold"
-                : "text-gray-400 hover:text-white"
-            )}
-          >
-            <span>📱</span>
-            <span>Methmi Store</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('labs')}
-            className={cn(
-              "flex-1 py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all duration-300 cursor-pointer",
-              activeTab === 'labs'
-                ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/20 font-bold"
-                : "text-gray-400 hover:text-white"
-            )}
-          >
-            <span>⚡</span>
-            <span>Methmi Labs</span>
-          </button>
-        </div>
+      {/* Top Floating Luxury Audio Toggle */}
+      <div className="container mx-auto px-4 lg:px-8 pt-4 flex justify-end relative z-20">
+        <button
+          onClick={toggleSoundscape}
+          type="button"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 hover:border-amber-400/50 text-[10px] tracking-widest uppercase transition-all backdrop-blur-md cursor-pointer text-gray-300 hover:text-amber-300"
+          title="Toggle Maison QXYRA Boutique Ambient Audio"
+        >
+          <span>{isPlayingAudio ? '🔊' : '🔈'}</span>
+          <span>{isPlayingAudio ? 'Maison Sound: On' : 'Ambient Soundscape: Off'}</span>
+        </button>
       </div>
 
-      {/* Main Split Container: 50/50 on Desktop, Single Active Tab on Mobile */}
-      <div className="relative w-full h-full min-h-[500px] sm:min-h-[580px] lg:min-h-[90vh] grid grid-cols-1 lg:grid-cols-2">
+      {/* Main Split Editorial Showcase */}
+      <div className="container mx-auto px-4 lg:px-8 pb-12 lg:pb-16 pt-4">
         
-        {/* ====================================================================
-            LEFT SIDE: METHMI STORE (Smartphones & Mobile Gear)
-            ==================================================================== */}
-        <div 
-          className={cn(
-            "relative flex-col justify-between p-5 sm:p-8 lg:p-16 border-b lg:border-b-0 lg:border-r overflow-hidden transition-all duration-300 ease-out",
-            activeTab === 'store' ? "flex" : "hidden lg:flex",
-            isLight 
-              ? "border-gray-200 bg-gradient-to-br from-white via-[#FCFBF9] to-[#F7F4EE]" 
-              : "border-gray-800/80 bg-black/90",
-            hoveredSide === 'store' 
-              ? "opacity-100 filter-none" 
-              : hoveredSide === 'labs' 
-                ? "opacity-35 saturate-50 contrast-75" 
-                : "opacity-100 filter-none"
-          )}
-          onMouseEnter={() => setHoveredSide('store')}
-        >
-          {/* Subtle Background Image */}
-          <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-            <Image
-              src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&q=80&w=1400"
-              alt="Methmi Mobile Flagship Smartphones"
-              fill
-              priority
-              className={cn(
-                "object-cover object-center transition-transform duration-500",
-                hoveredSide === 'store' ? "scale-105" : "scale-100",
-                isLight 
-                  ? "opacity-15 brightness-105" 
-                  : "brightness-35 opacity-70"
-              )}
-            />
-            {!isLight && (
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-            )}
-          </div>
-
-          {/* Top Tag & Badge */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#D49B6A] animate-pulse" />
-              <span className={cn(
-                "text-xs uppercase tracking-widest font-mono font-semibold transition-colors",
-                isLight ? "text-amber-800" : "text-[#D49B6A]"
-              )}>
-                Division 01
-              </span>
-            </div>
-            <span className={cn(
-              "text-[10px] sm:text-[11px] font-mono px-2.5 sm:px-3 py-1 rounded-full font-medium transition-all duration-200",
-              isLight 
-                ? "bg-amber-100/90 text-amber-950 border border-amber-200 shadow-sm" 
-                : "bg-[#D49B6A]/10 text-[#D49B6A] border border-[#D49B6A]/30"
-            )}>
-              Flagship Smartphones & Gear
+        {/* Brand Headline */}
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 mb-4 shadow-lg shadow-amber-500/5">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-[10px] uppercase tracking-[0.25em] text-amber-300 font-semibold">
+              The Autumn / Winter Capsule
             </span>
           </div>
 
-          {/* Core Store Content */}
-          <div className="relative z-10 my-auto py-6 sm:py-8 space-y-4 sm:space-y-6 max-w-xl">
-            <div className="space-y-1.5 sm:space-y-2">
-              <span className={cn(
-                "text-[11px] sm:text-xs font-mono uppercase tracking-widest font-medium transition-colors block",
-                isLight ? "text-gray-600" : "text-gray-400"
-              )}>
-                100% Genuine TRCSL Approved Stock
-              </span>
-              <h1 className={cn(
-                "text-3xl sm:text-5xl lg:text-6xl font-heading font-light tracking-tight leading-[1.08] transition-colors",
-                isLight ? "text-gray-950" : "text-white"
-              )}>
-                METHMI <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D49B6A] via-amber-300 to-[#e2ac7e] font-normal">STORE</span>
-              </h1>
-            </div>
+          <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight text-white mb-4 leading-tight">
+            MAISON <span className="font-normal text-amber-300 tracking-wider drop-shadow-[0_2px_20px_rgba(217,167,74,0.3)]">{BRAND_NAME}</span>
+          </h1>
+          <p className="text-xs sm:text-base text-gray-300 font-light tracking-wide max-w-xl mx-auto leading-relaxed">
+            {BRAND_TAGLINE}. Timeless bespoke menswear, sculptural evening gowns, and artisanal crystal flacons distilled for the modern aesthete.
+          </p>
 
-            <p className={cn(
-              "text-xs sm:text-base leading-relaxed font-body font-light transition-colors",
-              isLight ? "text-gray-700" : "text-gray-300"
-            )}>
-              Sri Lanka&apos;s premier destination for brand new Apple iPhones, Samsung Galaxy, Tecno, Infinix, Xiaomi Redmi, and genuine fast-charging accessories with official company warranty.
-            </p>
-
-            {/* Subcategory Pills - Mobile horizontal swipeable, desktop wrap */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 flex-nowrap sm:flex-wrap text-xs">
-              <Link 
-                href="/store/phones/apple"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-amber-50 border border-gray-200 hover:border-[#D49B6A] text-gray-800 hover:text-amber-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-[#D49B6A] text-gray-300 hover:text-white"
-                )}
-              >
-                Apple iPhones
-              </Link>
-              <Link 
-                href="/store/phones/samsung"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-amber-50 border border-gray-200 hover:border-[#D49B6A] text-gray-800 hover:text-amber-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-[#D49B6A] text-gray-300 hover:text-white"
-                )}
-              >
-                Samsung Galaxy
-              </Link>
-              <Link 
-                href="/store/phones/vivo"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-amber-50 border border-gray-200 hover:border-[#D49B6A] text-gray-800 hover:text-amber-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-[#D49B6A] text-gray-300 hover:text-white"
-                )}
-              >
-                Vivo
-              </Link>
-              <Link 
-                href="/store/phones/tecno-infinix"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-amber-50 border border-gray-200 hover:border-[#D49B6A] text-gray-800 hover:text-amber-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-[#D49B6A] text-gray-300 hover:text-white"
-                )}
-              >
-                Tecno & Infinix
-              </Link>
-              <Link 
-                href="/store/phones/redmi"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-amber-50 border border-gray-200 hover:border-[#D49B6A] text-gray-800 hover:text-amber-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-[#D49B6A] text-gray-300 hover:text-white"
-                )}
-              >
-                Xiaomi Redmi
-              </Link>
-              <Link 
-                href="/store/accessories"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-amber-50 border border-gray-200 hover:border-[#D49B6A] text-gray-800 hover:text-amber-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-[#D49B6A] text-gray-300 hover:text-white"
-                )}
-              >
-                Fast Chargers & Gear
-              </Link>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
-              <Link
-                href="/store/phones"
-                className="px-6 py-3.5 bg-gradient-to-r from-[#D49B6A] to-[#e2ac7e] text-black font-semibold text-xs rounded-xl shadow-lg shadow-[#D49B6A]/20 hover:opacity-95 transition-all flex items-center justify-center gap-2 group/btn cursor-pointer"
-              >
-                <span>Explore Smartphones</span>
-                <span className="group-hover/btn:translate-x-1 transition-transform duration-200">→</span>
-              </Link>
-              <Link
-                href="/deals"
-                className={cn(
-                  "px-5 py-3.5 text-xs font-medium rounded-xl transition-all duration-200 text-center justify-center flex items-center",
-                  isLight 
-                    ? "bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 hover:border-[#D49B6A] shadow-sm" 
-                    : "bg-black/50 hover:bg-black/80 text-white border border-gray-700 hover:border-[#D49B6A]"
-                )}
-              >
-                View Hot Deals
-              </Link>
-            </div>
-          </div>
-
-          {/* Bottom Bar Info */}
-          <div className={cn(
-            "relative z-10 pt-4 border-t flex items-center justify-between text-xs transition-colors",
-            isLight ? "border-gray-200 text-gray-600" : "border-gray-800/80 text-gray-400"
-          )}>
-            <span>Islandwide Cash On Delivery</span>
-            <span className={cn("font-mono font-medium", isLight ? "text-amber-800" : "text-[#D49B6A]")}>
-              100% TRCSL Approved
-            </span>
+          {/* Quick CTA Actions */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <Link
+              href="/store"
+              className="px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-semibold bg-amber-400 text-black rounded hover:bg-amber-300 transition-all duration-300 shadow-xl shadow-amber-500/20 hover:scale-105"
+            >
+              Explore All Collections
+            </Link>
+            <Link
+              href="/store?category=perfume"
+              className="px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium border border-white/20 text-white rounded hover:border-amber-400 hover:text-amber-300 transition-all duration-300 backdrop-blur-sm"
+            >
+              Haute Parfumerie (38% Extraits)
+            </Link>
           </div>
         </div>
 
-        {/* ====================================================================
-            RIGHT SIDE: METHMI LABS (Cloud POS & Business Systems)
-            ==================================================================== */}
-        <div 
-          className={cn(
-            "relative flex-col justify-between p-5 sm:p-8 lg:p-16 overflow-hidden transition-all duration-300 ease-out",
-            activeTab === 'labs' ? "flex" : "hidden lg:flex",
-            isLight 
-              ? "bg-gradient-to-bl from-white via-[#F7FAFD] to-[#EDF4FB]" 
-              : "bg-[#080C14]/95",
-            hoveredSide === 'labs' 
-              ? "opacity-100 filter-none" 
-              : hoveredSide === 'store' 
-                ? "opacity-35 saturate-50 contrast-75" 
-                : "opacity-100 filter-none"
-          )}
-          onMouseEnter={() => setHoveredSide('labs')}
-        >
-          {/* Subtle Background Image */}
-          <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-            <Image
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1400"
-              alt="Methmi Labs POS Software Technology"
-              fill
-              priority
-              className={cn(
-                "object-cover object-center transition-transform duration-500",
-                hoveredSide === 'labs' ? "scale-105" : "scale-100",
-                isLight 
-                  ? "opacity-15 brightness-105" 
-                  : "brightness-30 opacity-75"
-              )}
-            />
-            {!isLight && (
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
-            )}
-          </div>
+        {/* Dual Luxury Portals (Split Cards) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+          
+          {/* Card 1: Haute Parfumerie */}
+          <div className="group relative rounded-2xl overflow-hidden border border-white/10 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[440px] sm:min-h-[500px]">
+            {/* Visual Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/perfume_flacon.jpg"
+                alt="QXYRA Haute Parfumerie"
+                fill
+                priority
+                className="object-cover object-center brightness-75 group-hover:scale-105 group-hover:brightness-90 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/60 to-transparent" />
+            </div>
 
-          {/* Top Tag & Badge */}
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
-              <span className={cn(
-                "text-xs uppercase tracking-widest font-mono font-semibold transition-colors",
-                isLight ? "text-blue-700" : "text-blue-400"
-              )}>
-                Division 02
+            {/* Card Content Top */}
+            <div className="relative z-10 p-6 sm:p-8 flex items-center justify-between">
+              <span className="text-[10px] tracking-[0.25em] uppercase font-semibold text-amber-300 bg-black/60 px-3 py-1 rounded backdrop-blur-md border border-amber-500/30">
+                01. Olfactory House
               </span>
+              <span className="text-xs font-mono text-gray-300">Grasse, France</span>
             </div>
-            <span className={cn(
-              "text-[10px] sm:text-[11px] font-mono px-2.5 sm:px-3 py-1 rounded-full font-medium transition-all duration-200",
-              isLight 
-                ? "bg-blue-100/80 text-blue-900 border border-blue-200 shadow-sm" 
-                : "bg-blue-500/10 text-blue-400 border border-blue-500/30"
-            )}>
-              Cloud POS & Business Systems
-            </span>
+
+            {/* Card Content Bottom */}
+            <div className="relative z-10 p-6 sm:p-8">
+              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-2 font-light group-hover:text-amber-200 transition-colors">
+                Haute Parfumerie & Niche Extraits
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-300 font-light mb-5 max-w-md line-clamp-2">
+                Hand-poured 38% concentration crystal flacons with aged Cambodian Oud, Florentine Iris, and complimentary laser monogramming.
+              </p>
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/store?category=perfume"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-amber-300 group-hover:translate-x-1 transition-transform"
+                >
+                  <span>Discover Scents</span>
+                  <span>→</span>
+                </Link>
+                <span className="text-gray-500 text-xs">•</span>
+                <span className="text-[11px] text-gray-400">From $120 to $340</span>
+              </div>
+            </div>
           </div>
 
-          {/* Core Labs Content */}
-          <div className="relative z-10 my-auto py-6 sm:py-8 space-y-4 sm:space-y-6 max-w-xl">
-            <div className="space-y-1.5 sm:space-y-2">
-              <span className={cn(
-                "text-[11px] sm:text-xs font-mono uppercase tracking-widest font-medium transition-colors block",
-                isLight ? "text-gray-600" : "text-gray-400"
-              )}>
-                Retail POS & Business Engineering
+          {/* Card 2: Men's & Women's Haute Couture */}
+          <div className="group relative rounded-2xl overflow-hidden border border-white/10 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[440px] sm:min-h-[500px]">
+            {/* Visual Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/wool_trench.jpg"
+                alt="QXYRA Haute Couture & Tailoring"
+                fill
+                priority
+                className="object-cover object-center brightness-75 group-hover:scale-105 group-hover:brightness-90 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/60 to-transparent" />
+            </div>
+
+            {/* Card Content Top */}
+            <div className="relative z-10 p-6 sm:p-8 flex items-center justify-between">
+              <span className="text-[10px] tracking-[0.25em] uppercase font-semibold text-amber-300 bg-black/60 px-3 py-1 rounded backdrop-blur-md border border-amber-500/30">
+                02. Haute Couture
               </span>
-              <h2 className={cn(
-                "text-3xl sm:text-5xl lg:text-6xl font-heading font-light tracking-tight leading-[1.08] transition-colors",
-                isLight ? "text-gray-950" : "text-white"
-              )}>
-                METHMI <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 font-normal">LABS</span>
-              </h2>
+              <span className="text-xs font-mono text-gray-300">Florence, Italy</span>
             </div>
 
-            <p className={cn(
-              "text-xs sm:text-base leading-relaxed font-body font-light transition-colors",
-              isLight ? "text-gray-700" : "text-gray-300"
-            )}>
-              High-speed retail Point of Sale (POS) suites, multi-counter shop billing, real-time reload trackers, and enterprise digital solutions tailored for growing Sri Lankan businesses.
-            </p>
-
-            {/* Subcategory Pills - Mobile horizontal swipeable, desktop wrap */}
-            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 flex-nowrap sm:flex-wrap text-xs">
-              <Link 
-                href="/labs/software"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-500 text-gray-800 hover:text-blue-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-white"
-                )}
-              >
-                Methmi Cloud POS
-              </Link>
-              <Link 
-                href="/labs/solutions"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-500 text-gray-800 hover:text-blue-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-white"
-                )}
-              >
-                Shop Reload Tracker
-              </Link>
-              <Link 
-                href="/labs/solutions"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-500 text-gray-800 hover:text-blue-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-white"
-                )}
-              >
-                Retail & Grocery POS
-              </Link>
-              <Link 
-                href="/labs/quote"
-                className={cn(
-                  "px-3 py-1.5 rounded-lg transition-all duration-200 font-medium whitespace-nowrap shrink-0",
-                  isLight 
-                    ? "bg-white hover:bg-blue-50 border border-gray-200 hover:border-blue-500 text-gray-800 hover:text-blue-800 shadow-sm" 
-                    : "bg-black/60 hover:bg-black/90 border border-gray-700 hover:border-blue-500 text-gray-300 hover:text-white"
-                )}
-              >
-                VIP Device Care
-              </Link>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
-              <Link
-                href="/labs"
-                className="px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-xs rounded-xl shadow-lg shadow-blue-500/20 hover:opacity-95 transition-all flex items-center justify-center gap-2 group/btn cursor-pointer"
-              >
-                <span>Explore Tech Solutions</span>
-                <span className="group-hover/btn:translate-x-1 transition-transform duration-200">→</span>
-              </Link>
-              <Link
-                href="/labs/quote"
-                className={cn(
-                  "px-5 py-3.5 text-xs font-medium rounded-xl transition-all duration-200 text-center justify-center flex items-center",
-                  isLight 
-                    ? "bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 hover:border-blue-500 shadow-sm" 
-                    : "bg-black/50 hover:bg-black/80 text-white border border-gray-700 hover:border-blue-500"
-                )}
-              >
-                Request a Demo
-              </Link>
+            {/* Card Content Bottom */}
+            <div className="relative z-10 p-6 sm:p-8">
+              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-2 font-light group-hover:text-amber-200 transition-colors">
+                Bespoke Menswear & Women&apos;s Silhouettes
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-300 font-light mb-5 max-w-md line-clamp-2">
+                Italian virgin melton wool trench coats, unlined Mongolian cashmere cocoon capes, and fluid obsidian silk evening gowns.
+              </p>
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/store?category=clothings&sub=mens"
+                  className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] font-semibold text-white hover:text-amber-300 transition-colors"
+                >
+                  <span>Men&apos;s Tailoring</span>
+                  <span>→</span>
+                </Link>
+                <span className="text-gray-500 text-xs">|</span>
+                <Link
+                  href="/store?category=clothings&sub=womens"
+                  className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] font-semibold text-white hover:text-amber-300 transition-colors"
+                >
+                  <span>Women&apos;s Gowns</span>
+                  <span>→</span>
+                </Link>
+              </div>
             </div>
           </div>
 
-          {/* Bottom Bar Info */}
-          <div className={cn(
-            "relative z-10 pt-4 border-t flex items-center justify-between text-xs transition-colors",
-            isLight ? "border-gray-200 text-gray-600" : "border-gray-800/80 text-gray-400"
-          )}>
-            <span>Cloud Sync & Multi-Branch Ready</span>
-            <span className={cn("font-mono font-medium", isLight ? "text-blue-700" : "text-blue-400")}>
-              24/7 Islandwide Support
-            </span>
+        </div>
+
+        {/* 3 Pillar Guarantee Badges */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12 pt-8 border-t border-white/10 text-center">
+          <div>
+            <div className="text-amber-400 font-serif text-lg mb-1">Noble Raw Ingredients</div>
+            <p className="text-xs text-gray-400 font-light">Wild Cambodian Oud, Orris butter, and pure Mulberry silks.</p>
+          </div>
+          <div>
+            <div className="text-amber-400 font-serif text-lg mb-1">Bespoke Personalization</div>
+            <p className="text-xs text-gray-400 font-light">Complimentary name and monogram laser engraving on flacons.</p>
+          </div>
+          <div>
+            <div className="text-amber-400 font-serif text-lg mb-1">White-Glove Delivery</div>
+            <p className="text-xs text-gray-400 font-light">Insured worldwide courier in signature velvet-lined coffrets.</p>
           </div>
         </div>
+
       </div>
     </section>
   );

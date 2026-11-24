@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Logo } from './Logo';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
+import { BRAND_NAME } from '@/lib/constants';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -12,7 +13,7 @@ interface MobileNavProps {
 }
 
 const CloseIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <line x1="18" y1="6" x2="6" y2="18"></line>
     <line x1="6" y1="6" x2="18" y2="18"></line>
   </svg>
@@ -20,8 +21,8 @@ const CloseIcon = () => (
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const [mounted, setMounted] = useState(false);
-  const [storeExpanded, setStoreExpanded] = useState(true);
-  const [labsExpanded, setLabsExpanded] = useState(true);
+  const [clothingsExpanded, setClothingsExpanded] = useState(true);
+  const [perfumeExpanded, setPerfumeExpanded] = useState(true);
 
   useEffect(() => {
     setMounted(true);
@@ -52,12 +53,12 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       {/* Drawer */}
       <div
         className={cn(
-          "fixed top-0 left-0 z-50 h-full w-[85vw] max-w-sm bg-[#0E121A] text-white border-r border-gray-800 shadow-2xl transition-transform duration-300 ease-in-out lg:hidden flex flex-col",
+          "fixed top-0 left-0 z-50 h-full w-[85vw] max-w-sm bg-[#070A0F] text-white border-r border-white/10 shadow-2xl transition-transform duration-300 ease-in-out lg:hidden flex flex-col",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-800">
+        <div className="flex items-center justify-between p-5 border-b border-white/10">
           <Link href="/" onClick={onClose} className="hover:opacity-90 transition-opacity">
             <Logo size="sm" />
           </Link>
@@ -74,152 +75,169 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
         </div>
 
         {/* Scrollable Navigation Area */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-6">
-          {/* Quick Division Switcher Banner */}
-          <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+        <div className="flex-1 overflow-y-auto p-5 space-y-6 scrollbar-thin scrollbar-thumb-white/10">
+          
+          {/* Quick Pillar Jump Banners */}
+          <div className="grid grid-cols-2 gap-2 text-xs">
             <Link
-              href="/store"
+              href="/store?category=clothings"
               onClick={onClose}
-              className="p-2.5 rounded-xl bg-black/50 border border-brand-gold/40 text-center text-brand-gold font-medium hover:bg-black"
+              className="p-3 rounded-xl bg-[#0D121D] border border-amber-500/30 text-center text-amber-300 font-medium hover:bg-black transition-colors"
             >
-              🛍️ Store Catalog
+              🧥 Clothings
             </Link>
             <Link
-              href="/labs"
+              href="/store?category=perfume"
               onClick={onClose}
-              className="p-2.5 rounded-xl bg-black/50 border border-blue-500/40 text-center text-blue-400 font-medium hover:bg-black"
+              className="p-3 rounded-xl bg-[#0D121D] border border-amber-500/30 text-center text-amber-300 font-medium hover:bg-black transition-colors"
             >
-              ⚡ Labs Suite
+              ✨ Perfume
             </Link>
           </div>
 
-          {/* Division 01: Methmi Mobile Store Accordion */}
-          <div className="space-y-2 border-b border-gray-800/80 pb-5">
+          {/* 1. CLOTHINGS ACCORDION */}
+          <div className="space-y-2 border-b border-white/10 pb-5">
             <div 
               className="flex items-center justify-between py-2 cursor-pointer"
-              onClick={() => setStoreExpanded(!storeExpanded)}
+              onClick={() => setClothingsExpanded(!clothingsExpanded)}
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm">🛍️</span>
-                <span className="font-heading text-sm font-semibold text-white">Methmi Mobile Store</span>
-                <span className="text-[9px] bg-brand-gold/20 text-brand-gold px-1.5 py-0.2 rounded font-mono">Shop</span>
+                <span className="text-sm">🧥</span>
+                <span className="font-serif text-base font-light text-white">Clothings</span>
+                <span className="text-[9px] bg-amber-400/15 text-amber-300 px-1.5 py-0.2 rounded font-mono uppercase">Apparel</span>
               </div>
-              <span className="text-xs text-gray-400 font-mono">{storeExpanded ? '▲' : '▼'}</span>
+              <span className="text-xs text-gray-400 font-mono">{clothingsExpanded ? '▲' : '▼'}</span>
             </div>
 
-            {storeExpanded && (
-              <div className="pl-6 space-y-3 pt-1 text-xs">
-                {/* Smartphones */}
-                <div className="space-y-1.5">
+            {clothingsExpanded && (
+              <div className="pl-6 space-y-2 pt-1 text-xs">
+                <div className="pl-3 space-y-2 border-l border-amber-500/30">
                   <Link 
-                    href="/store/phones" 
-                    onClick={onClose}
-                    className="font-semibold text-brand-gold hover:underline block flex items-center gap-1.5"
+                    href="/store?category=clothings&sub=mens" 
+                    onClick={onClose} 
+                    className="block text-gray-300 hover:text-amber-300 py-1 font-light"
                   >
-                    <span>📱</span>
-                    <span>Smartphones (TRCSL) →</span>
+                    • Men&apos;s Tailoring & Coats
                   </Link>
-                  <div className="pl-3 space-y-1 text-gray-400 border-l border-brand-gold/30">
-                    <Link href="/store/phones/vivo" onClick={onClose} className="block hover:text-white py-0.5">
-                      • Vivo (Y05, Y11D, Y31D)
-                    </Link>
-                    <Link href="/store/phones/infinix" onClick={onClose} className="block hover:text-white py-0.5">
-                      • Infinix (Hot 70, Smart 20, Note 60 Pro)
-                    </Link>
-                    <Link href="/store/phones/tecno" onClick={onClose} className="block hover:text-white py-0.5">
-                      • Tecno (Camon 50 Pro 5G)
-                    </Link>
-                    <Link href="/store/phones" onClick={onClose} className="block text-brand-gold hover:underline py-0.5 font-medium">
-                      • View All Smartphones →
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Accessories */}
-                <div className="space-y-1.5 pt-2">
                   <Link 
-                    href="/store/accessories" 
-                    onClick={onClose}
-                    className="font-semibold text-gray-300 hover:text-brand-gold hover:underline block flex items-center gap-1.5"
+                    href="/store?category=clothings&sub=womens" 
+                    onClick={onClose} 
+                    className="block text-gray-300 hover:text-amber-300 py-1 font-light"
                   >
-                    <span>⚡</span>
-                    <span>Mobile & Tech Accessories →</span>
+                    • Women&apos;s Gowns & Outerwear
                   </Link>
-                  <div className="pl-3 space-y-1 text-gray-400 border-l border-gray-800">
-                    <Link href="/store/accessories/mobile" onClick={onClose} className="block hover:text-white py-0.5">
-                      • Fast Chargers & MagSafe Stands
-                    </Link>
-                    <Link href="/store/accessories/computer" onClick={onClose} className="block hover:text-white py-0.5">
-                      • Computer & Desk Accessories
-                    </Link>
-                  </div>
+                  <Link 
+                    href="/store?category=clothings&sub=hoodies" 
+                    onClick={onClose} 
+                    className="flex items-center justify-between text-gray-300 hover:text-amber-300 py-1 font-light"
+                  >
+                    <span>• Luxury Hoodies (450gsm)</span>
+                    <span className="text-[8px] bg-amber-400 text-black px-1.5 py-0.2 rounded font-bold uppercase">Trending</span>
+                  </Link>
+                  <Link 
+                    href="/store?category=clothings&sub=tshirts" 
+                    onClick={onClose} 
+                    className="block text-gray-300 hover:text-amber-300 py-1 font-light"
+                  >
+                    • Designer T-Shirts (280gsm)
+                  </Link>
+                  <Link 
+                    href="/store?category=clothings" 
+                    onClick={onClose} 
+                    className="block text-amber-400 hover:underline py-1 font-medium"
+                  >
+                    View All Clothings →
+                  </Link>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Division 02: Methmi Mobile Labs Accordion */}
-          <div className="space-y-2 border-b border-gray-800/80 pb-5">
+          {/* 2. PERFUME ACCORDION */}
+          <div className="space-y-2 border-b border-white/10 pb-5">
             <div 
               className="flex items-center justify-between py-2 cursor-pointer"
-              onClick={() => setLabsExpanded(!labsExpanded)}
+              onClick={() => setPerfumeExpanded(!perfumeExpanded)}
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm">⚡</span>
-                <span className="font-heading text-sm font-semibold text-white">Methmi Mobile Labs</span>
-                <span className="text-[9px] bg-blue-500/20 text-blue-400 px-1.5 py-0.2 rounded font-mono">Tech</span>
+                <span className="text-sm">✨</span>
+                <span className="font-serif text-base font-light text-white">Perfume</span>
+                <span className="text-[9px] bg-amber-400/15 text-amber-300 px-1.5 py-0.2 rounded font-mono uppercase">Extraits</span>
               </div>
-              <span className="text-xs text-gray-400 font-mono">{labsExpanded ? '▲' : '▼'}</span>
+              <span className="text-xs text-gray-400 font-mono">{perfumeExpanded ? '▲' : '▼'}</span>
             </div>
 
-            {labsExpanded && (
-              <div className="pl-6 space-y-2.5 pt-1 text-xs text-gray-300">
-                <Link href="/labs/software" onClick={onClose} className="block hover:text-blue-400 py-1">
-                  💻 Software (Retail POS & Inventory)
-                </Link>
-                <Link href="/labs/solutions" onClick={onClose} className="block hover:text-blue-400 py-1">
-                  🌐 Web & POS Solutions
-                </Link>
-                <Link href="/labs/quote" onClick={onClose} className="block hover:text-blue-400 font-semibold text-blue-400 py-1">
-                  🚀 Request a Project Quote →
-                </Link>
+            {perfumeExpanded && (
+              <div className="pl-6 space-y-2 pt-1 text-xs">
+                <div className="pl-3 space-y-2 border-l border-amber-500/30">
+                  <Link 
+                    href="/store?category=perfume&sub=mens" 
+                    onClick={onClose} 
+                    className="block text-gray-300 hover:text-amber-300 py-1 font-light"
+                  >
+                    • Men&apos;s Perfume (Nocturne Oud, Santal)
+                  </Link>
+                  <Link 
+                    href="/store?category=perfume&sub=womens" 
+                    onClick={onClose} 
+                    className="block text-gray-300 hover:text-amber-300 py-1 font-light"
+                  >
+                    • Women&apos;s Perfume (Ambér Impérial, Velvet Rose)
+                  </Link>
+                  <Link 
+                    href="/scent-finder" 
+                    onClick={onClose} 
+                    className="flex items-center justify-between text-gray-300 hover:text-amber-300 py-1 font-light"
+                  >
+                    <span>• Scent Finder Quiz</span>
+                    <span className="text-[8px] bg-amber-400/20 text-amber-300 px-1.5 py-0.2 rounded font-mono">Interactive</span>
+                  </Link>
+                  <Link 
+                    href="/store?category=perfume" 
+                    onClick={onClose} 
+                    className="block text-amber-400 hover:underline py-1 font-medium"
+                  >
+                    View All Perfumes →
+                  </Link>
+                </div>
               </div>
             )}
           </div>
 
-          {/* General Links */}
-          <div className="space-y-3 text-xs font-mono uppercase tracking-wider text-gray-400 pt-1">
-            <Link href="/" onClick={onClose} className="block hover:text-white py-1">
-              Home
+          {/* Direct Core Links */}
+          <div className="space-y-3 pt-2 text-xs">
+            <Link 
+              href="/store?view=lookbook" 
+              onClick={onClose}
+              className="flex items-center justify-between text-gray-300 hover:text-amber-300 py-2 border-b border-white/5 font-serif text-sm"
+            >
+              <span>Autumn / Winter Lookbook</span>
+              <span className="text-xs text-amber-400">→</span>
             </Link>
-            <Link href="/deals" onClick={onClose} className="block hover:text-brand-gold py-1">
-              Limited Deals
+            <Link 
+              href="/about" 
+              onClick={onClose}
+              className="flex items-center justify-between text-gray-300 hover:text-amber-300 py-2 border-b border-white/5 font-serif text-sm"
+            >
+              <span>The Maison {BRAND_NAME} Story</span>
+              <span className="text-xs text-amber-400">→</span>
             </Link>
-            <Link href="/about" onClick={onClose} className="block hover:text-white py-1">
-              About Methmi Mobile
-            </Link>
-            <Link href="/contact" onClick={onClose} className="block hover:text-white py-1">
-              Contact Desk
+            <Link 
+              href="/contact" 
+              onClick={onClose}
+              className="flex items-center justify-between text-gray-300 hover:text-amber-300 py-2 border-b border-white/5 font-serif text-sm"
+            >
+              <span>Private Client Concierge</span>
+              <span className="text-xs text-amber-400">→</span>
             </Link>
           </div>
+
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-5 border-t border-gray-800 bg-black/40 space-y-3 text-xs">
-          <div className="flex items-center justify-between">
-            <Link href="/account" onClick={onClose} className="text-gray-300 hover:text-white">
-              My Account
-            </Link>
-            <Link href="/account/wishlist" onClick={onClose} className="text-gray-300 hover:text-white">
-              Wishlist
-            </Link>
-            <Link href="/cart" onClick={onClose} className="text-brand-gold font-semibold">
-              Shopping Bag
-            </Link>
-          </div>
-          <p className="text-[10px] text-gray-500 text-center font-mono">
-            &copy; {new Date().getFullYear()} Methmi Mobile. Discover. Desire. Deliver.
-          </p>
+        <div className="p-5 border-t border-white/10 bg-[#05070B] text-xs text-gray-400 space-y-2">
+          <p className="text-white font-medium">Maison {BRAND_NAME} Concierge</p>
+          <p className="text-[11px] font-light">Complimentary White-Glove Worldwide Delivery</p>
         </div>
       </div>
     </>

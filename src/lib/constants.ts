@@ -1,34 +1,43 @@
-export const BRAND_NAME = 'Methmi Mobile';
-export const BRAND_FULL_NAME = 'Methmi Mobile (Pvt) Ltd';
-export const BRAND_TAGLINE = 'Your Trusted Mobile Partner';
-export const BRAND_DESCRIPTION = 'Methmi Mobile (Pvt) Ltd is Sri Lanka’s premier tech destination for 100% genuine TRCSL-approved smartphones, premium mobile accessories, and cutting-edge retail Cloud POS software solutions.';
+export const BRAND_NAME = 'QXYRA';
+export const BRAND_FULL_NAME = 'QXYRA Haute Couture & Artisanal Parfumerie';
+export const BRAND_TAGLINE = 'Luxury Clothings & Artisanal Perfumes';
+export const BRAND_DESCRIPTION = 'QXYRA is an ultra-premium luxury house uniting bespoke clothings (men\'s, women\'s, luxury hoodies, and designer tees) with rare artisanal perfumes.';
 
-export const CURRENCY_SYMBOL = 'Rs.';
-export const FREE_SHIPPING_THRESHOLD = 50000;
+export const CURRENCY_SYMBOL = '$';
+export const CURRENCY_LKR_SYMBOL = 'Rs.';
+export const FREE_SHIPPING_THRESHOLD = 250;
 export const ITEMS_PER_PAGE = 12;
 
-export const DIVISIONS = [
+export const CATEGORIES = [
   {
-    id: 'store',
-    name: 'Methmi Store',
-    shortName: 'Store',
-    tagline: '100% Genuine TRCSL Approved Smartphones & Gear',
-    description: 'Apple iPhones, Samsung Galaxy, Tecno, Infinix, Xiaomi Redmi, and genuine high-speed mobile peripherals with official company warranty.',
-    href: '/store',
-    icon: '📱',
-    accentColor: 'brand-gold',
-    badge: 'Smartphones & Gear',
+    id: 'clothings',
+    name: 'Clothings',
+    shortName: 'Clothings',
+    tagline: 'Tailored Silhouettes & Luxury Apparel',
+    description: 'Men\'s tailoring, women\'s haute couture, 450gsm luxury heavyweight hoodies, and compact combed cotton t-shirts.',
+    href: '/store?category=clothings',
+    image: '/images/hero.jpg',
+    badge: 'Luxury Apparel',
+    subcategories: [
+      { id: 'mens', name: "Men's", href: '/store?category=clothings&sub=mens' },
+      { id: 'womens', name: "Women's", href: '/store?category=clothings&sub=womens' },
+      { id: 'hoodies', name: 'Hoodies', href: '/store?category=clothings&sub=hoodies' },
+      { id: 'tshirts', name: 'T-Shirts', href: '/store?category=clothings&sub=tshirts' },
+    ],
   },
   {
-    id: 'labs',
-    name: 'Methmi Labs',
-    shortName: 'Labs',
-    tagline: 'Retail POS, Cloud Billing & Enterprise Software',
-    description: 'Bespoke retail Point of Sale systems, multi-channel shop inventory, and custom digital software engineered for growing Sri Lankan enterprises.',
-    href: '/labs',
-    icon: '⚡',
-    accentColor: 'labs-blue',
-    badge: 'POS & Software',
+    id: 'perfume',
+    name: 'Perfume',
+    shortName: 'Perfumes',
+    tagline: 'Rare Olfactory Extraits & Artisanal Fragrances',
+    description: 'Distinctive artisanal scents crafted for men and women with rare botanicals and complimentary crystal flacon laser engraving.',
+    href: '/store?category=perfume',
+    image: '/images/perfume_pdp.jpg',
+    badge: 'Artisanal Perfumes',
+    subcategories: [
+      { id: 'mens', name: "Men's Perfume", href: '/store?category=perfume&sub=mens' },
+      { id: 'womens', name: "Women's Perfume", href: '/store?category=perfume&sub=womens' },
+    ],
   },
 ];
 
@@ -50,107 +59,105 @@ export interface NavItem {
 export const NAV_LINKS: NavItem[] = [
   { label: 'Home', href: '/' },
   {
-    label: 'Store',
-    href: '/store',
-    badge: 'Phones',
+    label: 'Clothings',
+    href: '/store?category=clothings',
+    badge: 'Apparel',
     children: [
       {
-        label: 'Smartphones (TRCSL)',
-        href: '/store/phones',
-        description: 'Vivo, Infinix & Tecno smartphones with 100% genuine TRCSL approval and 1-Year Company Warranty.',
-        children: [
-          { label: 'Vivo Smartphones', href: '/store/phones/vivo' },
-          { label: 'Infinix Mobile', href: '/store/phones/infinix' },
-          { label: 'Tecno Smartphones', href: '/store/phones/tecno' },
-          { label: 'All Smartphones', href: '/store/phones' },
-        ],
+        label: "Men's",
+        href: '/store?category=clothings&sub=mens',
+        description: 'Bespoke Italian virgin wool coats, structured silk blazers, and tailoring.',
       },
       {
-        label: 'Accessories',
-        href: '/store/accessories',
-        description: 'Original high-speed fast chargers, MagSafe stands, premium cables and accessories.',
-        children: [
-          { label: 'Mobile Accessories', href: '/store/accessories/mobile' },
-          { label: 'Computer Accessories', href: '/store/accessories/computer' },
-        ],
+        label: "Women's",
+        href: '/store?category=clothings&sub=womens',
+        description: 'Fluid obsidian silk bias evening gowns and double-face cashmere cocoon coats.',
+      },
+      {
+        label: 'Hoodies',
+        href: '/store?category=clothings&sub=hoodies',
+        description: '450gsm heavyweight French Terry luxury hoodies with gold aglets and embossed crest.',
+        badge: 'Trending',
+      },
+      {
+        label: 'T-Shirts',
+        href: '/store?category=clothings&sub=tshirts',
+        description: '280gsm compacted combed Egyptian cotton oversized luxury minimalist tees.',
       },
     ],
   },
   {
-    label: 'Labs & POS',
-    href: '/labs',
-    badge: 'Software',
+    label: 'Perfume',
+    href: '/store?category=perfume',
+    badge: 'Extrait',
     children: [
       {
-        label: 'Methmi Cloud POS Suite',
-        href: '/labs/software',
-        description: 'High-speed retail, grocery, supermarket & restaurant Point of Sale management suites.',
+        label: "Men's Perfume",
+        href: '/store?category=perfume&sub=mens',
+        description: 'Smoky Cambodian Agarwood, Tuscan Leather, Cardamom, and Royal Mysore Sandalwood.',
       },
       {
-        label: 'Shop Reload & Cash Tracker',
-        href: '/labs/solutions',
-        description: 'Real-time daily payment & recharge reconciliation for telecommunication dealers.',
-      },
-      {
-        label: 'VIP Device Care & Repair',
-        href: '/labs/quote',
-        description: 'Expert hardware diagnosis, display replacement, battery health & software servicing.',
+        label: "Women's Perfume",
+        href: '/store?category=perfume&sub=womens',
+        description: 'Grasse Damask Rose, Florentine Orris Butter, Madagascar Vanilla, and Bourbon Amber.',
       },
     ],
   },
-  { label: 'Deals', href: '/deals' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Lookbook', href: '/store?view=lookbook' },
+  { label: 'Scent Finder', href: '/scent-finder' },
 ];
 
 export const FOOTER_LINKS = [
   {
-    title: 'Methmi Store',
+    title: 'Clothings',
     links: [
-      { label: 'Vivo Smartphones', href: '/store/phones/vivo' },
-      { label: 'Infinix Smartphones', href: '/store/phones/infinix' },
-      { label: 'Tecno Flagships', href: '/store/phones/tecno' },
-      { label: 'All Smartphones', href: '/store/phones' },
-      { label: 'Original Accessories', href: '/store/accessories' },
+      { label: "Men's Clothings", href: '/store?category=clothings&sub=mens' },
+      { label: "Women's Clothings", href: '/store?category=clothings&sub=womens' },
+      { label: 'Luxury Hoodies', href: '/store?category=clothings&sub=hoodies' },
+      { label: 'Designer T-Shirts', href: '/store?category=clothings&sub=tshirts' },
+      { label: 'Autumn / Winter Lookbook', href: '/store?view=lookbook' },
     ],
   },
   {
-    title: 'Methmi Labs',
+    title: 'Perfume',
     links: [
-      { label: 'Retail Cloud POS Suite', href: '/labs/software' },
-      { label: 'Shop Payment Tracker', href: '/labs/solutions' },
-      { label: 'Request a Demo / Quote', href: '/labs/quote' },
+      { label: "Men's Perfume", href: '/store?category=perfume&sub=mens' },
+      { label: "Women's Perfume", href: '/store?category=perfume&sub=womens' },
+      { label: 'The Scent Finder Quiz', href: '/scent-finder' },
+      { label: 'Complimentary Flacon Engraving', href: '/about#engraving' },
     ],
   },
   {
-    title: 'Support & Care',
+    title: 'The Maison QXYRA',
     links: [
-      { label: 'Contact Us', href: '/contact' },
-      { label: 'Islandwide Delivery Policy', href: '/shipping' },
-      { label: 'TRCSL Warranty & Returns', href: '/returns' },
+      { label: 'Our Heritage & Philosophy', href: '/about' },
+      { label: 'Artisanal Craftsmanship', href: '/about#craftsmanship' },
+      { label: 'Bespoke Monogramming', href: '/about#engraving' },
+      { label: 'Private Client Concierge', href: '/contact' },
     ],
   },
   {
-    title: 'Company',
+    title: 'Client Care & Terms',
     links: [
-      { label: 'About Methmi Mobile', href: '/about' },
+      { label: 'Worldwide White-Glove Delivery', href: '/shipping' },
+      { label: 'Returns & Size Exchanges', href: '/returns' },
       { label: 'Terms of Service', href: '/terms' },
       { label: 'Privacy Policy', href: '/privacy' },
     ],
   },
 ];
 
-export const WHATSAPP_NUMBER = '94743031990';
-export const WHATSAPP_DISPLAY_NUMBER = '074 303 1990';
-export const HOTLINE_PHONE = '074 303 1990';
-export const SUPPORT_EMAIL = 'info@methmimobilepvtltd.lk';
-export const STORE_ADDRESS = 'Main Street, Mutur / Batticaloa Road, Periya Palam, Trincomalee, Sri Lanka';
-export const STORE_HOURS = 'Monday – Saturday: 8:30 AM – 8:30 PM | Sunday: 9:00 AM – 5:00 PM';
-export const STORE_MAP_EMBED_URL = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15777.625624795777!2d81.2581!3d8.4552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afb955a8227e9f3%3A0x6a053c846d0a7935!2sMutur!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk';
-export const STORE_MAP_DIRECTIONS_URL = 'https://maps.google.com/?q=Mutur,+Sri+Lanka';
+export const WHATSAPP_NUMBER = '94770000000';
+export const WHATSAPP_DISPLAY_NUMBER = '+94 77 000 0000';
+export const HOTLINE_PHONE = '+94 11 200 0000';
+export const SUPPORT_EMAIL = 'concierge@qxyra.com';
+export const STORE_ADDRESS = 'QXYRA Flagship Maison, 42 Ward Place, Colombo 00700, Sri Lanka';
+export const STORE_HOURS = 'Monday – Saturday: 10:00 AM – 8:00 PM | Sunday: By Appointment';
+export const STORE_MAP_EMBED_URL = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7985117576856!2d79.8656641!3d6.9146528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2597987820bb1%3A0x5a18a994ef038b30!2sWard%20Pl%2C%20Colombo!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk';
+export const STORE_MAP_DIRECTIONS_URL = 'https://maps.google.com/?q=Ward+Place,+Colombo+07,+Sri+Lanka';
 
 export const SOCIAL_LINKS = [
-  { label: 'Facebook', href: 'https://facebook.com/methmimobile' },
-  { label: 'WhatsApp', href: `https://wa.me/${WHATSAPP_NUMBER}` },
-  { label: 'TikTok', href: 'https://tiktok.com/@methmimobile' },
+  { label: 'Instagram', href: 'https://instagram.com/qxyra_official' },
+  { label: 'Pinterest', href: 'https://pinterest.com/qxyra' },
+  { label: 'WhatsApp Concierge', href: `https://wa.me/${WHATSAPP_NUMBER}` },
 ];

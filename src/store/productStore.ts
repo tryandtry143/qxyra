@@ -63,15 +63,11 @@ export const useProductStore = create<ProductState>()(
       },
     }),
     {
-      name: 'methmi_products_list_v3',
+      name: 'qxyra_products_luxury_v3',
       merge: (persistedState: any, currentState) => {
-        const persistedProducts: Product[] = persistedState?.products || [];
-        const persistedIds = new Set(persistedProducts.map((p) => p.id));
-        const missingInitial = initialProducts.filter((p) => !persistedIds.has(p.id));
         return {
           ...currentState,
-          ...persistedState,
-          products: [...persistedProducts, ...missingInitial],
+          products: initialProducts,
         };
       },
     }

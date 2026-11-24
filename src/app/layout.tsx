@@ -1,72 +1,73 @@
 import type { Metadata } from "next";
-import { Inter, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { TrackingPixels } from "@/components/analytics/TrackingPixels";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { WhatsAppFloatingButton } from "@/components/common/WhatsAppFloatingButton";
+import { BRAND_NAME, BRAND_FULL_NAME, BRAND_TAGLINE } from "@/lib/constants";
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 const inter = Inter({
-  variable: "--font-heading",
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
-});
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://methmimobilepvtltd.lk";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://qxyra.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   icons: {
     icon: [
-      { url: "/methmi-emblem.png" },
-      { url: "/icon.png" },
+      { url: "/images/qxyra_logo_navy.png" },
       { url: "/favicon.ico" },
     ],
-    shortcut: "/methmi-emblem.png",
+    shortcut: "/images/qxyra_logo_navy.png",
     apple: [
-      { url: "/methmi-emblem.png" },
-      { url: "/apple-icon.png" },
+      { url: "/images/qxyra_logo_navy.png" },
     ],
   },
   title: {
-    default: "Methmi Mobile (Pvt) Ltd | Your Trusted Mobile Partner",
-    template: "%s | Methmi Mobile",
+    default: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
+    template: `%s | ${BRAND_NAME}`,
   },
-  description: "Sri Lanka's premier technology flagship: 100% genuine TRCSL-approved Apple iPhones, Samsung Galaxy, Tecno, Infinix, Xiaomi Redmi, premium accessories, and retail Cloud POS software solutions.",
+  description: "Maison QXYRA is an ultra-premium luxury house curating bespoke menswear, women's haute couture, and rare artisanal perfumes with complimentary crystal flacon engraving.",
   keywords: [
-    "Methmi Mobile",
-    "Methmi Mobile Pvt Ltd",
-    "iPhone Sri Lanka",
-    "Samsung Galaxy Sri Lanka",
-    "Tecno Camon 50 Pro",
-    "Infinix Note 60 Pro",
-    "TRCSL Approved Phones",
-    "Methmi POS",
-    "Retail POS System Sri Lanka",
-    "Mobile Shop Sri Lanka"
+    "QXYRA",
+    "Qxyra Luxury",
+    "Haute Parfumerie",
+    "Niche Perfumes",
+    "Extrait de Parfum",
+    "Nocturne Oud",
+    "Men's Haute Couture",
+    "Women's Luxury Fashion",
+    "Italian Wool Trench",
+    "Silk Evening Gown"
   ],
-  authors: [{ name: "Methmi Mobile (Pvt) Ltd" }],
-  creator: "Methmi Mobile (Pvt) Ltd",
-  publisher: "Methmi Mobile (Pvt) Ltd",
+  authors: [{ name: BRAND_FULL_NAME }],
+  creator: BRAND_FULL_NAME,
+  publisher: BRAND_FULL_NAME,
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "Methmi Mobile (Pvt) Ltd | Your Trusted Mobile Partner",
-    description: "Experience 100% genuine TRCSL-approved smartphones, premium mobile gear, and cutting-edge retail Cloud POS software solutions in Sri Lanka.",
+    title: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
+    description: "Experience quiet luxury, Italian sartorial craftsmanship, and 38% artisanal perfume extraits from Maison QXYRA.",
     url: siteUrl,
-    siteName: "Methmi Mobile",
+    siteName: BRAND_NAME,
     images: [
       {
-        url: "/methmi-logo.jpg",
-        width: 1024,
-        height: 571,
-        alt: "Methmi Mobile (Pvt) Ltd Official Brand",
+        url: "/images/hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${BRAND_NAME} Haute Couture & Parfumerie`,
       },
     ],
     locale: "en_US",
@@ -74,10 +75,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Methmi Mobile (Pvt) Ltd | Your Trusted Mobile Partner",
-    description: "100% genuine TRCSL-approved smartphones, accessories & retail Cloud POS software solutions.",
-    creator: "@methmimobile",
-    images: ["/methmi-logo.jpg"],
+    title: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
+    description: "Quiet luxury, bespoke tailoring, and rare artisanal perfumes with complimentary crystal flacon engraving.",
+    creator: "@qxyra_official",
+    images: ["/images/hero.jpg"],
   },
 };
 
@@ -89,27 +90,27 @@ export default function RootLayout({
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Methmi Mobile (Pvt) Ltd",
+    name: BRAND_FULL_NAME,
     url: siteUrl,
-    logo: `${siteUrl}/methmi-logo.jpg`,
-    description: "Sri Lanka's trusted flagship for original TRCSL approved mobile phones, premium accessories, and Cloud POS systems.",
+    logo: `${siteUrl}/images/qxyra_logo.jpg`,
+    description: "Bespoke menswear, women's haute couture, and rare artisanal perfumes.",
     sameAs: [
-      "https://facebook.com/methmimobile",
-      "https://tiktok.com/@methmimobile"
+      "https://instagram.com/qxyra_official",
+      "https://pinterest.com/qxyra"
     ]
   };
 
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <head>
-        <link rel="icon" href="/methmi-logo.jpg" />
+        <link rel="icon" href="/images/qxyra_logo.jpg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
       <body
-        className={`${inter.variable} ${dmSans.variable} font-body antialiased text-brand-black bg-white min-h-screen flex flex-col`}
+        className={`${cormorant.variable} ${inter.variable} font-sans antialiased min-h-screen flex flex-col transition-colors duration-300`}
       >
         <ThemeProvider>
           <CurrencyProvider>

@@ -85,6 +85,7 @@ export interface Product {
   salePrice?: number;
   images: ProductImage[];
   categoryId: string;
+  subcategoryId?: string;
   category?: Category;
   variants: ProductVariant[];
   reviews?: Review[];
@@ -95,6 +96,10 @@ export interface Product {
   cjProductId?: string;
   specsHighlights?: string[];
   colorOptions?: { name: string; hex: string; image?: string }[];
+  olfactoryNotes?: { top: string[]; heart: string[]; base: string[] };
+  concentration?: string;
+  volume?: string;
+  gender?: 'Men' | 'Women' | 'Unisex';
   createdAt: string;
   updatedAt: string;
 }

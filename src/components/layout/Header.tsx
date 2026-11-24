@@ -4,45 +4,37 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { NAV_LINKS } from '@/lib/constants';
+import { NAV_LINKS, BRAND_NAME } from '@/lib/constants';
 import { MobileNav } from './MobileNav';
 import { Logo } from './Logo';
 import { CurrencySelector } from '@/components/currency/CurrencySelector';
-import { MegaMenu } from './MegaMenu';
 import { useCartStore } from '@/store/cartStore';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 import { useTheme } from '@/context/ThemeContext';
 
 const SearchIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="11" cy="11" r="8"></circle>
     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
   </svg>
 );
 
 const CartIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="9" cy="21" r="1"></circle>
-    <circle cx="20" cy="21" r="1"></circle>
-    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <path d="M16 10a4 4 0 0 1-8 0"></path>
   </svg>
 );
 
 const HeartIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
   </svg>
 );
 
-const UserIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-    <circle cx="12" cy="7" r="4"></circle>
-  </svg>
-);
-
 const MenuIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <line x1="3" y1="12" x2="21" y2="12"></line>
     <line x1="3" y1="6" x2="21" y2="6"></line>
     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -52,9 +44,7 @@ const MenuIcon = () => (
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeMegaMenu, setActiveMegaMenu] = useState<'store' | 'labs' | null>(null);
   const [mounted, setMounted] = useState(false);
-  const menuTimerRef = React.useRef<NodeJS.Timeout | null>(null);
   
   const pathname = usePathname();
   const { theme } = useTheme();
@@ -62,78 +52,51 @@ export function Header() {
   const cartItems = useCartStore((s) => s.items);
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  const handleMenuEnter = (division: 'store' | 'labs') => {
-    if (menuTimerRef.current) clearTimeout(menuTimerRef.current);
-    menuTimerRef.current = setTimeout(() => {
-      setActiveMegaMenu(division);
-    }, 130);
-  };
-
-  const handleMenuLeave = () => {
-    if (menuTimerRef.current) clearTimeout(menuTimerRef.current);
-    menuTimerRef.current = setTimeout(() => {
-      setActiveMegaMenu(null);
-    }, 180);
-  };
-
-  const cancelMenuLeave = () => {
-    if (menuTimerRef.current) clearTimeout(menuTimerRef.current);
-  };
-
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 15);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mega menu on route change
-  useEffect(() => {
-    setActiveMegaMenu(null);
-  }, [pathname]);
-
   return (
     <>
       <header className={cn(
         "fixed top-0 w-full z-40 transition-all duration-300",
         isLight
-          ? (isScrolled ? "bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-sm text-gray-900" : "bg-white border-b border-gray-100 text-gray-900")
-          : (isScrolled ? "bg-[#0A0A0A]/95 backdrop-blur-md border-b border-gray-800/80 shadow-2xl text-white" : "bg-[#0A0A0A] border-b border-gray-800/40 text-white")
+          ? (isScrolled ? "bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm text-gray-900" : "bg-white border-b border-gray-100 text-gray-900")
+          : (isScrolled ? "bg-[#070A0F]/95 backdrop-blur-md border-b border-amber-500/20 shadow-2xl text-white" : "bg-[#070A0F] border-b border-white/10 text-white")
       )}>
-        {/* Top Announcement & Currency Bar */}
+        {/* Luxury Top Announcement & Currency Bar */}
         <div className={cn(
-          "text-xs font-mono py-1 px-3 sm:px-8 flex justify-between items-center border-b transition-colors",
+          "text-xs py-1.5 px-4 sm:px-8 flex justify-between items-center border-b transition-colors",
           isLight 
-            ? "bg-slate-50 text-slate-700 border-slate-200" 
-            : "bg-black text-[#D49B6A] border-gray-800/60"
+            ? "bg-stone-100 text-stone-700 border-stone-200" 
+            : "bg-[#04060A] text-amber-300/90 border-white/5"
         )}>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <span className={cn("hidden sm:inline text-[11px] font-medium", isLight ? "text-slate-600" : "text-gray-400")}>
-              Methmi Mobile (Pvt) Ltd • Your Trusted Partner
+          <div className="flex items-center gap-2 sm:gap-4">
+            <span className="text-[10px] sm:text-[11px] font-medium tracking-wider uppercase">
+              Maison {BRAND_NAME} • Complimentary White-Glove Worldwide Delivery on Orders Over $250
             </span>
-            <CurrencySelector showRateBadge={false} />
           </div>
-          <div className={cn("flex items-center gap-2 sm:gap-4 text-[10px] sm:text-[11px] font-sans", isLight ? "text-slate-600" : "text-gray-400")}>
-            <span className="inline-flex items-center gap-1 font-mono text-[#D49B6A] bg-[#D49B6A]/10 px-2 py-0.5 rounded text-[10px] sm:hidden">
-              🇱🇰 TRCSL Approved
+          <div className="flex items-center gap-3 text-[11px]">
+            <span className="hidden md:inline text-[10px] uppercase tracking-widest text-amber-400/90 font-medium">
+              ✨ Free Flacon Laser Engraving
             </span>
-            <Link href="/labs" className="hover:text-blue-500 transition-colors hidden md:inline font-medium">
-              ⚡ Methmi Labs (Cloud POS & Systems)
-            </Link>
-            <span className="opacity-40 hidden md:inline">|</span>
-            <span className="hidden sm:inline">Support: <span className={cn("font-medium", isLight ? "text-amber-700" : "text-[#D49B6A]")}>info@methmimobilepvtltd.lk</span></span>
+            <span className="opacity-30 hidden md:inline">|</span>
+            <CurrencySelector showRateBadge={false} />
           </div>
         </div>
 
         {/* Main Navigation Bar */}
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center justify-between h-18 sm:h-20">
             {/* Mobile Menu Button */}
             <button 
-              className={cn("lg:hidden p-2 -ml-2 transition-colors", isLight ? "text-slate-800 hover:text-amber-700" : "text-white hover:text-brand-gold")}
+              className={cn("lg:hidden p-2 -ml-2 transition-colors", isLight ? "text-slate-800 hover:text-amber-700" : "text-white hover:text-amber-400")}
               onClick={() => setIsMobileMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -146,88 +109,101 @@ export function Header() {
             </div>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-7">
+            <nav className="hidden lg:flex items-center space-x-9">
               {NAV_LINKS.map((link) => {
-                const isStoreLink = link.label === 'Store';
-                const isLabsLink = link.label === 'Labs';
-                const hasMega = isStoreLink || isLabsLink;
-                const isDivisionActive = 
-                  (isStoreLink && pathname.startsWith('/store')) ||
-                  (isLabsLink && pathname.startsWith('/labs')) ||
-                  (pathname === link.href);
+                const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href.split('?')[0]));
+                const hasChildren = link.children && link.children.length > 0;
 
                 return (
-                  <div
-                    key={link.href}
-                    className="relative py-2 my-auto"
-                    onMouseEnter={() => {
-                      if (isStoreLink) handleMenuEnter('store');
-                      else if (isLabsLink) handleMenuEnter('labs');
-                      else handleMenuLeave();
-                    }}
-                    onMouseLeave={handleMenuLeave}
-                  >
+                  <div key={link.href} className="relative group py-2">
                     <Link
                       href={link.href}
                       className={cn(
-                        "text-xs font-semibold tracking-wide uppercase font-mono flex items-center gap-1.5 transition-colors",
-                        isDivisionActive 
-                          ? (isLabsLink ? (isLight ? "text-blue-600 font-bold" : "text-blue-400 font-bold") : (isLight ? "text-amber-800 font-bold" : "text-brand-gold font-bold")) 
-                          : (isLight ? "text-slate-700 hover:text-black" : "text-gray-300 hover:text-white")
+                        "text-xs font-medium tracking-[0.16em] uppercase transition-all duration-200 py-1 flex items-center gap-1.5 cursor-pointer",
+                        isActive
+                          ? "text-amber-400 font-semibold"
+                          : (isLight ? "text-stone-700 hover:text-black" : "text-gray-300 hover:text-amber-300")
                       )}
                     >
                       <span>{link.label}</span>
-                      {hasMega && (
-                        <span className="text-[9px] opacity-60">▼</span>
+                      {hasChildren && (
+                        <span className="text-[8px] text-gray-400 group-hover:rotate-180 transition-transform">▼</span>
                       )}
                       {link.badge && (
-                        <span className={cn(
-                          "text-[9px] px-1.5 py-0.2 rounded font-mono font-normal normal-case",
-                          isLabsLink 
-                            ? (isLight ? "bg-blue-100 text-blue-700 border border-blue-200" : "bg-blue-500/10 text-blue-400 border border-blue-500/30") 
-                            : (isLight ? "bg-amber-100 text-amber-800 border border-amber-200" : "bg-brand-gold/10 text-brand-gold border border-brand-gold/30")
-                        )}>
+                        <span className="ml-1 text-[8px] tracking-widest px-1.5 py-0.5 rounded uppercase font-semibold bg-amber-400/15 text-amber-300 border border-amber-400/30">
                           {link.badge}
                         </span>
                       )}
+                      <span className={cn(
+                        "absolute bottom-0 left-0 w-0 h-[1.5px] bg-amber-400 transition-all duration-300 group-hover:w-full",
+                        isActive && "w-full"
+                      )} />
                     </Link>
+
+                    {/* Luxury Hover Dropdown Menu */}
+                    {hasChildren && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                        <div className="w-80 p-3.5 rounded-2xl bg-[#0B101A]/95 border border-amber-500/30 shadow-2xl backdrop-blur-xl space-y-1">
+                          <div className="text-[9px] uppercase tracking-[0.25em] text-amber-400 font-semibold px-3 py-1.5 border-b border-white/10 mb-1 flex items-center justify-between">
+                            <span>{link.label} Collection</span>
+                            <span className="text-[8px] font-mono text-gray-400">MAISON {BRAND_NAME}</span>
+                          </div>
+                          {link.children?.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group/sub"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="text-xs font-serif text-white group-hover/sub:text-amber-300 transition-colors font-medium">
+                                  {sub.label}
+                                </span>
+                                {sub.badge && (
+                                  <span className="text-[8px] px-1.5 py-0.2 rounded font-mono uppercase bg-amber-400 text-black font-bold">
+                                    {sub.badge}
+                                  </span>
+                                )}
+                              </div>
+                              {sub.description && (
+                                <p className="text-[10px] text-gray-400 font-light mt-0.5 line-clamp-1">
+                                  {sub.description}
+                                </p>
+                              )}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 );
               })}
             </nav>
 
             {/* Icons */}
-            <div className={cn("flex items-center space-x-3 sm:space-x-4 lg:space-x-5", isLight ? "text-slate-700" : "text-gray-300")}>
+            <div className={cn("flex items-center space-x-3 sm:space-x-5", isLight ? "text-slate-700" : "text-gray-200")}>
               <ThemeToggle />
               <Link 
                 href="/search" 
                 aria-label="Search" 
-                className="hover:text-brand-gold transition-colors p-1.5 hidden sm:block"
+                className="hover:text-amber-400 transition-colors p-1.5"
               >
                 <SearchIcon />
               </Link>
               <Link 
-                href="/account" 
-                aria-label="Account" 
-                className="hover:text-brand-gold transition-colors p-1.5 hidden sm:block"
-              >
-                <UserIcon />
-              </Link>
-              <Link 
                 href="/account/wishlist" 
                 aria-label="Wishlist" 
-                className="hover:text-red-400 transition-colors p-1.5"
+                className="hover:text-amber-400 transition-colors p-1.5"
               >
                 <HeartIcon />
               </Link>
               <Link 
                 href="/cart" 
                 aria-label="Cart" 
-                className="hover:text-brand-gold transition-colors relative p-1.5 flex items-center"
+                className="hover:text-amber-400 transition-colors relative p-1.5 flex items-center"
               >
                 <CartIcon />
                 {mounted && cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-gradient-to-r from-brand-gold to-brand-gold-light text-brand-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center font-mono shadow-md animate-in zoom-in-75">
+                  <span className="absolute -top-1 -right-1 bg-amber-400 text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center font-mono shadow-md animate-in zoom-in-75">
                     {cartCount}
                   </span>
                 )}
@@ -235,16 +211,6 @@ export function Header() {
             </div>
           </div>
         </div>
-
-        {/* Mega Menu Dropdown */}
-        {activeMegaMenu && (
-          <MegaMenu
-            division={activeMegaMenu}
-            onClose={() => setActiveMegaMenu(null)}
-            onMouseEnter={cancelMenuLeave}
-            onMouseLeave={handleMenuLeave}
-          />
-        )}
       </header>
 
       {/* Mobile Navigation Drawer */}
@@ -254,7 +220,7 @@ export function Header() {
       />
       
       {/* Spacer to prevent content from hiding under fixed header */}
-      <div className="h-[90px] sm:h-[110px]" />
+      <div className="h-[96px] sm:h-[108px]" />
     </>
   );
 }

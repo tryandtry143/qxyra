@@ -1,46 +1,44 @@
 'use client';
 
 import Link from 'next/link';
+import { BRAND_NAME } from '@/lib/constants';
 
 export function BrandStory() {
   return (
-    <section className="py-24 bg-[#0A0A0A] border-b border-gray-800/80 relative">
+    <section className="py-20 lg:py-28 bg-[#080C14] border-b border-white/10 relative text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
           {/* Left Column: Heading & Narrative */}
           <div className="lg:col-span-6 space-y-6">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#D49B6A]" />
-              <span className="text-xs uppercase tracking-widest text-[#D49B6A] font-mono font-medium">
-                Our Dual DNA
+              <span className="w-2 h-2 rounded-full bg-amber-400" />
+              <span className="text-xs uppercase tracking-[0.25em] text-amber-300 font-semibold">
+                The Heritage of {BRAND_NAME}
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-light text-white tracking-tight leading-tight">
-              One Trusted Flagship. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D49B6A] via-amber-200 to-blue-400 font-normal">
-                Two Powerful Tech Pillars.
-              </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-light text-white tracking-tight leading-tight">
+              Quiet Luxury. <br />
+              <span className="italic text-amber-300">Artisanal Botanical Integrity.</span>
             </h2>
 
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light">
-              Methmi Mobile (Pvt) Ltd was built on the foundation of unyielding trust and technical excellence. We provide the genuine physical devices you rely on every second—and the high-speed retail software systems that empower Sri Lankan businesses.
+            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed font-light">
+              Maison {BRAND_NAME} was established with a singular devotion: creating timeless objects of beauty that transcend ephemeral seasonal trends. We unite bespoke sartorial tailoring from Northern Italy with rare artisanal perfumery macerated in Grasse, France.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-xl bg-[#141820] border border-[#D49B6A]/30 space-y-2">
-                <span className="text-xl">📱</span>
-                <h4 className="text-sm font-semibold text-white">Methmi Store</h4>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  100% genuine Apple iPhones, Samsung Galaxy, Tecno, Infinix, Xiaomi Redmi, and certified high-speed mobile accessories.
+              <div className="p-5 rounded-xl bg-[#0D131F] border border-amber-500/20 space-y-2">
+                <span className="text-amber-400 font-serif text-lg">01. Sartorial Tailoring</span>
+                <p className="text-xs text-gray-400 leading-relaxed font-light">
+                  Virgin Italian melton wool, Mongolian grade-A cashmere, and pure mulberry silks sculpted into architectural silhouettes.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#141820] border border-blue-500/30 space-y-2">
-                <span className="text-xl">⚡</span>
-                <h4 className="text-sm font-semibold text-white">Methmi Labs</h4>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  Enterprise Cloud POS suites, multi-counter retail billing, and shop reload reconciliation tools built for real Sri Lankan shops.
+              <div className="p-5 rounded-xl bg-[#0D131F] border border-amber-500/20 space-y-2">
+                <span className="text-amber-400 font-serif text-lg">02. Haute Parfumerie</span>
+                <p className="text-xs text-gray-400 leading-relaxed font-light">
+                  35-38% pure Extrait de Parfum compositions with wild Cambodian agarwood and precious Florentine orris butter.
                 </p>
               </div>
             </div>
@@ -48,9 +46,9 @@ export function BrandStory() {
             <div className="pt-2">
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 text-xs font-semibold text-white hover:text-[#D49B6A] transition-colors"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold text-amber-300 hover:text-amber-200 transition-colors"
               >
-                <span>Read the Complete Methmi Mobile Story</span>
+                <span>Read The Full Maison Philosophy</span>
                 <span>→</span>
               </Link>
             </div>
@@ -58,38 +56,39 @@ export function BrandStory() {
 
           {/* Right Column: Values & Pillars */}
           <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-6 rounded-2xl bg-[#121620] border border-gray-800 space-y-3">
-              <span className="text-2xl font-mono text-[#D49B6A]">01</span>
-              <h4 className="font-heading text-base font-medium text-white">100% TRCSL Approved</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Every smartphone is officially registered with the TRCSL with guaranteed zero signal drop, IMEI verification & official company warranty.
+            <div className="p-6 rounded-2xl bg-[#0C121D] border border-white/10 space-y-3">
+              <span className="text-2xl font-serif text-amber-400 font-light">01</span>
+              <h4 className="font-serif text-base font-medium text-white">Noble Raw Origins</h4>
+              <p className="text-xs text-gray-400 leading-relaxed font-light">
+                Zero synthetic filler oils. Every botanical is ethically and sustainably wild-harvested across Grasse, Kashmir, and Koh Kong.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#121620] border border-gray-800 space-y-3">
-              <span className="text-2xl font-mono text-blue-400">02</span>
-              <h4 className="font-heading text-base font-medium text-white">Cloud POS Software</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Offline-capable Point of Sale tills, thermal receipt printing, and real-time stock orchestration designed for Sri Lankan retail enterprises.
+            <div className="p-6 rounded-2xl bg-[#0C121D] border border-white/10 space-y-3">
+              <span className="text-2xl font-serif text-amber-400 font-light">02</span>
+              <h4 className="font-serif text-base font-medium text-white">Bespoke Monogramming</h4>
+              <p className="text-xs text-gray-400 leading-relaxed font-light">
+                Complimentary personalized gold foil or laser engraving on every crystal flacon and tailored garment label.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#121620] border border-gray-800 space-y-3">
-              <span className="text-2xl font-mono text-amber-300">03</span>
-              <h4 className="font-heading text-base font-medium text-white">Islandwide Fast Delivery</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Cash On Delivery (COD) and doorstep insured dispatch across all 25 districts, backed by shop pickup at our physical showroom.
+            <div className="p-6 rounded-2xl bg-[#0C121D] border border-white/10 space-y-3">
+              <span className="text-2xl font-serif text-amber-400 font-light">03</span>
+              <h4 className="font-serif text-base font-medium text-white">White-Glove Delivery</h4>
+              <p className="text-xs text-gray-400 leading-relaxed font-light">
+                Insured express worldwide transit packaged in signature embossed midnight navy coffrets with ribbon wrapping.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#121620] border border-gray-800 space-y-3">
-              <span className="text-2xl font-mono text-indigo-400">04</span>
-              <h4 className="font-heading text-base font-medium text-white">Lifetime Customer Trust</h4>
-              <p className="text-xs text-gray-400 leading-relaxed">
-                Direct owner support, authentic pricing with no hidden charges, and continuous after-sales technical care.
+            <div className="p-6 rounded-2xl bg-[#0C121D] border border-white/10 space-y-3">
+              <span className="text-2xl font-serif text-amber-400 font-light">04</span>
+              <h4 className="font-serif text-base font-medium text-white">Private Concierge</h4>
+              <p className="text-xs text-gray-400 leading-relaxed font-light">
+                Direct access to personal fragrance consultants and sizing specialists available via WhatsApp and private appointment.
               </p>
             </div>
           </div>
+
         </div>
       </div>
     </section>

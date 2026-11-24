@@ -69,7 +69,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     const msg = encodeURIComponent(
-      `Hello Methmi Mobile! I would like to order:\n\n📱 *Model*: ${product.name}\n💰 *Price*: ${format(displayPrice)}\n\nPlease let me know availability and delivery details.`
+      `Hello Maison QXYRA! I would like to inquire about ordering:\n\n✨ *Piece*: ${product.name}\n💰 *Price*: ${format(displayPrice)}\n\nPlease assist me with bespoke availability, sizing or flacon engraving.`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   };
@@ -79,34 +79,34 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
       className={cn(
         "group relative flex flex-col rounded-2xl border transition-all duration-300 overflow-hidden",
         isLight
-          ? "bg-white border-gray-200/90 shadow-sm hover:shadow-xl hover:border-amber-400"
-          : "bg-[#141820] border-gray-800/80 hover:border-brand-gold/40 shadow-lg hover:shadow-2xl hover:shadow-black/60"
+          ? "bg-white border-stone-200 shadow-sm hover:shadow-xl hover:border-amber-400/60"
+          : "bg-[#0D131F] border-white/10 hover:border-amber-400/40 shadow-lg hover:shadow-2xl"
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Image Area - Aspect Square with zero cropping */}
+      {/* Image Area - Aspect 4/5 for Haute Couture Silhouette */}
       <div
         className={cn(
-          "relative aspect-square w-full overflow-hidden transition-colors flex items-center justify-center p-3 sm:p-4",
-          isLight ? "bg-white border-b border-gray-100" : "bg-white/[0.04] border-b border-gray-800/50"
+          "relative aspect-[4/5] w-full overflow-hidden transition-colors flex items-center justify-center",
+          isLight ? "bg-stone-50 border-b border-stone-100" : "bg-[#080C14] border-b border-white/5"
         )}
       >
         {/* Sale Badge */}
         {hasDiscount && (
-          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-20 bg-brand-gold text-brand-black text-[9px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-md uppercase tracking-wider">
+          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-20 bg-amber-400 text-stone-950 text-[9px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-md uppercase tracking-wider font-mono">
             -{discountPercent}%
           </div>
         )}
 
-        {/* Top Right Action Icons: Wishlist + WhatsApp */}
-        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20 flex flex-col gap-1.5">
+        {/* Top Right Action Icon: Wishlist */}
+        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20">
           <button
             onClick={handleToggleWishlist}
             className={cn(
-              "w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full backdrop-blur-md transition-all cursor-pointer shadow-sm hover:scale-110",
+              "w-8 h-8 flex items-center justify-center rounded-full backdrop-blur-md transition-all cursor-pointer shadow-sm hover:scale-110",
               isLight
-                ? "bg-white/90 border border-gray-200 text-gray-700 hover:text-red-500"
+                ? "bg-white/90 border border-stone-200 text-stone-700 hover:text-red-500 shadow-stone-200/50"
                 : "bg-black/60 border border-white/10 text-white hover:text-red-400"
             )}
             aria-label="Toggle Wishlist"
@@ -114,22 +114,11 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
             <span
               className={cn(
                 "text-xs sm:text-sm",
-                isWishlisted ? "text-red-500 scale-110" : isLight ? "text-gray-500" : "text-white/70"
+                isWishlisted ? "text-red-500 scale-110" : isLight ? "text-stone-500" : "text-white/70"
               )}
             >
               {isWishlisted ? "♥" : "♡"}
             </span>
-          </button>
-
-          <button
-            onClick={handleWhatsAppQuickOrder}
-            className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-[#25D366] text-white shadow-md hover:scale-110 transition-transform cursor-pointer"
-            title="Inquire on WhatsApp (074 303 1990)"
-            aria-label="Inquire on WhatsApp"
-          >
-            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.456 5.711 1.457h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
           </button>
         </div>
 
@@ -140,7 +129,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
             alt={product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain object-center group-hover:scale-105 transition-transform duration-500"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
           />
         </Link>
 

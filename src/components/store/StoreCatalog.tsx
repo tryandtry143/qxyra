@@ -1,119 +1,270 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useProductStore } from '@/store/productStore';
 import { ProductCard } from '@/components/product/ProductCard';
 import { StoreCategoryCard } from '@/components/store/StoreCategoryCard';
 import { products as fallbackProducts } from '@/lib/mock-data';
 import { useTheme } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
+import { BRAND_NAME } from '@/lib/constants';
+
+type MainPillar = 'all' | 'clothings' | 'perfume';
 
 export function StoreCatalog() {
+  const searchParams = useSearchParams();
+  const urlCategory = searchParams.get('category') as MainPillar | null;
+  const urlSub = searchParams.get('sub');
+
   const storeProducts = useProductStore((s) => s.products);
   const [mounted, setMounted] = useState(false);
+  const [selectedPillar, setSelectedPillar] = useState<MainPillar>(urlCategory || 'all');
+  const [selectedSub, setSelectedSub] = useState<string | null>(urlSub || null);
+
   const { theme } = useTheme();
-  const isLight = theme === 'light';
+  const isLight = mounted && theme === 'light';
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (urlCategory) setSelectedPillar(urlCategory);
+    if (urlSub) setSelectedSub(urlSub);
+  }, [urlCategory, urlSub]);
 
   const activeProducts = (mounted ? storeProducts : fallbackProducts).filter((p) => p.isActive);
 
-  const vivoProducts = activeProducts.filter((p) => p.categoryId === 'vivo');
-  const infinixProducts = activeProducts.filter((p) => p.name.toLowerCase().includes('infinix'));
-  const tecnoProducts = activeProducts.filter((p) => p.name.toLowerCase().includes('tecno'));
+  const clothingsProducts = activeProducts.filter((p) => p.categoryId === 'clothings');
+  const perfumeProducts = activeProducts.filter((p) => p.categoryId === 'perfume');
+
+  const displayedProducts = activeProducts.filter((p) => {
+    if (selectedPillar !== 'all' && p.categoryId !== selectedPillar) return false;
+    if (selectedSub && p.subcategoryId !== selectedSub) return false;
+    return true;
+  });
 
   return (
     <>
-      {/* Brand Feature Banners */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* 2 Primary Category Showcase Banners */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        
+        {/* Banner 1: Clothings */}
         <StoreCategoryCard
-          title="Vivo Smartphones"
-          subtitle="100% genuine TRCSL-approved Vivo Y-series smartphones with 1-Year Official Company Warranty."
-          href="/store/phones/vivo"
-          image="/products/vivo-y05-summit-platinum.jpg"
-          itemCount={vivoProducts.length}
+          title="Clothings Collection"
+          subtitle="Bespoke Italian virgin wool coats, sculptural silk evening gowns, 450gsm luxury hoodies, and 280gsm designer tees."
+          href="/store?category=clothings"
+          image="/images/wool_trench.jpg"
+          itemCount={clothingsProducts.length}
           subcategories={[
-            { name: 'Vivo Y05', href: '/store/vivo-y05' },
-            { name: 'Vivo Y11D', href: '/store/vivo-y11d' },
-            { name: 'Vivo Y31D', href: '/store/vivo-y31d' },
+            { name: "Men's Tailoring", href: '/store?category=clothings&sub=mens' },
+            { name: "Women's Gowns", href: '/store?category=clothings&sub=womens' },
+            { name: "Heavyweight Hoodies", href: '/store?category=clothings&sub=hoodies' },
+            { name: "Designer T-Shirts", href: '/store?category=clothings&sub=tshirts' },
           ]}
         />
 
+        {/* Banner 2: Perfume */}
         <StoreCategoryCard
-          title="Infinix Smartphones"
-          subtitle="Flagship Note 60 Pro 5G, Hot 70, and Smart 20 series with 100W FastCharge and TRCSL approval."
-          href="/store/phones/infinix"
-          image="/products/infinix-note-60-pro-solar-orange.jpg"
-          itemCount={infinixProducts.length}
+          title="Perfume Atelier"
+          subtitle="35-38% pure Extrait de Parfum artisanal fragrances crafted for gentlemen and ladies with complimentary laser flacon engraving."
+          href="/store?category=perfume"
+          image="/images/perfume_flacon.jpg"
+          itemCount={perfumeProducts.length}
           subcategories={[
-            { name: 'Infinix Note 60 Pro', href: '/store/infinix-note-60-pro' },
-            { name: 'Infinix Hot 70', href: '/store/infinix-hot-70' },
-            { name: 'Infinix Smart 20', href: '/store/infinix-smart-20' },
-          ]}
-        />
-
-        <StoreCategoryCard
-          title="Tecno Smartphones"
-          subtitle="Flagship mobile photography with Tecno Camon 50 Pro 5G and official local warranty."
-          href="/store/phones/tecno"
-          image="/products/tecno-camon-50-pro-malachite-green.jpg"
-          itemCount={tecnoProducts.length}
-          subcategories={[
-            { name: 'Tecno Camon 50 Pro', href: '/store/tecno-camon-50-pro' },
-            { name: 'All Tecno Models', href: '/store/phones/tecno' },
+            { name: "Men's Perfume (Oud & Sandalwood)", href: '/store?category=perfume&sub=mens' },
+            { name: "Women's Perfume (Rose & Amber)", href: '/store?category=perfume&sub=womens' },
+            { name: "Interactive Scent Quiz", href: '/scent-finder' },
           ]}
         />
       </div>
 
-      {/* All Products Grid */}
-      <div className="space-y-8 pt-4">
+      {/* Filter and Grid */}
+      <div className="space-y-8 pt-8">
         <div className={cn(
           "flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4 transition-colors",
-          isLight ? "border-gray-200" : "border-gray-800"
+          isLight ? "border-stone-200" : "border-white/10"
         )}>
           <div>
             <h2 className={cn(
-              "text-xl sm:text-2xl font-heading font-medium tracking-tight",
-              isLight ? "text-gray-950 font-semibold" : "text-white"
+              "text-2xl sm:text-3xl font-serif font-light tracking-wide transition-colors",
+              isLight ? "text-stone-900" : "text-white"
             )}>
-              All Available Smartphones ({activeProducts.length})
+              {selectedPillar === 'all'
+                ? `All Creations (${displayedProducts.length})`
+                : selectedPillar === 'clothings'
+                ? `Clothings (${displayedProducts.length})`
+                : `Perfumes (${displayedProducts.length})`}
             </h2>
             <p className={cn(
-              "text-xs mt-1",
-              isLight ? "text-gray-600" : "text-gray-400"
+              "text-xs font-light mt-1 transition-colors",
+              isLight ? "text-stone-600" : "text-gray-400"
             )}>
-              100% Genuine TRCSL Approved Brand New Sealed Packs
+              Curated by Maison {BRAND_NAME}.
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs">
-            <span className={isLight ? "text-gray-500" : "text-gray-400"}>Showing:</span>
-            <span className={cn(
-              "font-mono font-semibold px-2.5 py-1 rounded-full text-xs",
-              isLight ? "bg-amber-100 text-amber-900" : "text-brand-gold bg-brand-gold/10 border border-brand-gold/30"
-            )}>
-              {activeProducts.length} In-Stock
-            </span>
+
+          {/* Primary Pillar Buttons */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+            <button
+              onClick={() => {
+                setSelectedPillar('all');
+                setSelectedSub(null);
+              }}
+              className={cn(
+                "px-4 py-2 rounded text-xs uppercase tracking-wider transition-all cursor-pointer font-medium",
+                selectedPillar === 'all'
+                  ? "bg-amber-400 text-black font-semibold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
+              )}
+            >
+              All Pieces
+            </button>
+            <button
+              onClick={() => {
+                setSelectedPillar('clothings');
+                setSelectedSub(null);
+              }}
+              className={cn(
+                "px-4 py-2 rounded text-xs uppercase tracking-wider transition-all cursor-pointer font-medium",
+                selectedPillar === 'clothings'
+                  ? "bg-amber-400 text-black font-semibold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
+              )}
+            >
+              🧥 Clothings ({clothingsProducts.length})
+            </button>
+            <button
+              onClick={() => {
+                setSelectedPillar('perfume');
+                setSelectedSub(null);
+              }}
+              className={cn(
+                "px-4 py-2 rounded text-xs uppercase tracking-wider transition-all cursor-pointer font-medium",
+                selectedPillar === 'perfume'
+                  ? "bg-amber-400 text-black font-semibold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
+              )}
+            >
+              ✨ Perfume ({perfumeProducts.length})
+            </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-          {activeProducts.map((product) => {
-            let catLabel = 'Smartphone';
-            if (product.categoryId === 'vivo') catLabel = 'Vivo';
-            else if (product.name.toLowerCase().includes('infinix')) catLabel = 'Infinix';
-            else if (product.name.toLowerCase().includes('tecno')) catLabel = 'Tecno';
+        {/* Subcategory Secondary Pills */}
+        {selectedPillar === 'clothings' && (
+          <div className="flex flex-wrap items-center gap-2 py-1 animate-in fade-in">
+            <span className={cn(
+              "text-[11px] font-mono uppercase tracking-widest mr-1",
+              isLight ? "text-stone-500 font-semibold" : "text-gray-500"
+            )}>
+              Subcategory:
+            </span>
+            <button
+              onClick={() => setSelectedSub(null)}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === null
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              All Clothings
+            </button>
+            <button
+              onClick={() => setSelectedSub('mens')}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === 'mens'
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              Men&apos;s
+            </button>
+            <button
+              onClick={() => setSelectedSub('womens')}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === 'womens'
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              Women&apos;s
+            </button>
+            <button
+              onClick={() => setSelectedSub('hoodies')}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === 'hoodies'
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              Hoodies (450gsm)
+            </button>
+            <button
+              onClick={() => setSelectedSub('tshirts')}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === 'tshirts'
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              T-Shirts (280gsm)
+            </button>
+          </div>
+        )}
 
-            return (
-              <ProductCard
-                key={product.id}
-                product={product}
-                categoryName={catLabel}
-              />
-            );
-          })}
+        {selectedPillar === 'perfume' && (
+          <div className="flex flex-wrap items-center gap-2 py-1 animate-in fade-in">
+            <span className={cn(
+              "text-[11px] font-mono uppercase tracking-widest mr-1",
+              isLight ? "text-stone-500 font-semibold" : "text-gray-500"
+            )}>
+              Subcategory:
+            </span>
+            <button
+              onClick={() => setSelectedSub(null)}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === null
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              All Perfumes
+            </button>
+            <button
+              onClick={() => setSelectedSub('mens')}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === 'mens'
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              Men&apos;s Perfume (Oud & Woods)
+            </button>
+            <button
+              onClick={() => setSelectedSub('womens')}
+              className={cn(
+                "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer",
+                selectedSub === 'womens'
+                  ? "bg-amber-400 text-black font-bold shadow"
+                  : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white")
+              )}
+            >
+              Women&apos;s Perfume (Rose & Amber)
+            </button>
+          </div>
+        )}
+
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+          {displayedProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </div>
     </>
