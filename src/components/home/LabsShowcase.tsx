@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { BRAND_NAME } from '@/lib/constants';
 import { FlaconViewer360 } from '@/components/product/FlaconViewer360';
 
@@ -191,27 +190,33 @@ export function LabsShowcase() {
 
             {/* TAB 1: 360 Flacon Studio */}
             {activeRightTab === '360' ? (
-              <FlaconViewer360 className="h-full flex flex-col justify-between" />
+              <FlaconViewer360
+                monogramText={monogramText}
+                className="h-full flex flex-col justify-between"
+              />
             ) : (
-              /* TAB 2: Live Personalized Monogramming */
-              <div className="rounded-2xl sm:rounded-3xl bg-[#0B101A] border border-amber-500/20 p-5 sm:p-8 flex flex-col justify-between relative overflow-hidden h-full shadow-2xl">
-                <div className="absolute -top-12 -right-12 w-48 h-48 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
-
-                <div>
-                  <div className="flex items-center justify-between pb-3 mb-4 sm:mb-5 border-b border-white/10">
-                    <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-amber-300 font-semibold">Atelier Monogram</span>
-                    <span className="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-widest">Complimentary</span>
+              /* TAB 2: Live Personalized 3D Monogramming */
+              <div className="rounded-2xl sm:rounded-3xl bg-[#0B101A] border border-amber-500/20 p-5 sm:p-7 flex flex-col justify-between relative overflow-hidden h-full shadow-2xl space-y-4">
+                <div className="space-y-3 relative z-10">
+                  <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                    <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-amber-300 font-semibold">
+                      Atelier Monogram
+                    </span>
+                    <span className="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-widest">
+                      Live on 3D Flacon
+                    </span>
                   </div>
 
-                  <h4 className="font-serif text-xl sm:text-2xl text-white font-light mb-1.5">
-                    Personalized Bottle Engraving
-                  </h4>
-                  <p className="text-xs text-gray-400 font-light mb-4 sm:mb-6">
-                    Type your initials to preview gold-leaf laser engraving on your crystal flacon.
-                  </p>
+                  <div>
+                    <h4 className="font-serif text-xl sm:text-2xl text-white font-light mb-1">
+                      Personalized 3D Bottle Engraving
+                    </h4>
+                    <p className="text-xs text-gray-400 font-light">
+                      Type your initials below to watch gold-leaf laser engraving render live on the 3D crystal bottle.
+                    </p>
+                  </div>
 
-                  {/* Input for Monogram */}
-                  <div className="space-y-1.5 mb-5">
+                  <div className="space-y-1.5">
                     <label className="text-[10px] sm:text-[11px] uppercase tracking-wider text-gray-300 font-medium block">
                       Custom Flacon Inscription:
                     </label>
@@ -224,38 +229,12 @@ export function LabsShowcase() {
                       className="w-full px-3.5 py-2.5 rounded-lg bg-[#070A0F] border border-amber-400/40 text-amber-300 font-serif tracking-widest text-sm focus:outline-none focus:border-amber-400 uppercase placeholder:text-gray-600"
                     />
                   </div>
-
-                  {/* Visual Simulated Flacon Display (Protected overlay in Light Mode) */}
-                  <div className="luxury-media-card relative w-full h-52 sm:h-64 rounded-xl overflow-hidden border border-white/10 bg-gradient-to-b from-[#131B2A] to-[#070A0F] flex items-center justify-center p-4">
-                    <Image
-                      src="/images/perfume_flacon.jpg"
-                      alt="Crystal Flacon with Engraving"
-                      fill
-                      sizes="(max-width: 1024px) 90vw, 45vw"
-                      className="object-cover opacity-65 brightness-75"
-                    />
-                    <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px]" />
-                    
-                    <div className="relative z-10 text-center p-3.5 sm:p-4 rounded border border-amber-400/40 bg-black/75 backdrop-blur-md shadow-2xl max-w-[230px]">
-                      <div className="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] text-amber-400 font-mono mb-1">
-                        MAISON {BRAND_NAME}
-                      </div>
-                      <div className="text-xs font-serif text-white tracking-widest uppercase mb-1">
-                        EXTRAIT NOCTURNE
-                      </div>
-                      <div className="py-1 px-3 border-t border-b border-amber-400/40 my-1">
-                        <span className="font-serif text-sm tracking-[0.22em] text-amber-300 drop-shadow-[0_2px_10px_rgba(251,191,36,0.5)] font-medium">
-                          {monogramText || 'YOUR NAME'}
-                        </span>
-                      </div>
-                      <div className="text-[8px] font-mono text-gray-300 tracking-widest uppercase mt-1">
-                        EXTRAIT DE PARFUM • 100ML
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                <div className="mt-5 pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+                {/* Live 3D Crystal Bottle showing engraved inscription directly on the 3D plaque */}
+                <FlaconViewer360 monogramText={monogramText} compact />
+
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
                   <span className="text-[11px] sm:text-xs text-gray-400 font-light">Included on 100ml Flacons</span>
                   <Link
                     href="/scent-finder"
