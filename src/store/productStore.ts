@@ -63,7 +63,7 @@ export const useProductStore = create<ProductState>()(
       },
     }),
     {
-      name: 'qxyra_products_luxury_v3',
+      name: 'qxyra_products_luxury_v5',
       merge: (persistedState: any, currentState) => {
         return {
           ...currentState,

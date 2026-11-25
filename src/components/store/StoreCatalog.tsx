@@ -261,11 +261,25 @@ export function StoreCatalog() {
         )}
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
-          {displayedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {displayedProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+            {displayedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="py-20 text-center border border-dashed border-amber-500/25 rounded-2xl bg-[#090E17]/60 p-8 sm:p-12 space-y-4">
+            <div className="w-14 h-14 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-300 flex items-center justify-center mx-auto text-2xl shadow-lg">
+              ✨
+            </div>
+            <h3 className="font-serif text-2xl sm:text-3xl text-white font-light tracking-tight">
+              Boutique Collection Curating
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 font-light max-w-md mx-auto leading-relaxed">
+              New arrivals and artisanal flacons are currently being registered into the catalog.
+            </p>
+          </div>
+        )}
       </div>
     </>
   );
