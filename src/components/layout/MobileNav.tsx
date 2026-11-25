@@ -121,19 +121,6 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               <span className="font-serif text-sm font-medium block truncate">Clothings</span>
             </Link>
             <Link
-              href="/perfume"
-              onClick={onClose}
-              className={cn(
-                "p-2.5 rounded-xl border text-center transition-all active:scale-97",
-                isLight
-                  ? "bg-white border-stone-200 hover:border-amber-500 shadow-xs"
-                  : "bg-[#0B101A] border-amber-500/25 hover:border-amber-400"
-              )}
-            >
-              <span className="block text-[8px] font-mono uppercase tracking-[0.18em] text-amber-500 mb-0.5">02</span>
-              <span className="font-serif text-sm font-medium block truncate">Perfume</span>
-            </Link>
-            <Link
               href="/watches"
               onClick={onClose}
               className={cn(
@@ -143,8 +130,21 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                   : "bg-[#0B101A] border-amber-500/25 hover:border-amber-400"
               )}
             >
-              <span className="block text-[8px] font-mono uppercase tracking-[0.18em] text-amber-500 mb-0.5">03</span>
+              <span className="block text-[8px] font-mono uppercase tracking-[0.18em] text-amber-500 mb-0.5">02</span>
               <span className="font-serif text-sm font-medium block truncate">Watches</span>
+            </Link>
+            <Link
+              href="/perfume"
+              onClick={onClose}
+              className={cn(
+                "p-2.5 rounded-xl border text-center transition-all active:scale-97",
+                isLight
+                  ? "bg-rose-50/60 border-rose-200 hover:border-amber-500 shadow-xs"
+                  : "bg-[#0B101A] border-rose-400/25 hover:border-amber-400"
+              )}
+            >
+              <span className="block text-[8px] font-mono uppercase tracking-[0.18em] text-rose-400 mb-0.5">Soon</span>
+              <span className="font-serif text-sm font-medium block truncate">Perfume</span>
             </Link>
           </div>
 
@@ -186,42 +186,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             )}
           </div>
 
-          {/* 2. PERFUME ACCORDION */}
-          <div className={cn("space-y-1.5 border-b pb-3.5", isLight ? "border-stone-200" : "border-white/10")}>
-            <button 
-              type="button"
-              className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
-              onClick={() => setPerfumeExpanded(!perfumeExpanded)}
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="text-[10px] font-mono text-amber-500">02</span>
-                <span className="font-serif text-lg font-light">Perfume</span>
-                <span className="text-[9px] bg-amber-400/15 text-amber-500 px-2 py-0.5 rounded-full font-mono uppercase tracking-wider">Extraits</span>
-              </div>
-              <span className="text-[10px] opacity-60 font-mono">{perfumeExpanded ? '−' : '+'}</span>
-            </button>
-
-            {perfumeExpanded && (
-              <div className="pl-5 space-y-1 pt-1 text-xs">
-                <div className="pl-3.5 space-y-1 border-l border-amber-500/30">
-                  <Link href="/perfume?sub=mens" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
-                    Men&apos;s Extraits (Oud &amp; Woods)
-                  </Link>
-                  <Link href="/perfume?sub=womens" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
-                    Women&apos;s Extraits (Rose &amp; Amber)
-                  </Link>
-                  <Link href="/scent-finder" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
-                    Olfactory Scent Finder Quiz
-                  </Link>
-                  <Link href="/perfume" onClick={onClose} className="block py-1.5 text-amber-500 font-medium tracking-wide">
-                    Enter Parfumerie Maison →
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* 3. WATCHES ACCORDION */}
+          {/* 2. WATCHES ACCORDION */}
           <div className={cn("space-y-1.5 border-b pb-3.5", isLight ? "border-stone-200" : "border-white/10")}>
             <button 
               type="button"
@@ -229,7 +194,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
               onClick={() => setWatchesExpanded(!watchesExpanded)}
             >
               <div className="flex items-center gap-2.5">
-                <span className="text-[10px] font-mono text-amber-500">03</span>
+                <span className="text-[10px] font-mono text-amber-500">02</span>
                 <span className="font-serif text-lg font-light">Watches</span>
                 <span className="text-[9px] bg-amber-400/15 text-amber-500 px-2 py-0.5 rounded-full font-mono uppercase tracking-wider">Horology</span>
               </div>
@@ -253,6 +218,41 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                   </Link>
                   <Link href="/watches" onClick={onClose} className="block py-1.5 text-amber-500 font-medium tracking-wide">
                     Enter Horology Vault →
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3. PERFUME ACCORDION */}
+          <div className={cn("space-y-1.5 border-b pb-3.5", isLight ? "border-stone-200" : "border-white/10")}>
+            <button 
+              type="button"
+              className="w-full flex items-center justify-between py-2 cursor-pointer text-left"
+              onClick={() => setPerfumeExpanded(!perfumeExpanded)}
+            >
+              <div className="flex items-center gap-2.5">
+                <span className="text-[10px] font-mono text-amber-500">03</span>
+                <span className="font-serif text-lg font-light">Perfume</span>
+                <span className="text-[9px] bg-rose-500/20 text-rose-300 border border-rose-400/30 px-2 py-0.5 rounded-full font-mono uppercase tracking-wider">Coming Soon</span>
+              </div>
+              <span className="text-[10px] opacity-60 font-mono">{perfumeExpanded ? '−' : '+'}</span>
+            </button>
+
+            {perfumeExpanded && (
+              <div className="pl-5 space-y-1 pt-1 text-xs">
+                <div className="pl-3.5 space-y-1 border-l border-amber-500/30">
+                  <Link href="/perfume?sub=mens" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
+                    Men&apos;s Extraits (Coming Soon)
+                  </Link>
+                  <Link href="/perfume?sub=womens" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
+                    Women&apos;s Extraits (Coming Soon)
+                  </Link>
+                  <Link href="/scent-finder" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
+                    Olfactory Scent Finder Quiz
+                  </Link>
+                  <Link href="/perfume" onClick={onClose} className="block py-1.5 text-amber-500 font-medium tracking-wide">
+                    View Coming Soon Preview →
                   </Link>
                 </div>
               </div>

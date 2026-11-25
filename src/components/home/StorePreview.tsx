@@ -127,17 +127,6 @@ export function StorePreview() {
               Clothings ({clothingsCount})
             </button>
             <button
-              onClick={() => setActiveFilter('perfume')}
-              className={cn(
-                "px-1 sm:px-4 py-2 sm:py-2.5 text-[9.5px] sm:text-xs uppercase tracking-[0.04em] sm:tracking-[0.14em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer text-center",
-                activeFilter === 'perfume' || activeFilter.startsWith('perfume-')
-                  ? "bg-amber-400 text-black font-semibold shadow"
-                  : "text-gray-300 hover:text-white hover:bg-white/5"
-              )}
-            >
-              Perfume ({perfumeCount})
-            </button>
-            <button
               onClick={() => setActiveFilter('watches')}
               className={cn(
                 "px-1 sm:px-4 py-2 sm:py-2.5 text-[9.5px] sm:text-xs uppercase tracking-[0.04em] sm:tracking-[0.14em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer text-center",
@@ -147,6 +136,17 @@ export function StorePreview() {
               )}
             >
               Watches ({watchesCount})
+            </button>
+            <button
+              onClick={() => setActiveFilter('perfume')}
+              className={cn(
+                "px-1 sm:px-4 py-2 sm:py-2.5 text-[9.5px] sm:text-xs uppercase tracking-[0.04em] sm:tracking-[0.14em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer text-center",
+                activeFilter === 'perfume' || activeFilter.startsWith('perfume-')
+                  ? "bg-amber-400 text-black font-semibold shadow"
+                  : "text-gray-300 hover:text-white hover:bg-white/5"
+              )}
+            >
+              Perfume ({perfumeCount})
             </button>
           </div>
 
@@ -344,16 +344,16 @@ export function StorePreview() {
               Clothings
             </Link>
             <Link
-              href="/perfume"
+              href="/watches"
               className="px-3 sm:px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] font-semibold bg-amber-400 text-black rounded-xl sm:rounded hover:bg-amber-300 transition-colors shadow text-center whitespace-nowrap"
             >
-              Perfume
+              Watches
             </Link>
             <Link
-              href="/watches"
-              className="px-3 sm:px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] font-medium border border-white/20 text-white rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-colors text-center whitespace-nowrap"
+              href="/perfume"
+              className="px-3 sm:px-5 py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.12em] sm:tracking-[0.16em] font-medium border border-rose-400/35 text-rose-200 rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-colors text-center whitespace-nowrap"
             >
-              Watches
+              Perfume
             </Link>
           </div>
         </div>

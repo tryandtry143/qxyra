@@ -146,6 +146,48 @@
   animation: dialRotateSlow 60s linear infinite;
 }
 
+@keyframes luxuryShimmer {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+  }
+}
+
+@keyframes storyProgress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes auraFloat {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+.animate-luxury-shimmer {
+  animation: luxuryShimmer 3.6s ease-in-out infinite;
+}
+
+.animate-story-progress {
+  transform-origin: left center;
+  animation: storyProgress 4.8s linear forwards;
+}
+
+.animate-aura-float {
+  animation: auraFloat 5s ease-in-out infinite;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

@@ -78,17 +78,6 @@ export function StoreBanner() {
           Clothings
         </Link>
         <Link
-          href="/perfume"
-          className={cn(
-            "px-4 sm:px-5 py-2.5 rounded-xl sm:rounded border text-[11px] sm:text-xs uppercase tracking-wider font-medium transition-all text-center",
-            isLight
-              ? "bg-stone-100 hover:bg-stone-200 text-slate-900 border-stone-300"
-              : "bg-white/5 hover:bg-white/10 text-white border-white/15 hover:border-amber-400"
-          )}
-        >
-          Perfume
-        </Link>
-        <Link
           href="/watches"
           className={cn(
             "px-4 sm:px-5 py-2.5 rounded-xl sm:rounded border text-[11px] sm:text-xs uppercase tracking-wider font-medium transition-all text-center",
@@ -98,6 +87,18 @@ export function StoreBanner() {
           )}
         >
           Watches
+        </Link>
+        <Link
+          href="/perfume"
+          className={cn(
+            "px-4 sm:px-5 py-2.5 rounded-xl sm:rounded border text-[11px] sm:text-xs uppercase tracking-wider font-medium transition-all text-center inline-flex items-center justify-center gap-1.5",
+            isLight
+              ? "bg-stone-100 hover:bg-stone-200 text-slate-900 border-stone-300"
+              : "bg-white/5 hover:bg-white/10 text-rose-200 border-rose-400/25 hover:border-amber-400"
+          )}
+        >
+          <span>Perfume</span>
+          <span className="text-[8px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-mono">Soon</span>
         </Link>
       </div>
     </div>

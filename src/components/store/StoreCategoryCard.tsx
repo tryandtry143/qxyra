@@ -13,6 +13,7 @@ interface StoreCategoryCardProps {
   image: string;
   subcategories: { name: string; href: string }[];
   itemCount?: number;
+  comingSoon?: boolean;
 }
 
 export function StoreCategoryCard({
@@ -22,6 +23,7 @@ export function StoreCategoryCard({
   image,
   subcategories,
   itemCount,
+  comingSoon,
 }: StoreCategoryCardProps) {
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
@@ -51,10 +53,17 @@ export function StoreCategoryCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
 
         <div className="absolute top-4 right-4 z-10">
-          {itemCount != null && (
-            <span className="text-[11px] font-mono bg-black/70 text-amber-300 border border-amber-400/40 px-3 py-1 rounded-full backdrop-blur-md font-semibold">
-              {itemCount} Haute Pieces
+          {comingSoon && (!itemCount || itemCount === 0) ? (
+            <span className="relative overflow-hidden inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider bg-rose-950/85 text-rose-100 border border-rose-400/45 px-3 py-1 rounded-full backdrop-blur-md font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
+              <span>Coming Soon</span>
             </span>
+          ) : (
+            itemCount != null && (
+              <span className="text-[11px] font-mono bg-black/70 text-amber-300 border border-amber-400/40 px-3 py-1 rounded-full backdrop-blur-md font-semibold">
+                {itemCount} Haute Pieces
+              </span>
+            )
           )}
         </div>
 

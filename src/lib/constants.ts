@@ -28,21 +28,6 @@ export const CATEGORIES = [
     ],
   },
   {
-    id: 'perfume',
-    name: 'Perfume',
-    shortName: 'Perfumes',
-    tagline: 'Rare Olfactory Extraits & Botanical Elixirs',
-    description:
-      'Distinctive artisanal scents crafted in Grasse for men and women with Damascus rose petals, aged oud, and complimentary crystal flacon engraving.',
-    href: '/perfume',
-    image: '/images/perfume_floral_banner.jpg',
-    badge: 'Artisanal Extraits',
-    subcategories: [
-      { id: 'mens', name: "Men's Perfume", href: '/perfume?sub=mens' },
-      { id: 'womens', name: "Women's Perfume", href: '/perfume?sub=womens' },
-    ],
-  },
-  {
     id: 'watches',
     name: 'Watches',
     shortName: 'Watches',
@@ -57,6 +42,21 @@ export const CATEGORIES = [
       { id: 'womens', name: "Women's Watches", href: '/watches?sub=womens' },
       { id: 'automatic', name: 'Automatic', href: '/watches?sub=automatic' },
       { id: 'chronograph', name: 'Chronograph', href: '/watches?sub=chronograph' },
+    ],
+  },
+  {
+    id: 'perfume',
+    name: 'Perfume',
+    shortName: 'Perfumes',
+    tagline: 'Rare Olfactory Extraits & Botanical Elixirs',
+    description:
+      'Distinctive artisanal scents crafted in Grasse for men and women with Damascus rose petals, aged oud, and complimentary crystal flacon engraving.',
+    href: '/perfume',
+    image: '/images/perfume_floral_banner.jpg',
+    badge: 'Coming Soon',
+    subcategories: [
+      { id: 'mens', name: "Men's Perfume", href: '/perfume?sub=mens' },
+      { id: 'womens', name: "Women's Perfume", href: '/perfume?sub=womens' },
     ],
   },
 ];
@@ -107,29 +107,6 @@ export const NAV_LINKS: NavItem[] = [
     ],
   },
   {
-    label: 'Perfume',
-    href: '/perfume',
-    badge: 'Extrait',
-    children: [
-      {
-        label: "Men's Perfume",
-        href: '/perfume?sub=mens',
-        description: 'Smoky Cambodian Agarwood, Tuscan Leather, Cardamom, and Sandalwood.',
-      },
-      {
-        label: "Women's Perfume",
-        href: '/perfume?sub=womens',
-        description: 'Grasse Damask Rose petals, Florentine Orris Butter, and Bourbon Amber.',
-      },
-      {
-        label: 'Scent Finder Quiz',
-        href: '/scent-finder',
-        description: '60-second bespoke olfactory consultation to find your signature elixir.',
-        badge: 'Interactive',
-      },
-    ],
-  },
-  {
     label: 'Watches',
     href: '/watches',
     badge: 'Horology',
@@ -157,6 +134,31 @@ export const NAV_LINKS: NavItem[] = [
       },
     ],
   },
+  {
+    label: 'Perfume',
+    href: '/perfume',
+    badge: 'Soon',
+    children: [
+      {
+        label: "Men's Perfume",
+        href: '/perfume?sub=mens',
+        description: 'Smoky Cambodian Agarwood, Tuscan Leather, Cardamom, and Sandalwood.',
+        badge: 'Coming Soon',
+      },
+      {
+        label: "Women's Perfume",
+        href: '/perfume?sub=womens',
+        description: 'Grasse Damask Rose petals, Florentine Orris Butter, and Bourbon Amber.',
+        badge: 'Coming Soon',
+      },
+      {
+        label: 'Scent Finder Quiz',
+        href: '/scent-finder',
+        description: '60-second bespoke olfactory consultation to find your signature elixir.',
+        badge: 'Interactive',
+      },
+    ],
+  },
   { label: 'All Items', href: '/store' },
 ];
 
@@ -171,21 +173,21 @@ export const FOOTER_LINKS = [
     ],
   },
   {
-    title: 'Perfume',
-    links: [
-      { label: "Men's Perfume", href: '/perfume?sub=mens' },
-      { label: "Women's Perfume", href: '/perfume?sub=womens' },
-      { label: 'The Scent Finder Quiz', href: '/scent-finder' },
-      { label: 'Complimentary Engraving', href: '/perfume#engraving' },
-    ],
-  },
-  {
     title: 'Watches',
     links: [
       { label: "Men's Timepieces", href: '/watches?sub=mens' },
       { label: "Women's Timepieces", href: '/watches?sub=womens' },
       { label: 'Automatic Calibers', href: '/watches?sub=automatic' },
       { label: 'Luxury Chronographs', href: '/watches?sub=chronograph' },
+    ],
+  },
+  {
+    title: 'Perfume',
+    links: [
+      { label: "Men's Perfume (Soon)", href: '/perfume?sub=mens' },
+      { label: "Women's Perfume (Soon)", href: '/perfume?sub=womens' },
+      { label: 'The Scent Finder Quiz', href: '/scent-finder' },
+      { label: 'Complimentary Engraving', href: '/perfume#engraving' },
     ],
   },
   {

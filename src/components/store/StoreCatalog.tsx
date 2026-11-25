@@ -70,21 +70,7 @@ export function StoreCatalog() {
           ]}
         />
 
-        {/* Banner 2: Perfume */}
-        <StoreCategoryCard
-          title="Perfume Maison"
-          subtitle="Damask rose & 38% pure Extrait de Parfum artisanal fragrances with complimentary flacon engraving."
-          href="/perfume"
-          image="/images/perfume_floral_banner.jpg"
-          itemCount={perfumeProducts.length}
-          subcategories={[
-            { name: "Men's Perfume", href: '/perfume?sub=mens' },
-            { name: "Women's Perfume", href: '/perfume?sub=womens' },
-            { name: "Scent Finder Quiz", href: '/scent-finder' },
-          ]}
-        />
-
-        {/* Banner 3: Watches */}
+        {/* Banner 2: Watches */}
         <StoreCategoryCard
           title="Watches Vault"
           subtitle="Precision automatic movements, sapphire crystal chronographs & collector luxury timepieces."
@@ -96,6 +82,20 @@ export function StoreCatalog() {
             { name: "Women's Watches", href: '/watches?sub=womens' },
             { name: "Automatic Calibers", href: '/watches?sub=automatic' },
             { name: "Chronographs", href: '/watches?sub=chronograph' },
+          ]}
+        />
+
+        {/* Banner 3: Perfume (Coming Soon) */}
+        <StoreCategoryCard
+          title="Perfume Maison"
+          subtitle="Damask rose & 38% pure Extrait de Parfum artisanal fragrances arriving soon with flacon engraving."
+          href="/perfume"
+          image="/images/perfume_floral_banner.jpg"
+          itemCount={perfumeProducts.length}
+          comingSoon={perfumeProducts.length === 0}
+          subcategories={[
+            { name: "Coming Soon Preview", href: '/perfume' },
+            { name: "Scent Finder Quiz", href: '/scent-finder' },
           ]}
         />
       </div>
@@ -169,22 +169,6 @@ export function StoreCatalog() {
             </button>
             <button
               onClick={() => {
-                setSelectedPillar('perfume');
-                setSelectedSub(null);
-              }}
-              className={cn(
-                "px-1 sm:px-4 py-2 rounded-lg text-[9.5px] sm:text-xs uppercase tracking-[0.04em] sm:tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap text-center",
-                selectedPillar === 'perfume'
-                  ? "bg-amber-400 text-black font-semibold shadow"
-                  : isLight
-                  ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200"
-                  : "text-gray-400 hover:text-white bg-white/5 border border-white/5"
-              )}
-            >
-              Perfume ({perfumeProducts.length})
-            </button>
-            <button
-              onClick={() => {
                 setSelectedPillar('watches');
                 setSelectedSub(null);
               }}
@@ -198,6 +182,22 @@ export function StoreCatalog() {
               )}
             >
               Watches ({watchesProducts.length})
+            </button>
+            <button
+              onClick={() => {
+                setSelectedPillar('perfume');
+                setSelectedSub(null);
+              }}
+              className={cn(
+                "px-1 sm:px-4 py-2 rounded-lg text-[9.5px] sm:text-xs uppercase tracking-[0.04em] sm:tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap text-center",
+                selectedPillar === 'perfume'
+                  ? "bg-amber-400 text-black font-semibold shadow"
+                  : isLight
+                  ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200"
+                  : "text-gray-400 hover:text-white bg-white/5 border border-white/5"
+              )}
+            >
+              Perfume ({perfumeProducts.length})
             </button>
           </div>
         </div>

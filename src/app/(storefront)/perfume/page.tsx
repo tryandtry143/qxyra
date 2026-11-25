@@ -2,13 +2,13 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BRAND_NAME } from '@/lib/constants';
-import { CategoryCollectionFeed } from '@/components/store/CategoryCollectionFeed';
+import { PerfumeComingSoon } from '@/components/perfume/PerfumeComingSoon';
 import { LabsShowcase } from '@/components/home/LabsShowcase';
 
 export const metadata: Metadata = {
-  title: `Perfume Atelier — Botanical Extraits & Rose Petals | ${BRAND_NAME}`,
+  title: `Perfume Atelier — Coming Soon | Damask Rose & Extraits | ${BRAND_NAME}`,
   description:
-    'Discover Maison QXYRA Haute Parfumerie: 35-38% pure Extrait de Parfum fragrances infused with Damascus rose petals, aged Cambodian Oud, and complimentary laser flacon monogramming.',
+    'Maison QXYRA Haute Parfumerie Premiere Collection is arriving soon: 35-38% pure Extrait de Parfum fragrances infused with Damascus rose petals and aged Cambodian Oud.',
 };
 
 const PERFUME_PILLARS = [
@@ -81,10 +81,20 @@ export default function PerfumePage() {
         {/* Hero Typography & Actions */}
         <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
           <div className="max-w-xl space-y-4 sm:space-y-5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-950/60 border border-amber-400/35 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
-              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-amber-200 font-semibold">
-                Haute Parfumerie • Grasse, France
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-950/75 border border-rose-400/45 backdrop-blur-md relative overflow-hidden">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-300" />
+                </span>
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.24em] text-rose-100 font-semibold">
+                  Coming Soon • Premiere Reveal
+                </span>
+                <span className="animate-luxury-shimmer absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-white/25 to-transparent pointer-events-none" />
+              </div>
+
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-amber-200 bg-black/55 border border-amber-400/30 px-2.5 py-1 rounded-full backdrop-blur-md">
+                Grasse, France
               </span>
             </div>
 
@@ -94,46 +104,29 @@ export default function PerfumePage() {
             </h1>
 
             <p className="text-xs sm:text-base text-gray-200 font-light leading-relaxed max-w-md">
-              Rare 35–38% Extrait de Parfum creations blending wild Cambodian agarwood, midnight rose petals, and warm Bourbon amber.
+              Our inaugural 35–38% Extrait de Parfum creations infused with midnight rose petals and wild Cambodian agarwood are arriving soon. Reserve early VIP launch access below.
             </p>
 
             <div className="grid grid-cols-2 sm:flex items-center gap-2.5 sm:gap-4 pt-1">
+              <a
+                href="#coming-soon-vault"
+                className="px-4 sm:px-7 py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-semibold bg-amber-400 text-black rounded-xl sm:rounded hover:bg-amber-300 transition-all shadow-lg text-center whitespace-nowrap"
+              >
+                Join VIP Waitlist
+              </a>
               <Link
                 href="/scent-finder"
-                className="px-4 sm:px-7 py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-semibold bg-amber-400 text-black rounded-xl sm:rounded hover:bg-amber-300 transition-all shadow-lg text-center whitespace-nowrap"
+                className="px-4 sm:px-7 py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium border border-white/25 text-white rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-all backdrop-blur-md text-center whitespace-nowrap"
               >
                 Scent Finder Quiz
               </Link>
-              <a
-                href="#perfume-collection"
-                className="px-4 sm:px-7 py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-medium border border-white/25 text-white rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-all backdrop-blur-md text-center whitespace-nowrap"
-              >
-                View Extraits
-              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Live Filtered Perfume Collection */}
-      <div id="perfume-collection">
-        <CategoryCollectionFeed
-          categoryId="perfume"
-          departmentLabel="Haute Parfumerie"
-          sectionEyebrow="The Fragrance Vault"
-          sectionTitle="Artisanal"
-          sectionAccent="Perfumes"
-          subcategories={[
-            { id: null, label: 'All Extraits' },
-            { id: 'mens', label: "Men's Perfume" },
-            { id: 'womens', label: "Women's Perfume" },
-          ]}
-          emptyTitle="New Floral & Oud Extraits Curating"
-          emptyDescription={`Maison ${BRAND_NAME} is bottling rare Grasse parfums for this season. Take our 60-second scent consultation while the collection launches.`}
-          emptyActionHref="/scent-finder"
-          emptyActionLabel="Take Scent Finder Quiz"
-        />
-      </div>
+      {/* 2. Frosted Coming Soon Veil & Future Fragrance Vault */}
+      <PerfumeComingSoon />
 
       {/* 3. Interactive Olfactory Atelier, 360° Studio & Live Flacon Engraving */}
       <div id="engraving">

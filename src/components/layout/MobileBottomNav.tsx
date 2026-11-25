@@ -72,16 +72,16 @@ function MobileBottomNavInner() {
       icon: (active: boolean) => <ClothingsIcon active={active} />,
     },
     {
-      label: 'Perfume',
-      href: '/perfume',
-      active: pathname === '/perfume' || (pathname.startsWith('/store') && category === 'perfume') || pathname === '/scent-finder',
-      icon: (active: boolean) => <PerfumeIcon active={active} />,
-    },
-    {
       label: 'Watches',
       href: '/watches',
       active: pathname === '/watches' || pathname === '/watch' || (pathname.startsWith('/store') && category === 'watches'),
       icon: (active: boolean) => <WatchIcon active={active} />,
+    },
+    {
+      label: 'Perfume',
+      href: '/perfume',
+      active: pathname === '/perfume' || (pathname.startsWith('/store') && category === 'perfume') || pathname === '/scent-finder',
+      icon: (active: boolean) => <PerfumeIcon active={active} />,
     },
     {
       label: 'Bag',
