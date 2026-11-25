@@ -11,6 +11,8 @@ interface LogoProps {
   size?: 'sm' | 'md' | 'lg';
   showText?: boolean;
   theme?: string;
+  href?: string | null;
+  onClick?: () => void;
 }
 
 const logoHeights = {
@@ -24,6 +26,8 @@ export function Logo({
   size = 'md',
   showText = false,
   theme: explicitTheme,
+  href = '/',
+  onClick,
 }: LogoProps) {
   const { theme: contextTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -37,12 +41,8 @@ export function Logo({
   const heightPx = logoHeights[size];
   const widthPx = Math.round(heightPx * 3.35); // Native 727x217 ratio
 
-  return (
-    <Link 
-      href="/" 
-      className={`inline-flex items-center gap-3 select-none group transition-opacity hover:opacity-90 py-1 ${className}`}
-      aria-label={`${BRAND_NAME} Home`}
-    >
+  const innerContent = (
+    <>
       {/* Official QXYRA Brandmark Image with transparent background */}
       <div className="relative shrink-0 flex items-center justify-center">
         <Image
@@ -61,10 +61,29 @@ export function Logo({
             HAUTE PARFUMERIE
           </span>
           <span className="text-[8px] tracking-[0.18em] font-light text-gray-400 uppercase mt-0.5">
-            & BESPOKE FASHION
+            &amp; BESPOKE FASHION
           </span>
         </div>
       )}
+    </>
+  );
+
+  if (!href) {
+    return (
+      <div className={`inline-flex items-center gap-3 select-none group py-1 ${className}`}>
+        {innerContent}
+      </div>
+    );
+  }
+
+  return (
+    <Link 
+      href={href}
+      onClick={onClick}
+      className={`inline-flex items-center gap-3 select-none group transition-opacity hover:opacity-90 py-1 ${className}`}
+      aria-label={`${BRAND_NAME} Home`}
+    >
+      {innerContent}
     </Link>
   );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/context/ThemeContext';
@@ -22,8 +23,13 @@ export function StoreCategoryCard({
   subcategories,
   itemCount,
 }: StoreCategoryCardProps) {
+  const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
-  const isLight = theme === 'light';
+  const isLight = mounted && theme === 'light';
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div className={cn(
@@ -39,6 +45,7 @@ export function StoreCategoryCard({
           alt={title}
           fill
           priority
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-75 group-hover:brightness-85"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />

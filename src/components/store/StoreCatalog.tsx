@@ -103,20 +103,20 @@ export function StoreCatalog() {
           </div>
 
           {/* Primary Pillar Buttons */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <div className="grid grid-cols-3 sm:inline-flex items-center gap-1.5 sm:gap-2 pb-1 w-full sm:w-auto">
             <button
               onClick={() => {
                 setSelectedPillar('all');
                 setSelectedSub(null);
               }}
               className={cn(
-                "px-3.5 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap shrink-0",
+                "px-2 sm:px-4 py-2 rounded-lg text-[10px] sm:text-xs uppercase tracking-[0.08em] sm:tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap text-center",
                 selectedPillar === 'all'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
               )}
             >
-              All Creations
+              All ({activeProducts.length})
             </button>
             <button
               onClick={() => {
@@ -124,7 +124,7 @@ export function StoreCatalog() {
                 setSelectedSub(null);
               }}
               className={cn(
-                "px-3.5 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap shrink-0",
+                "px-2 sm:px-4 py-2 rounded-lg text-[10px] sm:text-xs uppercase tracking-[0.08em] sm:tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap text-center",
                 selectedPillar === 'clothings'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
@@ -138,7 +138,7 @@ export function StoreCatalog() {
                 setSelectedSub(null);
               }}
               className={cn(
-                "px-3.5 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap shrink-0",
+                "px-2 sm:px-4 py-2 rounded-lg text-[10px] sm:text-xs uppercase tracking-[0.08em] sm:tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap text-center",
                 selectedPillar === 'perfume'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")

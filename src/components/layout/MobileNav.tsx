@@ -69,9 +69,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           "flex items-center justify-between px-5 py-4 border-b",
           isLight ? "border-stone-200 bg-white" : "border-white/10 bg-[#05070B]"
         )}>
-          <Link href="/" onClick={onClose} className="hover:opacity-90 transition-opacity">
-            <Logo size="sm" />
-          </Link>
+          <Logo size="sm" onClick={onClose} />
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button 

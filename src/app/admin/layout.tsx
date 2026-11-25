@@ -79,9 +79,7 @@ export default function AdminLayout({
       <aside className="w-full md:w-64 bg-[#12151B] border-r border-gray-800/80 flex flex-col shrink-0">
         {/* Brand Header */}
         <div className="p-6 border-b border-gray-800/80 flex items-center justify-between">
-          <Link href="/admin" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-            <Logo size="sm" theme="dark" />
-          </Link>
+          <Logo size="sm" theme="dark" href="/admin" />
         </div>
 
         {/* Integration Status Badge */}

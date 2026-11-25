@@ -52,9 +52,7 @@ export function Footer() {
           
           {/* Brand Info (2 cols on lg) */}
           <div className="col-span-2 space-y-4 sm:space-y-5">
-            <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
-              <Logo size="md" />
-            </Link>
+            <Logo size="md" />
             <p className="text-gray-400 text-xs leading-relaxed max-w-sm font-light">
               {BRAND_TAGLINE}. An independent luxury house celebrating the union of Italian sartorial excellence and French haute parfumerie.
             </p>
