@@ -165,10 +165,10 @@ export function GatewayHero() {
       <div className="absolute bottom-10 right-10 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-blue-900/10 blur-[140px] pointer-events-none rounded-full" />
 
       {/* Main Split Editorial Showcase */}
-      <div className="container mx-auto px-4 lg:px-8 pt-5 pb-9 sm:pt-8 sm:pb-14 lg:pb-16">
+      <div className="container mx-auto px-4 lg:px-8 pt-3.5 pb-7 sm:pt-8 sm:pb-14 lg:pb-16">
         {/* Brand Headline & Ambient Sound Bar */}
-        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-12">
-          <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-12">
+          <div className="flex items-center justify-center gap-2 mb-2.5 sm:mb-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
               <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-amber-300 font-semibold">
@@ -188,18 +188,18 @@ export function GatewayHero() {
             </button>
           </div>
 
-          <h1 className="font-serif text-[2.45rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-white mb-2.5 sm:mb-4 leading-[1.03]">
+          <h1 className="font-serif text-[2.25rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-white mb-2 sm:mb-4 leading-[1.03]">
             MAISON{' '}
             <span className="font-normal text-amber-300 tracking-wider drop-shadow-[0_2px_20px_rgba(217,167,74,0.3)]">
               {BRAND_NAME}
             </span>
           </h1>
-          <p className="text-xs sm:text-base text-gray-300 font-light tracking-wide max-w-md sm:max-w-xl mx-auto leading-relaxed px-2 sm:px-0">
+          <p className="text-[11.5px] sm:text-base text-gray-300 font-light tracking-wide max-w-md sm:max-w-xl mx-auto leading-relaxed px-2 sm:px-0">
             {BRAND_TAGLINE}. Italian tailoring, collector mechanical timepieces, and Grasse 38% crystal extraits.
           </p>
 
           {/* Compact 4-Pill Quick Entry Grid on Mobile -> Row on Desktop */}
-          <div className="grid grid-cols-2 sm:flex items-center justify-center gap-2 sm:gap-3 mt-5 sm:mt-7 max-w-sm sm:max-w-none mx-auto">
+          <div className="grid grid-cols-2 sm:flex items-center justify-center gap-2 sm:gap-3 mt-3.5 sm:mt-7 max-w-sm sm:max-w-none mx-auto">
             <Link
               href="/store"
               className="px-4 sm:px-7 py-2.5 sm:py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-semibold bg-amber-400 text-black rounded-xl sm:rounded hover:bg-amber-300 transition-all duration-300 shadow-lg shadow-amber-500/20 text-center whitespace-nowrap active:scale-97"
@@ -231,13 +231,13 @@ export function GatewayHero() {
         </div>
 
         {/* MOBILE VIEW (< lg): Auto-Changing Smooth Cinematic Ken-Burns & Crossfade Banner Stage */}
-        <div className="lg:hidden space-y-3">
+        <div className="lg:hidden space-y-2.5">
           <div
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
-            className="luxury-media-card relative w-full min-h-[390px] sm:min-h-[450px] rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] shadow-2xl"
+            className="luxury-media-card relative w-full min-h-[320px] sm:min-h-[430px] rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] shadow-2xl"
           >
             {HOUSE_PORTALS.map((portal, index) => {
               const isActive = index === activeSlide;

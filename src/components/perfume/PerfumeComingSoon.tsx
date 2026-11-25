@@ -228,7 +228,7 @@ export function PerfumeComingSoon() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  'inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-medium transition-colors',
+                  'inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.16em] font-medium transition-colors text-center',
                   isLight ? 'text-amber-700 hover:text-amber-600' : 'text-amber-300 hover:text-amber-200'
                 )}
               >
