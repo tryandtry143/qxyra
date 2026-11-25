@@ -219,22 +219,6 @@ export function GatewayHero() {
 
         </div>
 
-        {/* 3 Pillar Guarantee Badges */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12 pt-8 border-t border-white/10 text-center">
-          <div>
-            <div className="text-amber-400 font-serif text-lg mb-1">Noble Raw Ingredients</div>
-            <p className="text-xs text-gray-400 font-light">Wild Cambodian Oud, Orris butter, and pure Mulberry silks.</p>
-          </div>
-          <div>
-            <div className="text-amber-400 font-serif text-lg mb-1">Bespoke Personalization</div>
-            <p className="text-xs text-gray-400 font-light">Complimentary name and monogram laser engraving on flacons.</p>
-          </div>
-          <div>
-            <div className="text-amber-400 font-serif text-lg mb-1">White-Glove Delivery</div>
-            <p className="text-xs text-gray-400 font-light">Insured worldwide courier in signature velvet-lined coffrets.</p>
-          </div>
-        </div>
-
       </div>
     </section>
   );
