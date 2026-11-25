@@ -107,10 +107,10 @@ export function ProductDetailView({
             {/* Category & Badge */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-mono uppercase tracking-widest text-brand-gold font-bold">
-                Methmi Mobile {catName} Official
+                Maison QXYRA • {catName}
               </span>
-              <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
-                100% Genuine TRCSL
+              <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold">
+                Authentic Creation
               </span>
             </div>
 
@@ -143,13 +143,13 @@ export function ProductDetailView({
                 className="text-xs text-gray-400 hover:text-brand-gold underline underline-offset-4 transition-colors font-mono"
               >
                 {productReviewsCount > 0
-                  ? `${productReviewsCount} Verified Customer Reviews`
-                  : 'Company Inspected & Sealed Pack'}
+                  ? `${productReviewsCount} Verified Client Reviews`
+                  : 'Maison Authenticated Creation'}
               </a>
 
               {product.totalSold ? (
-                <span className="text-xs font-mono text-emerald-400 ml-auto hidden sm:inline">
-                  ⚡ {product.totalSold}+ units sold in Sri Lanka
+                <span className="text-xs font-mono text-amber-400 ml-auto hidden sm:inline">
+                  ✦ {product.totalSold}+ collectors worldwide
                 </span>
               ) : null}
             </div>
@@ -196,7 +196,7 @@ export function ProductDetailView({
               )}
 
               <span className="bg-brand-gold/15 text-brand-gold border border-brand-gold/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ml-auto">
-                Official Warranty Price
+                Complimentary Gift Coffret
               </span>
             </div>
 

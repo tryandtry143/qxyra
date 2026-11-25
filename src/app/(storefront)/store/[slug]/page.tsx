@@ -28,26 +28,25 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   if (!product) {
     return {
-      title: 'Product Not Found | Methmi Mobile Store',
+      title: 'Creation Not Found | Maison QXYRA',
     };
   }
 
-  const primaryImage = product.images?.[0]?.url || '/methmi-logo.jpg';
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://methmimobilepvtltd.lk';
+  const primaryImage = product.images?.[0]?.url || '/images/perfume_pdp.jpg';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://qxyra.com';
 
   return {
-    title: `${product.name} Price in Sri Lanka | 100% TRCSL Approved — Methmi Mobile`,
+    title: `${product.name} | Maison QXYRA`,
     description: product.description,
     keywords: [
       product.name,
-      `${product.name} Sri Lanka`,
-      `${product.name} Price in Sri Lanka`,
-      'TRCSL Approved Phones',
-      'Methmi Mobile',
-      'Original Phone Warranty Sri Lanka'
+      'Maison QXYRA',
+      'QXYRA Haute Couture',
+      'Artisanal Parfumerie',
+      'Extrait de Parfum',
     ],
     openGraph: {
-      title: `${product.name} | Methmi Mobile Sri Lanka`,
+      title: `${product.name} | Maison QXYRA`,
       description: product.description,
       url: `${siteUrl}/store/${product.slug}`,
       images: [
@@ -62,7 +61,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${product.name} | Methmi Mobile`,
+      title: `${product.name} | Maison QXYRA`,
       description: product.description,
       images: [primaryImage.startsWith('/') ? `${siteUrl}${primaryImage}` : primaryImage],
     },
@@ -78,17 +77,14 @@ export default async function StoreProductDetailPage({ params }: ProductPageProp
   }
 
   // Find category info
-  let catName = 'Store';
+  let catName = 'Collections';
   let catHref = '/store';
-  if (['apple', 'samsung', 'vivo', 'tecno-infinix', 'redmi', 'phones'].includes(product.categoryId)) {
-    catName = 'Smartphones';
-    catHref = '/store/phones';
-  } else if (['regular-fit-tee', 'oversized-tee', 'hoodie'].includes(product.categoryId)) {
-    catName = 'Fashion';
-    catHref = '/store/fashion';
-  } else if (['mobile', 'computer'].includes(product.categoryId)) {
-    catName = 'Accessories';
-    catHref = '/store/accessories';
+  if (product.categoryId === 'clothings') {
+    catName = 'Clothings';
+    catHref = '/store?category=clothings';
+  } else if (product.categoryId === 'perfume') {
+    catName = 'Perfume';
+    catHref = '/store?category=perfume';
   }
 
   const productReviews = reviews.filter((r) => r.productId === product.id);
@@ -96,7 +92,7 @@ export default async function StoreProductDetailPage({ params }: ProductPageProp
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen py-6 sm:py-10">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <ProductJsonLd product={product} url={`https://methmimobilepvtltd.lk/store/${product.slug}`} />
+        <ProductJsonLd product={product} url={`https://qxyra.com/store/${product.slug}`} />
 
         {/* Breadcrumb */}
         <nav className="flex items-center text-xs text-gray-400 mb-6 sm:mb-8 font-mono overflow-x-auto no-scrollbar whitespace-nowrap">

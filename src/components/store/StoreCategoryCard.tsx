@@ -33,7 +33,7 @@ export function StoreCategoryCard({
         : "bg-[#0B101A] border-white/10 hover:border-amber-400/40"
     )}>
       {/* Editorial Image Hero Area */}
-      <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden">
+      <div className="luxury-media-card relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden">
         <Image
           src={image}
           alt={title}

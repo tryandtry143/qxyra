@@ -72,19 +72,22 @@ export function Header() {
       )}>
         {/* Luxury Top Announcement & Currency Bar */}
         <div className={cn(
-          "text-xs py-1.5 px-4 sm:px-8 flex justify-between items-center border-b transition-colors",
+          "h-8 px-3 sm:px-8 flex justify-between items-center border-b transition-colors",
           isLight 
             ? "bg-stone-100 text-stone-700 border-stone-200" 
             : "bg-[#04060A] text-amber-300/90 border-white/5"
         )}>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <span className="text-[10px] sm:text-[11px] font-medium tracking-wider uppercase">
+          <div className="flex items-center min-w-0 pr-2">
+            <span className="sm:hidden text-[9px] font-medium tracking-[0.14em] uppercase truncate">
+              Maison {BRAND_NAME} • Free Delivery Over $250
+            </span>
+            <span className="hidden sm:inline text-[11px] font-medium tracking-wider uppercase truncate">
               Maison {BRAND_NAME} • Complimentary White-Glove Worldwide Delivery on Orders Over $250
             </span>
           </div>
-          <div className="flex items-center gap-3 text-[11px]">
+          <div className="flex items-center gap-3 text-[11px] shrink-0">
             <span className="hidden md:inline text-[10px] uppercase tracking-widest text-amber-400/90 font-medium">
-              ✨ Free Flacon Laser Engraving
+              Complimentary Flacon Engraving
             </span>
             <span className="opacity-30 hidden md:inline">|</span>
             <CurrencySelector showRateBadge={false} />
@@ -92,20 +95,41 @@ export function Header() {
         </div>
 
         {/* Main Navigation Bar */}
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-18 sm:h-20">
-            {/* Mobile Menu Button */}
-            <button 
-              className={cn("lg:hidden p-2 -ml-2 transition-colors", isLight ? "text-slate-800 hover:text-amber-700" : "text-white hover:text-amber-400")}
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-label="Open menu"
-            >
-              <MenuIcon />
-            </button>
+        <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="grid grid-cols-3 lg:flex items-center lg:justify-between h-14 sm:h-16 lg:h-20">
+            {/* Mobile Left Controls: Menu + Search */}
+            <div className="flex items-center gap-1 lg:hidden">
+              <button 
+                type="button"
+                className={cn(
+                  "min-w-[40px] min-h-[40px] flex items-center justify-center -ml-1.5 rounded-xl transition-colors active:scale-95",
+                  isLight ? "text-slate-800 hover:text-amber-700" : "text-white hover:text-amber-400"
+                )}
+                onClick={() => setIsMobileMenuOpen(true)}
+                aria-label="Open menu"
+              >
+                <MenuIcon />
+              </button>
+              <Link 
+                href="/search" 
+                aria-label="Search" 
+                className={cn(
+                  "min-w-[38px] min-h-[38px] flex items-center justify-center rounded-xl transition-colors active:scale-95",
+                  isLight ? "text-slate-700 hover:text-amber-700" : "text-gray-300 hover:text-amber-400"
+                )}
+              >
+                <SearchIcon />
+              </Link>
+            </div>
 
-            {/* Logo */}
-            <div className="flex-shrink-0 flex items-center">
-              <Logo size="md" />
+            {/* Logo: Centered on Mobile, Left-aligned on Desktop */}
+            <div className="flex items-center justify-center lg:justify-start flex-shrink-0">
+              <div className="sm:hidden">
+                <Logo size="sm" />
+              </div>
+              <div className="hidden sm:block">
+                <Logo size="md" />
+              </div>
             </div>
 
             {/* Desktop Navigation Links */}
@@ -180,30 +204,30 @@ export function Header() {
             </nav>
 
             {/* Icons */}
-            <div className={cn("flex items-center space-x-3 sm:space-x-5", isLight ? "text-slate-700" : "text-gray-200")}>
+            <div className={cn("flex items-center justify-end space-x-1 sm:space-x-4", isLight ? "text-slate-700" : "text-gray-200")}>
               <ThemeToggle />
               <Link 
                 href="/search" 
                 aria-label="Search" 
-                className="hover:text-amber-400 transition-colors p-1.5"
+                className="hidden lg:flex hover:text-amber-400 transition-colors p-1.5"
               >
                 <SearchIcon />
               </Link>
               <Link 
                 href="/account/wishlist" 
                 aria-label="Wishlist" 
-                className="hover:text-amber-400 transition-colors p-1.5"
+                className="hidden sm:flex hover:text-amber-400 transition-colors p-1.5"
               >
                 <HeartIcon />
               </Link>
               <Link 
                 href="/cart" 
-                aria-label="Cart" 
-                className="hover:text-amber-400 transition-colors relative p-1.5 flex items-center"
+                aria-label="Shopping Bag" 
+                className="hover:text-amber-400 transition-colors relative min-w-[38px] min-h-[38px] flex items-center justify-center rounded-xl active:scale-95"
               >
                 <CartIcon />
                 {mounted && cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-amber-400 text-black text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center font-mono shadow-md animate-in zoom-in-75">
+                  <span className="absolute top-0.5 right-0.5 bg-amber-400 text-black text-[9px] font-bold h-4 w-4 rounded-full flex items-center justify-center font-mono shadow-md animate-in zoom-in-75">
                     {cartCount}
                   </span>
                 )}
@@ -220,7 +244,7 @@ export function Header() {
       />
       
       {/* Spacer to prevent content from hiding under fixed header */}
-      <div className="h-[96px] sm:h-[108px]" />
+      <div className="h-[88px] sm:h-[96px] lg:h-[112px]" />
     </>
   );
 }

@@ -14,11 +14,11 @@ import { Logo } from './Logo';
 
 export function Footer() {
   return (
-    <footer className="bg-[#05070B] text-white pt-16 sm:pt-20 pb-10 border-t border-white/10 font-sans">
+    <footer className="bg-[#05070B] text-white pt-12 sm:pt-20 pb-24 lg:pb-10 border-t border-white/10 font-sans">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         
         {/* VIP Circle Newsletter Banner */}
-        <div className="mb-14 sm:mb-18 p-8 sm:p-12 rounded-2xl bg-[#090D14] border border-amber-500/20 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
+        <div className="mb-10 sm:mb-16 p-5 sm:p-10 rounded-2xl bg-[#090D14] border border-amber-500/20 flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-8">
           <div className="space-y-2 text-center md:text-left">
             <span className="text-[10px] uppercase tracking-[0.25em] text-amber-300 font-semibold">
               The {BRAND_NAME} Private Client Society

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useCurrency, Currency, CURRENCIES } from '@/context/CurrencyContext';
+import { useTheme } from '@/context/ThemeContext';
 
 interface CurrencySelectorProps {
   variant?: 'compact' | 'full' | 'pill';
@@ -25,7 +26,14 @@ export function CurrencySelector({
     refreshRate 
   } = useCurrency();
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const isLight = mounted && theme === 'light';
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -77,27 +85,40 @@ export function CurrencySelector({
 
       {/* Currency Switcher Dropdown Button */}
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white text-xs font-medium transition-all cursor-pointer shadow-sm active:scale-95"
+        className={`flex items-center gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg border text-[10px] sm:text-xs font-medium transition-all cursor-pointer active:scale-95 whitespace-nowrap ${
+          isLight
+            ? 'bg-white hover:bg-stone-100 border-stone-200 text-slate-800 shadow-xs'
+            : 'bg-white/5 hover:bg-white/10 border-white/10 text-white'
+        }`}
         title="Switch Display Currency (Auto-detected by visitor country)"
         aria-haspopup="true"
         aria-expanded={isOpen}
       >
-        <span className="text-sm">{currentMeta.flag}</span>
+        <span className="text-xs sm:text-sm leading-none">{currentMeta.flag}</span>
         <span className="font-semibold tracking-wide">
-          {currency} ({currentMeta.symbol.trim()})
+          {currency} <span className="hidden sm:inline">({currentMeta.symbol.trim()})</span>
         </span>
-        <span className="text-[10px] text-gray-400 transition-transform duration-200">
+        <span className="text-[8px] sm:text-[10px] opacity-60 transition-transform duration-200">
           {isOpen ? '▲' : '▼'}
         </span>
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-64 bg-[#161A22] border border-gray-700/80 rounded-2xl shadow-2xl py-2 z-50 backdrop-blur-xl animate-in fade-in duration-150">
-          <div className="px-3 py-1.5 border-b border-gray-800/80 text-[10px] text-gray-400 uppercase tracking-wider font-semibold flex items-center justify-between">
+        <div
+          className={`absolute right-0 top-full mt-2 w-60 sm:w-64 rounded-2xl shadow-2xl py-2 z-50 backdrop-blur-xl animate-in fade-in duration-150 border ${
+            isLight
+              ? 'bg-white/98 border-stone-200 text-slate-900'
+              : 'bg-[#121620]/98 border-white/15 text-white'
+          }`}
+        >
+          <div className={`px-3 py-1.5 border-b text-[10px] uppercase tracking-wider font-semibold flex items-center justify-between ${
+            isLight ? 'border-stone-100 text-slate-500' : 'border-gray-800/80 text-gray-400'
+          }`}>
             <span>Select Currency</span>
-            <span className="text-emerald-400 font-mono text-[9px]">Live Rates</span>
+            <span className="text-emerald-500 font-mono text-[9px]">Live Rates</span>
           </div>
 
           <div className="p-1.5 space-y-1 max-h-72 overflow-y-auto">
@@ -109,18 +130,21 @@ export function CurrencySelector({
               return (
                 <button
                   key={code}
+                  type="button"
                   onClick={() => handleSelect(code)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left text-xs transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-brand-gold text-brand-black font-semibold'
-                      : 'text-gray-200 hover:bg-white/5 hover:text-white'
+                      ? 'bg-amber-400 text-black font-semibold'
+                      : isLight
+                        ? 'text-slate-700 hover:bg-stone-100 hover:text-black'
+                        : 'text-gray-200 hover:bg-white/5 hover:text-white'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="text-base">{item.flag}</span>
                     <div>
                       <div className="font-medium">{code} - {item.symbol.trim()}</div>
-                      <div className={`text-[10px] ${isSelected ? 'text-black/75' : 'text-gray-400'}`}>
+                      <div className={`text-[10px] ${isSelected ? 'text-black/75' : isLight ? 'text-slate-500' : 'text-gray-400'}`}>
                         {item.label}
                       </div>
                     </div>
@@ -135,9 +159,11 @@ export function CurrencySelector({
             })}
           </div>
 
-          <div className="px-3 pt-2 pb-1 border-t border-gray-800/80 text-[10px] text-gray-500 flex items-center justify-between">
+          <div className={`px-3 pt-2 pb-1 border-t text-[10px] flex items-center justify-between ${
+            isLight ? 'border-stone-100 text-slate-500' : 'border-gray-800/80 text-gray-500'
+          }`}>
             <span>Visitor Auto-Detect:</span>
-            <span className="text-blue-400 font-medium">{detectedCountry || 'Active'}</span>
+            <span className="text-amber-500 font-medium">{detectedCountry || 'Active'}</span>
           </div>
         </div>
       )}

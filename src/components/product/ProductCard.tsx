@@ -162,15 +162,15 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
       {/* Product Details Area */}
       <div
         className={cn(
-          "p-2.5 sm:p-4 flex flex-col flex-grow transition-colors",
-          isLight ? "bg-white" : "bg-[#141820]"
+          "p-3 sm:p-4 flex flex-col flex-grow transition-colors",
+          isLight ? "bg-white" : "bg-[#0F141E]"
         )}
       >
-        {/* Color Dots Row (Feature 2) */}
+        {/* Color Dots Row */}
         {product.colorOptions && product.colorOptions.length > 0 && (
-          <div className="flex items-center gap-1.5 mb-2">
-            <span className="text-[9px] font-mono uppercase text-gray-500 mr-0.5">Colors:</span>
-            {product.colorOptions.slice(0, 5).map((opt) => {
+          <div className="flex items-center gap-1.5 mb-1.5 sm:mb-2">
+            <span className="hidden sm:inline text-[9px] font-mono uppercase text-gray-500 mr-0.5">Colors:</span>
+            {product.colorOptions.slice(0, 4).map((opt) => {
               const isSelected = activeColorImage === opt.image;
               return (
                 <button
@@ -185,7 +185,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
                     if (opt.image) setActiveColorImage(opt.image);
                   }}
                   className={cn(
-                    "w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full border transition-all cursor-pointer shadow-sm hover:scale-125",
+                    "w-3 h-3 sm:w-4 sm:h-4 rounded-full border transition-all cursor-pointer shadow-sm hover:scale-125",
                     isSelected
                       ? "ring-2 ring-brand-gold scale-110 border-white"
                       : "border-black/30 hover:ring-1 hover:ring-brand-gold"
@@ -196,9 +196,9 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
                 />
               );
             })}
-            {product.colorOptions.length > 5 && (
+            {product.colorOptions.length > 4 && (
               <span className="text-[9px] font-mono text-gray-500">
-                +{product.colorOptions.length - 5}
+                +{product.colorOptions.length - 4}
               </span>
             )}
           </div>
@@ -207,7 +207,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
         {categoryName && (
           <p
             className={cn(
-              "text-[9px] sm:text-[11px] uppercase tracking-wider mb-0.5 sm:mb-1 font-mono font-semibold truncate",
+              "text-[9px] sm:text-[11px] uppercase tracking-[0.15em] mb-0.5 sm:mb-1 font-mono font-semibold truncate",
               isLight ? "text-amber-800" : "text-brand-gold/80"
             )}
           >
@@ -216,10 +216,10 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
         )}
 
         {/* Title */}
-        <Link href={`/store/${product.slug}`} className="block mb-1 sm:mb-1.5 flex-grow">
+        <Link href={`/store/${product.slug}`} className="block mb-1.5 flex-grow">
           <h3
             className={cn(
-              "font-heading text-xs sm:text-sm font-semibold line-clamp-2 h-8 sm:h-10 transition-colors leading-snug",
+              "font-heading text-[13px] sm:text-base font-medium line-clamp-2 min-h-[2.25rem] sm:min-h-[2.75rem] transition-colors leading-snug",
               isLight ? "text-gray-900 group-hover:text-amber-800" : "text-white group-hover:text-brand-gold"
             )}
           >
@@ -227,9 +227,9 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
           </h3>
         </Link>
 
-        {/* Quick Specs Badges (Feature 4) */}
+        {/* Quick Specs Badges (Hidden on tight 2-col mobile to preserve editorial breathing room) */}
         {product.specsHighlights && product.specsHighlights.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-2">
+          <div className="hidden sm:flex flex-wrap gap-1 mb-2">
             {product.specsHighlights.slice(0, 2).map((badge, idx) => (
               <span
                 key={idx}
@@ -248,14 +248,14 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
 
         {/* Rating & Sold count */}
         <div className="flex items-center gap-1 sm:gap-1.5 mb-2">
-          <div className="flex text-amber-500 text-[10px] sm:text-xs">
+          <div className="flex text-amber-500 text-[9px] sm:text-xs">
             {Array.from({ length: 5 }).map((_, i) => (
               <span key={i}>{i < Math.floor(product.rating || 5) ? '★' : '☆'}</span>
             ))}
           </div>
           <span
             className={cn(
-              "text-[10px] sm:text-[11px] font-mono",
+              "text-[9px] sm:text-[11px] font-mono",
               isLight ? "text-gray-600 font-medium" : "text-gray-400"
             )}
           >
@@ -276,15 +276,15 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
         {/* Price & Action */}
         <div
           className={cn(
-            "flex items-center justify-between pt-1.5 sm:pt-2 border-t gap-1.5",
-            isLight ? "border-gray-100" : "border-gray-800/80"
+            "flex items-center justify-between pt-2 border-t gap-1.5",
+            isLight ? "border-gray-100" : "border-white/10"
           )}
         >
           <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-1.5 min-w-0">
             <span
               className={cn(
-                "font-bold text-xs sm:text-base font-mono truncate",
-                isLight ? "text-gray-950 font-extrabold" : "text-white"
+                "font-semibold text-xs sm:text-base font-mono truncate",
+                isLight ? "text-gray-950 font-bold" : "text-white"
               )}
             >
               {format(displayPrice)}
@@ -292,7 +292,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
             {hasDiscount && (
               <span
                 className={cn(
-                  "text-[10px] sm:text-xs line-through font-mono",
+                  "text-[9px] sm:text-xs line-through font-mono",
                   isLight ? "text-gray-400" : "text-gray-500"
                 )}
               >
@@ -301,16 +301,16 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
             )}
           </div>
 
-          {/* Mobile Tap-to-Add (+) Button */}
+          {/* Mobile Tap-to-Add Circular Luxury Button */}
           <button
             onClick={handleAddToCart}
             className={cn(
-              "md:hidden w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-all shrink-0 active:scale-90 cursor-pointer shadow-sm",
+              "md:hidden w-8 h-8 rounded-full flex items-center justify-center transition-all shrink-0 active:scale-90 cursor-pointer shadow-md",
               justAdded
-                ? "bg-green-500 text-white font-bold text-xs"
-                : "bg-brand-gold text-brand-black hover:opacity-90 text-sm font-bold shadow-brand-gold/20"
+                ? "bg-emerald-500 text-white font-bold text-xs"
+                : "bg-amber-400 text-black hover:bg-amber-300 text-base font-medium shadow-amber-500/20"
             )}
-            aria-label="Add to cart"
+            aria-label="Add to shopping bag"
           >
             {justAdded ? "✓" : "+"}
           </button>

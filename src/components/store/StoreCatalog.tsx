@@ -103,20 +103,20 @@ export function StoreCatalog() {
           </div>
 
           {/* Primary Pillar Buttons */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
             <button
               onClick={() => {
                 setSelectedPillar('all');
                 setSelectedSub(null);
               }}
               className={cn(
-                "px-4 py-2 rounded text-xs uppercase tracking-wider transition-all cursor-pointer font-medium",
+                "px-3.5 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap shrink-0",
                 selectedPillar === 'all'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
               )}
             >
-              All Pieces
+              All Creations
             </button>
             <button
               onClick={() => {
@@ -124,13 +124,13 @@ export function StoreCatalog() {
                 setSelectedSub(null);
               }}
               className={cn(
-                "px-4 py-2 rounded text-xs uppercase tracking-wider transition-all cursor-pointer font-medium",
+                "px-3.5 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap shrink-0",
                 selectedPillar === 'clothings'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
               )}
             >
-              🧥 Clothings ({clothingsProducts.length})
+              Clothings ({clothingsProducts.length})
             </button>
             <button
               onClick={() => {
@@ -138,13 +138,13 @@ export function StoreCatalog() {
                 setSelectedSub(null);
               }}
               className={cn(
-                "px-4 py-2 rounded text-xs uppercase tracking-wider transition-all cursor-pointer font-medium",
+                "px-3.5 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs uppercase tracking-wider transition-all cursor-pointer font-medium whitespace-nowrap shrink-0",
                 selectedPillar === 'perfume'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : (isLight ? "bg-stone-100 border border-stone-200 text-stone-700 hover:bg-stone-200" : "text-gray-400 hover:text-white bg-white/5 border border-white/5")
               )}
             >
-              ✨ Perfume ({perfumeProducts.length})
+              Perfume ({perfumeProducts.length})
             </button>
           </div>
         </div>
@@ -262,17 +262,20 @@ export function StoreCatalog() {
 
         {/* Products Grid */}
         {displayedProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
             {displayedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className="py-20 text-center border border-dashed border-amber-500/25 rounded-2xl bg-[#090E17]/60 p-8 sm:p-12 space-y-4">
-            <div className="w-14 h-14 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-300 flex items-center justify-center mx-auto text-2xl shadow-lg">
-              ✨
+          <div className={cn(
+            "py-14 sm:py-20 text-center border border-dashed rounded-2xl p-6 sm:p-12 space-y-3 sm:space-y-4 transition-colors",
+            isLight ? "bg-white border-stone-300" : "bg-[#090E17]/60 border-amber-500/25"
+          )}>
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-amber-400/10 border border-amber-400/25 text-amber-400 flex items-center justify-center mx-auto text-xl sm:text-2xl shadow-lg">
+              ✦
             </div>
-            <h3 className="font-serif text-2xl sm:text-3xl text-white font-light tracking-tight">
+            <h3 className="font-serif text-xl sm:text-3xl text-white font-light tracking-tight">
               Boutique Collection Curating
             </h3>
             <p className="text-xs sm:text-sm text-gray-400 font-light max-w-md mx-auto leading-relaxed">

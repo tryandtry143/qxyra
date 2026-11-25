@@ -59,6 +59,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
   
   body {
@@ -67,11 +69,24 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--bg-page);
     color: var(--text-primary);
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading;
   }
+}
+
+/* Hide scrollbars cleanly for horizontal luxury mobile carousels */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Custom Scrollbar */
@@ -183,28 +198,45 @@ html.light .bg-\[\#0B101A\]\/95 {
 }
 
 /* 4. Secondary Pills & Subtle Backgrounds */
-html.light .bg-white\/5,
-html.light .bg-white\/10 {
+html.light .bg-white\/5:not(.luxury-media-card *):not(.luxury-media-card),
+html.light .bg-white\/10:not(.luxury-media-card *):not(.luxury-media-card) {
   background-color: #F1F5F9 !important;
   border-color: #E2E8F0 !important;
   color: #334155 !important;
 }
 
-html.light .bg-black\/40,
-html.light .bg-black\/50,
-html.light .bg-black\/60,
-html.light .bg-black\/70,
-html.light .bg-black\/80 {
+html.light .bg-black\/40:not(.luxury-media-card *):not(.luxury-media-card),
+html.light .bg-black\/50:not(.luxury-media-card *):not(.luxury-media-card),
+html.light .bg-black\/60:not(.luxury-media-card *):not(.luxury-media-card),
+html.light .bg-black\/70:not(.luxury-media-card *):not(.luxury-media-card),
+html.light .bg-black\/80:not(.luxury-media-card *):not(.luxury-media-card) {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #0F172A !important;
 }
 
+/* Protect Dark Photographic Media Overlays in Light Mode */
+html.light .luxury-media-card,
+html.light .luxury-media-card h3,
+html.light .luxury-media-card .text-white {
+  color: #FFFFFF !important;
+}
+html.light .luxury-media-card .text-gray-200 {
+  color: #E2E8F0 !important;
+}
+html.light .luxury-media-card .text-gray-300 {
+  color: #CBD5E1 !important;
+}
+html.light .luxury-media-card .text-amber-300,
+html.light .luxury-media-card .text-amber-400 {
+  color: #FCD34D !important;
+}
+
 /* 5. Borders */
-html.light .border-white\/5,
-html.light .border-white\/10,
-html.light .border-white\/15,
-html.light .border-white\/20,
+html.light .border-white\/5:not(.luxury-media-card *),
+html.light .border-white\/10:not(.luxury-media-card *),
+html.light .border-white\/15:not(.luxury-media-card *),
+html.light .border-white\/20:not(.luxury-media-card *),
 html.light .border-gray-800,
 html.light .border-gray-800\/80,
 html.light .border-gray-800\/50,
@@ -214,23 +246,23 @@ html.light .border-gray-700 {
 }
 
 /* 6. Typography High-Contrast */
-html.light h1,
-html.light h2,
-html.light h3,
-html.light h4,
-html.light h5,
-html.light h6 {
+html.light h1:not(.luxury-media-card *),
+html.light h2:not(.luxury-media-card *),
+html.light h3:not(.luxury-media-card *),
+html.light h4:not(.luxury-media-card *),
+html.light h5:not(.luxury-media-card *),
+html.light h6:not(.luxury-media-card *) {
   color: #0F172A !important;
 }
 
-html.light h1.text-white,
-html.light h2.text-white,
-html.light h3.text-white,
-html.light h4.text-white {
+html.light h1.text-white:not(.luxury-media-card *),
+html.light h2.text-white:not(.luxury-media-card *),
+html.light h3.text-white:not(.luxury-media-card *),
+html.light h4.text-white:not(.luxury-media-card *) {
   color: #0F172A !important;
 }
 
-html.light .text-white:not(button.bg-amber-400 *):not(button.bg-amber-400):not(.bg-amber-400 *):not(.bg-amber-400):not(span.bg-amber-400 *):not(span.bg-amber-400):not(.bg-brand-gold *):not(.bg-brand-gold) {
+html.light .text-white:not(.luxury-media-card *):not(.luxury-media-card):not(button.bg-amber-400 *):not(button.bg-amber-400):not(.bg-amber-400 *):not(.bg-amber-400):not(span.bg-amber-400 *):not(span.bg-amber-400):not(.bg-brand-gold *):not(.bg-brand-gold):not(.bg-\[\#0D1520\] *):not(.bg-emerald-600 *) {
   color: #0F172A !important;
 }
 
