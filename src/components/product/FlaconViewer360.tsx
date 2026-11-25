@@ -109,18 +109,18 @@ export function FlaconViewer360({
 
         {/* The Flacon Image with 3D Tilt Shift Effect */}
         <div 
-          className="relative w-48 h-60 sm:w-72 sm:h-84 transition-transform duration-75 pointer-events-none"
+          className="relative w-52 h-52 sm:w-72 sm:h-72 rounded-2xl overflow-hidden transition-transform duration-75 pointer-events-none border border-amber-400/20 shadow-[0_20px_50px_rgba(0,0,0,0.85)]"
           style={{
             transform: `perspective(1000px) rotateY(${(rotationAngle % 30) - 15}deg)`,
           }}
         >
           <Image
-            src="/images/perfume_pdp.jpg"
+            src="/images/perfume_flacon.jpg"
             alt={productTitle}
             fill
             priority
             sizes="(max-width: 640px) 220px, 320px"
-            className="object-contain filter contrast-105 drop-shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
+            className="object-cover object-center filter contrast-105"
           />
         </div>
 

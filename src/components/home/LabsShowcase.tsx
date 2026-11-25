@@ -228,7 +228,7 @@ export function LabsShowcase() {
                   {/* Visual Simulated Flacon Display (Protected overlay in Light Mode) */}
                   <div className="luxury-media-card relative w-full h-52 sm:h-64 rounded-xl overflow-hidden border border-white/10 bg-gradient-to-b from-[#131B2A] to-[#070A0F] flex items-center justify-center p-4">
                     <Image
-                      src="/images/perfume_pdp.jpg"
+                      src="/images/perfume_flacon.jpg"
                       alt="Crystal Flacon with Engraving"
                       fill
                       sizes="(max-width: 1024px) 90vw, 45vw"

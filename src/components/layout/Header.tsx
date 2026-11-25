@@ -65,14 +65,14 @@ export function Header() {
   return (
     <>
       <header className={cn(
-        "fixed top-0 w-full z-40 transition-all duration-300",
+        "fixed top-0 w-full z-40 transition-shadow duration-200",
         isLight
           ? (isScrolled ? "bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm text-gray-900" : "bg-white border-b border-gray-100 text-gray-900")
           : (isScrolled ? "bg-[#070A0F]/95 backdrop-blur-md border-b border-amber-500/20 shadow-2xl text-white" : "bg-[#070A0F] border-b border-white/10 text-white")
       )}>
         {/* Luxury Top Announcement & Currency Bar */}
         <div className={cn(
-          "h-8 px-3 sm:px-8 flex justify-between items-center border-b transition-colors",
+          "h-8 px-3 sm:px-8 flex justify-between items-center border-b",
           isLight 
             ? "bg-stone-100 text-stone-700 border-stone-200" 
             : "bg-[#04060A] text-amber-300/90 border-white/5"

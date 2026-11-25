@@ -14,7 +14,7 @@ import { Logo } from './Logo';
 
 export function Footer() {
   return (
-    <footer className="bg-[#05070B] text-white pt-12 sm:pt-20 pb-24 lg:pb-10 border-t border-white/10 font-sans">
+    <footer className="bg-[#05070B] text-white pt-12 sm:pt-20 pb-36 lg:pb-10 border-t border-white/10 font-sans">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         
         {/* VIP Circle Newsletter Banner */}
@@ -89,9 +89,9 @@ export function Footer() {
 
         {/* Bottom Bar: Copyright & Socials */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-light">
-          <p>© {new Date().getFullYear()} {BRAND_NAME} Luxury Group. All rights reserved.</p>
+          <p className="text-center sm:text-left">© {new Date().getFullYear()} {BRAND_NAME} Luxury Group. All rights reserved.</p>
           
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {SOCIAL_LINKS.map((soc, idx) => (
               <a
                 key={idx}

@@ -32,7 +32,7 @@ export const CATEGORIES = [
     tagline: 'Rare Olfactory Extraits & Artisanal Fragrances',
     description: 'Distinctive artisanal scents crafted for men and women with rare botanicals and complimentary crystal flacon laser engraving.',
     href: '/store?category=perfume',
-    image: '/images/perfume_pdp.jpg',
+    image: '/images/perfume_flacon.jpg',
     badge: 'Artisanal Perfumes',
     subcategories: [
       { id: 'mens', name: "Men's Perfume", href: '/store?category=perfume&sub=mens' },

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     };
   }
 
-  const primaryImage = product.images?.[0]?.url || '/images/perfume_pdp.jpg';
+  const primaryImage = product.images?.[0]?.url || '/images/perfume_flacon.jpg';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://qxyra.com';
 
   return {

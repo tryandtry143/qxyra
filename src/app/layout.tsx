@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { TrackingPixels } from "@/components/analytics/TrackingPixels";
 import { CurrencyProvider } from "@/context/CurrencyContext";
@@ -92,7 +93,7 @@ export default function RootLayout({
     "@type": "Organization",
     name: BRAND_FULL_NAME,
     url: siteUrl,
-    logo: `${siteUrl}/images/qxyra_logo.jpg`,
+    logo: `${siteUrl}/images/qxyra_logo_navy.png`,
     description: "Bespoke menswear, women's haute couture, and rare artisanal perfumes.",
     sameAs: [
       "https://instagram.com/qxyra_official",
@@ -102,16 +103,16 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <head>
-        <link rel="icon" href="/images/qxyra_logo.jpg" />
+      <body
+        className={`${cormorant.variable} ${inter.variable} font-sans antialiased min-h-screen flex flex-col`}
+      >
+        <Script id="qxyra-theme-sync" strategy="beforeInteractive">
+          {`(function(){try{var k='methmi_theme_mode';var s=localStorage.getItem(k);var t=(s==='light'||s==='dark')?s:(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');var r=document.documentElement;if(t==='light'){r.classList.remove('dark');r.classList.add('light');r.setAttribute('data-theme','light');r.style.colorScheme='light';}else{r.classList.remove('light');r.classList.add('dark');r.setAttribute('data-theme','dark');r.style.colorScheme='dark';}}catch(e){}})();`}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-      </head>
-      <body
-        className={`${cormorant.variable} ${inter.variable} font-sans antialiased min-h-screen flex flex-col transition-colors duration-300`}
-      >
         <ThemeProvider>
           <CurrencyProvider>
             <TrackingPixels />

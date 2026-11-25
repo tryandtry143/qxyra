@@ -74,22 +74,22 @@ export function StorePreview() {
         {/* Primary Categories & Subcategory Tabs */}
         <div className="space-y-2.5 sm:space-y-3">
           {/* Main Pillar Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1.5 no-scrollbar border-b border-white/10">
+          <div className="grid grid-cols-3 sm:inline-flex items-center gap-1.5 sm:gap-2 pb-1.5 border-b border-white/10 w-full sm:w-auto">
             <button
               onClick={() => setActiveFilter('all')}
               className={cn(
-                "px-3.5 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer shrink-0",
+                "px-2 sm:px-5 py-2 sm:py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.16em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer text-center",
                 activeFilter === 'all'
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : "text-gray-300 hover:text-white hover:bg-white/5"
               )}
             >
-              All Creations ({products.length})
+              All ({products.length})
             </button>
             <button
               onClick={() => setActiveFilter('clothings')}
               className={cn(
-                "px-3.5 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer shrink-0",
+                "px-2 sm:px-5 py-2 sm:py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.16em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer text-center",
                 activeFilter === 'clothings' || activeFilter.startsWith('clothings-')
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : "text-gray-300 hover:text-white hover:bg-white/5"
@@ -100,7 +100,7 @@ export function StorePreview() {
             <button
               onClick={() => setActiveFilter('perfume')}
               className={cn(
-                "px-3.5 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer shrink-0",
+                "px-2 sm:px-5 py-2 sm:py-2.5 text-[10px] sm:text-xs uppercase tracking-[0.1em] sm:tracking-[0.16em] font-medium transition-all whitespace-nowrap rounded-lg cursor-pointer text-center",
                 activeFilter === 'perfume' || activeFilter.startsWith('perfume-')
                   ? "bg-amber-400 text-black font-semibold shadow"
                   : "text-gray-300 hover:text-white hover:bg-white/5"
