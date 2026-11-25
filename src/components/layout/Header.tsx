@@ -133,7 +133,7 @@ export function Header() {
             </div>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-9">
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-9">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href.split('?')[0]));
                 const hasChildren = link.children && link.children.length > 0;

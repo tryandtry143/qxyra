@@ -65,12 +65,12 @@ export function GatewayHero() {
       <div className="container mx-auto px-4 lg:px-8 pt-5 pb-10 sm:pt-8 sm:pb-14 lg:pb-16">
         
         {/* Brand Headline & Ambient Sound Bar */}
-        <div className="text-center max-w-3xl mx-auto mb-7 sm:mb-12 lg:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-7 sm:mb-12">
           <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-amber-300 font-semibold">
-                Autumn / Winter • Milan & Grasse
+              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-amber-300 font-semibold">
+                Couture • Parfumerie • Horlogerie
               </span>
             </div>
 
@@ -86,137 +86,165 @@ export function GatewayHero() {
             </button>
           </div>
 
-          <h1 className="font-serif text-[2.6rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-white mb-2.5 sm:mb-4 leading-[1.03]">
+          <h1 className="font-serif text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-white mb-2.5 sm:mb-4 leading-[1.03]">
             MAISON <span className="font-normal text-amber-300 tracking-wider drop-shadow-[0_2px_20px_rgba(217,167,74,0.3)]">{BRAND_NAME}</span>
           </h1>
           <p className="text-xs sm:text-base text-gray-300 font-light tracking-wide max-w-md sm:max-w-xl mx-auto leading-relaxed px-2 sm:px-0">
-            {BRAND_TAGLINE}. Bespoke menswear, sculptural evening silhouettes, and 38% artisanal crystal flacons.
+            {BRAND_TAGLINE}. Italian tailoring, Grasse 38% crystal extraits, and collector mechanical timepieces.
           </p>
 
-          {/* Compact Dual CTA Actions (Side-by-side even on Mobile!) */}
-          <div className="grid grid-cols-2 sm:flex items-center justify-center gap-2.5 sm:gap-4 mt-5 sm:mt-8 max-w-sm sm:max-w-none mx-auto">
+          {/* Compact 4-Pill Quick Entry Grid on Mobile -> Row on Desktop */}
+          <div className="grid grid-cols-2 sm:flex items-center justify-center gap-2 sm:gap-3 mt-5 sm:mt-7 max-w-sm sm:max-w-none mx-auto">
             <Link
               href="/store"
-              className="px-4 sm:px-8 py-3 sm:py-3.5 text-[10px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em] font-semibold bg-amber-400 text-black rounded-xl sm:rounded hover:bg-amber-300 transition-all duration-300 shadow-lg shadow-amber-500/20 text-center whitespace-nowrap active:scale-97"
+              className="px-4 sm:px-7 py-2.5 sm:py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-semibold bg-amber-400 text-black rounded-xl sm:rounded hover:bg-amber-300 transition-all duration-300 shadow-lg shadow-amber-500/20 text-center whitespace-nowrap active:scale-97"
             >
-              All Collections
+              All Creations
             </Link>
             <Link
-              href="/store?category=perfume"
-              className="px-4 sm:px-8 py-3 sm:py-3.5 text-[10px] sm:text-xs uppercase tracking-[0.16em] sm:tracking-[0.2em] font-medium border border-white/20 text-white rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-all duration-300 backdrop-blur-sm text-center whitespace-nowrap active:scale-97"
+              href="/perfume"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-medium border border-white/20 text-white rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-all duration-300 backdrop-blur-sm text-center whitespace-nowrap active:scale-97"
             >
-              Perfume Atelier
+              Perfume
+            </Link>
+            <Link
+              href="/clothings"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-medium border border-white/20 text-white rounded-xl sm:rounded hover:border-amber-400 hover:text-amber-300 transition-all duration-300 backdrop-blur-sm text-center whitespace-nowrap active:scale-97"
+            >
+              Clothings
+            </Link>
+            <Link
+              href="/watches"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs uppercase tracking-[0.15em] sm:tracking-[0.18em] font-medium border border-amber-400/35 text-amber-300 rounded-xl sm:rounded hover:border-amber-400 hover:bg-amber-400/10 transition-all duration-300 backdrop-blur-sm text-center whitespace-nowrap active:scale-97"
+            >
+              Watches
             </Link>
           </div>
         </div>
 
-        {/* Dual Luxury Portals: Horizontal Snap-Carousel on Mobile -> Side-by-Side Split on Desktop */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 -mx-4 px-4 pb-2 no-scrollbar lg:mx-0 lg:px-0 lg:pb-0 lg:grid lg:grid-cols-2 lg:gap-8 max-w-6xl lg:mx-auto">
+        {/* Tri-Pillar Luxury Portals: Horizontal Snap-Carousel on Mobile -> 3-Column Salon Grid on Desktop */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 -mx-4 px-4 pb-2 no-scrollbar lg:mx-0 lg:px-0 lg:pb-0 lg:grid lg:grid-cols-3 lg:gap-6 max-w-7xl lg:mx-auto">
           
           {/* Card 1: Haute Parfumerie */}
-          <div className="luxury-media-card group relative w-[84vw] sm:w-[70vw] lg:w-auto shrink-0 snap-center rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[340px] sm:min-h-[460px] lg:min-h-[500px]">
+          <Link
+            href="/perfume"
+            className="luxury-media-card group relative w-[82vw] sm:w-[66vw] lg:w-auto shrink-0 snap-center rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[330px] sm:min-h-[430px] lg:min-h-[460px]"
+          >
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/perfume_flacon.jpg"
-                alt="QXYRA Haute Parfumerie"
+                src="/images/perfume_floral_banner.jpg"
+                alt="QXYRA Haute Parfumerie with Damask Rose Petals"
                 fill
                 priority
-                sizes="(max-width: 1024px) 85vw, 50vw"
-                className="object-cover object-center brightness-80 group-hover:scale-105 group-hover:brightness-90 transition-all duration-700"
+                sizes="(max-width: 1024px) 84vw, 33vw"
+                className="object-cover object-center brightness-85 group-hover:scale-105 group-hover:brightness-95 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/55 to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/45 to-black/20" />
             </div>
 
-            <div className="relative z-10 p-4 sm:p-8 flex items-center justify-between">
-              <span className="text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-semibold text-amber-300 bg-black/65 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md border border-amber-500/30">
-                01. Olfactory House
+            <div className="relative z-10 p-4 sm:p-6 flex items-center justify-between">
+              <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-semibold text-amber-300 bg-black/65 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md border border-amber-500/30">
+                01. Parfumerie
               </span>
-              <span className="text-[10px] sm:text-xs font-mono text-gray-200 bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">Grasse, France</span>
+              <span className="text-[10px] font-mono text-gray-200 bg-black/45 px-2 py-0.5 rounded backdrop-blur-sm">Grasse, France</span>
             </div>
 
-            <div className="relative z-10 p-5 sm:p-8">
-              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1.5 sm:mb-2 font-light group-hover:text-amber-200 transition-colors leading-snug">
-                Haute Parfumerie & Extraits
+            <div className="relative z-10 p-5 sm:p-6">
+              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1.5 font-light group-hover:text-amber-200 transition-colors leading-snug">
+                Haute Parfumerie
               </h3>
-              <p className="text-xs sm:text-sm text-gray-200 font-light mb-4 sm:mb-5 max-w-md line-clamp-2">
-                Hand-poured 38% concentration crystal flacons with aged Cambodian Oud and laser monogramming.
+              <p className="text-xs text-gray-200 font-light mb-4 line-clamp-2">
+                Rose-infused botanical elixirs &amp; 38% pure crystal extraits with laser monogramming.
               </p>
-              <div className="flex items-center gap-3">
-                <Link
-                  href="/store?category=perfume"
-                  className="inline-flex items-center gap-2 text-[11px] sm:text-xs uppercase tracking-[0.18em] font-semibold text-amber-300 group-hover:translate-x-1 transition-transform py-1"
-                >
-                  <span>Discover Scents</span>
-                  <span>→</span>
-                </Link>
-                <span className="text-gray-400 text-xs">•</span>
-                <span className="text-[10px] sm:text-[11px] text-gray-300 font-mono">38% Extrait</span>
-              </div>
+              <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-semibold text-amber-300 group-hover:translate-x-1 transition-transform">
+                <span>Enter Perfume Maison</span>
+                <span>→</span>
+              </span>
             </div>
-          </div>
+          </Link>
 
-          {/* Card 2: Men's & Women's Haute Couture */}
-          <div className="luxury-media-card group relative w-[84vw] sm:w-[70vw] lg:w-auto shrink-0 snap-center rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[340px] sm:min-h-[460px] lg:min-h-[500px]">
+          {/* Card 2: Haute Couture Clothings */}
+          <Link
+            href="/clothings"
+            className="luxury-media-card group relative w-[82vw] sm:w-[66vw] lg:w-auto shrink-0 snap-center rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[330px] sm:min-h-[430px] lg:min-h-[460px]"
+          >
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/wool_trench.jpg"
-                alt="QXYRA Haute Couture & Tailoring"
+                src="/images/clothings_editorial_banner.jpg"
+                alt="QXYRA Haute Couture & Tailoring Salon"
                 fill
                 priority
-                sizes="(max-width: 1024px) 85vw, 50vw"
-                className="object-cover object-center brightness-80 group-hover:scale-105 group-hover:brightness-90 transition-all duration-700"
+                sizes="(max-width: 1024px) 84vw, 33vw"
+                className="object-cover object-center brightness-85 group-hover:scale-105 group-hover:brightness-95 transition-all duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/55 to-black/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/45 to-black/20" />
             </div>
 
-            <div className="relative z-10 p-4 sm:p-8 flex items-center justify-between">
-              <span className="text-[9px] sm:text-[10px] tracking-[0.22em] uppercase font-semibold text-amber-300 bg-black/65 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md border border-amber-500/30">
-                02. Haute Couture
+            <div className="relative z-10 p-4 sm:p-6 flex items-center justify-between">
+              <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-semibold text-amber-300 bg-black/65 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md border border-amber-500/30">
+                02. Couture
               </span>
-              <span className="text-[10px] sm:text-xs font-mono text-gray-200 bg-black/40 px-2 py-0.5 rounded backdrop-blur-sm">Florence, Italy</span>
+              <span className="text-[10px] font-mono text-gray-200 bg-black/45 px-2 py-0.5 rounded backdrop-blur-sm">Florence, Italy</span>
             </div>
 
-            <div className="relative z-10 p-5 sm:p-8">
-              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1.5 sm:mb-2 font-light group-hover:text-amber-200 transition-colors leading-snug">
-                Bespoke Clothings & Silhouettes
+            <div className="relative z-10 p-5 sm:p-6">
+              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1.5 font-light group-hover:text-amber-200 transition-colors leading-snug">
+                Bespoke Clothings
               </h3>
-              <p className="text-xs sm:text-sm text-gray-200 font-light mb-4 sm:mb-5 max-w-md line-clamp-2">
-                Italian virgin wool coats, 450gsm heavyweight French terry hoodies, and pure mulberry silk gowns.
+              <p className="text-xs text-gray-200 font-light mb-4 line-clamp-2">
+                Virgin wool coats, mulberry silk gowns, 450gsm hoodies &amp; 280gsm combed cotton tees.
               </p>
-              <div className="flex items-center gap-3 sm:gap-4">
-                <Link
-                  href="/store?category=clothings&sub=mens"
-                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] font-semibold text-white hover:text-amber-300 transition-colors py-1"
-                >
-                  <span>Men&apos;s</span>
-                  <span>→</span>
-                </Link>
-                <span className="text-gray-400 text-xs">|</span>
-                <Link
-                  href="/store?category=clothings&sub=womens"
-                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] font-semibold text-white hover:text-amber-300 transition-colors py-1"
-                >
-                  <span>Women&apos;s</span>
-                  <span>→</span>
-                </Link>
-                <span className="text-gray-400 text-xs">|</span>
-                <Link
-                  href="/store?category=clothings&sub=hoodies"
-                  className="inline-flex items-center gap-1 text-[11px] sm:text-xs uppercase tracking-[0.14em] sm:tracking-[0.16em] font-semibold text-amber-300 hover:text-amber-200 transition-colors py-1"
-                >
-                  <span>Hoodies</span>
-                  <span>→</span>
-                </Link>
-              </div>
+              <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-semibold text-amber-300 group-hover:translate-x-1 transition-transform">
+                <span>Enter Clothings Salon</span>
+                <span>→</span>
+              </span>
             </div>
-          </div>
+          </Link>
+
+          {/* Card 3: Haute Horlogerie Watches */}
+          <Link
+            href="/watches"
+            className="luxury-media-card group relative w-[82vw] sm:w-[66vw] lg:w-auto shrink-0 snap-center rounded-2xl overflow-hidden border border-white/15 bg-[#0C111A] transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl hover:shadow-amber-500/10 flex flex-col justify-between min-h-[330px] sm:min-h-[430px] lg:min-h-[460px]"
+          >
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/watch_luxury.jpg"
+                alt="QXYRA Haute Horlogerie Mechanical Chronograph Watch"
+                fill
+                priority
+                sizes="(max-width: 1024px) 84vw, 33vw"
+                className="object-cover object-center brightness-85 group-hover:scale-105 group-hover:brightness-95 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E17] via-[#0A0E17]/45 to-black/20" />
+            </div>
+
+            <div className="relative z-10 p-4 sm:p-6 flex items-center justify-between">
+              <span className="text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-semibold text-amber-300 bg-black/65 px-2.5 sm:px-3 py-1 rounded-full backdrop-blur-md border border-amber-500/30">
+                03. Horlogerie
+              </span>
+              <span className="text-[10px] font-mono text-gray-200 bg-black/45 px-2 py-0.5 rounded backdrop-blur-sm">Geneva Craft</span>
+            </div>
+
+            <div className="relative z-10 p-5 sm:p-6">
+              <h3 className="font-serif text-2xl sm:text-3xl text-white mb-1.5 font-light group-hover:text-amber-200 transition-colors leading-snug">
+                Fine Timepieces
+              </h3>
+              <p className="text-xs text-gray-200 font-light mb-4 line-clamp-2">
+                Automatic calibers, sapphire crystal chronographs, and collector heirloom dress watches.
+              </p>
+              <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] font-semibold text-amber-300 group-hover:translate-x-1 transition-transform">
+                <span>Enter Horology Vault</span>
+                <span>→</span>
+              </span>
+            </div>
+          </Link>
 
         </div>
 
         {/* Subtle Mobile Swipe Cue */}
         <div className="flex lg:hidden items-center justify-center gap-2 mt-3 text-[10px] uppercase tracking-[0.2em] text-gray-400 font-mono">
           <span className="w-4 h-[1px] bg-amber-400/50" />
-          <span>Swipe to explore divisions</span>
+          <span>Swipe to explore all 3 houses</span>
           <span className="w-4 h-[1px] bg-amber-400/50" />
         </div>
 

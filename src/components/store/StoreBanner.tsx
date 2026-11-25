@@ -54,7 +54,7 @@ export function StoreBanner() {
             isLight ? "text-slate-600" : "text-gray-300"
           )}
         >
-          Where Italian tailoring mastery meets the alchemy of Grasse perfumery. Every piece is crafted with uncompromising devotion to noble raw materials.
+          Italian tailoring mastery, floral Grasse extraits, and horological craftsmanship united in one mixed catalog.
         </p>
       </div>
 
@@ -64,10 +64,10 @@ export function StoreBanner() {
           href="/store"
           className="px-4 sm:px-5 py-2.5 rounded-xl sm:rounded bg-amber-400 text-black text-[11px] sm:text-xs uppercase tracking-wider font-semibold hover:bg-amber-300 transition-colors shadow text-center"
         >
-          All Creations
+          All Items
         </Link>
         <Link
-          href="/store?category=clothings"
+          href="/clothings"
           className={cn(
             "px-4 sm:px-5 py-2.5 rounded-xl sm:rounded border text-[11px] sm:text-xs uppercase tracking-wider font-medium transition-all text-center",
             isLight
@@ -78,7 +78,7 @@ export function StoreBanner() {
           Clothings
         </Link>
         <Link
-          href="/store?category=perfume"
+          href="/perfume"
           className={cn(
             "px-4 sm:px-5 py-2.5 rounded-xl sm:rounded border text-[11px] sm:text-xs uppercase tracking-wider font-medium transition-all text-center",
             isLight
@@ -89,7 +89,7 @@ export function StoreBanner() {
           Perfume
         </Link>
         <Link
-          href="/scent-finder"
+          href="/watches"
           className={cn(
             "px-4 sm:px-5 py-2.5 rounded-xl sm:rounded border text-[11px] sm:text-xs uppercase tracking-wider font-medium transition-all text-center",
             isLight
@@ -97,7 +97,7 @@ export function StoreBanner() {
               : "bg-amber-500/10 hover:bg-amber-500/20 border-amber-500/30 text-amber-300"
           )}
         >
-          Scent Quiz
+          Watches
         </Link>
       </div>
     </div>

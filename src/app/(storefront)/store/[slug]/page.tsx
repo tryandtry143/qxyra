@@ -81,10 +81,13 @@ export default async function StoreProductDetailPage({ params }: ProductPageProp
   let catHref = '/store';
   if (product.categoryId === 'clothings') {
     catName = 'Clothings';
-    catHref = '/store?category=clothings';
+    catHref = '/clothings';
   } else if (product.categoryId === 'perfume') {
     catName = 'Perfume';
-    catHref = '/store?category=perfume';
+    catHref = '/perfume';
+  } else if (product.categoryId === 'watches') {
+    catName = 'Watches';
+    catHref = '/watches';
   }
 
   const productReviews = reviews.filter((r) => r.productId === product.id);

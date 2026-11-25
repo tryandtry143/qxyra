@@ -89,6 +89,63 @@
   scrollbar-width: none;
 }
 
+/* Signature Atmospheric Animations for Dedicated Luxury Category Pages */
+@keyframes petalDrift {
+  0% {
+    transform: translate3d(0, -10%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.72;
+  }
+  85% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translate3d(26px, 115%, 0) rotate(220deg);
+    opacity: 0;
+  }
+}
+
+@keyframes petalDriftReverse {
+  0% {
+    transform: translate3d(0, -10%, 0) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.65;
+  }
+  85% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(-28px, 115%, 0) rotate(-195deg);
+    opacity: 0;
+  }
+}
+
+@keyframes dialRotateSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-petal-1 {
+  animation: petalDrift 11s ease-in-out infinite;
+}
+.animate-petal-2 {
+  animation: petalDriftReverse 14s ease-in-out 2.5s infinite;
+}
+.animate-petal-3 {
+  animation: petalDrift 13s ease-in-out 5s infinite;
+}
+.animate-dial-slow {
+  animation: dialRotateSlow 60s linear infinite;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

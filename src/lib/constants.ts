@@ -1,7 +1,8 @@
 export const BRAND_NAME = 'QXYRA';
-export const BRAND_FULL_NAME = 'QXYRA Haute Couture & Artisanal Parfumerie';
-export const BRAND_TAGLINE = 'Luxury Clothings & Artisanal Perfumes';
-export const BRAND_DESCRIPTION = 'QXYRA is an ultra-premium luxury house uniting bespoke clothings (men\'s, women\'s, luxury hoodies, and designer tees) with rare artisanal perfumes.';
+export const BRAND_FULL_NAME = 'QXYRA Haute Couture, Parfumerie & Horlogerie';
+export const BRAND_TAGLINE = 'Luxury Clothings, Perfumes & Timepieces';
+export const BRAND_DESCRIPTION =
+  "QXYRA is an ultra-premium luxury house uniting bespoke clothings (men's, women's, luxury hoodies, and designer tees), rare artisanal perfumes, and precision timepieces.";
 
 export const CURRENCY_SYMBOL = '$';
 export const CURRENCY_LKR_SYMBOL = 'Rs.';
@@ -14,29 +15,48 @@ export const CATEGORIES = [
     name: 'Clothings',
     shortName: 'Clothings',
     tagline: 'Tailored Silhouettes & Luxury Apparel',
-    description: 'Men\'s tailoring, women\'s haute couture, 450gsm luxury heavyweight hoodies, and compact combed cotton t-shirts.',
-    href: '/store?category=clothings',
-    image: '/images/hero.jpg',
-    badge: 'Luxury Apparel',
+    description:
+      "Men's tailoring, women's haute couture, 450gsm luxury heavyweight hoodies, and compact combed cotton t-shirts.",
+    href: '/clothings',
+    image: '/images/clothings_editorial_banner.jpg',
+    badge: 'Haute Couture',
     subcategories: [
-      { id: 'mens', name: "Men's", href: '/store?category=clothings&sub=mens' },
-      { id: 'womens', name: "Women's", href: '/store?category=clothings&sub=womens' },
-      { id: 'hoodies', name: 'Hoodies', href: '/store?category=clothings&sub=hoodies' },
-      { id: 'tshirts', name: 'T-Shirts', href: '/store?category=clothings&sub=tshirts' },
+      { id: 'mens', name: "Men's", href: '/clothings?sub=mens' },
+      { id: 'womens', name: "Women's", href: '/clothings?sub=womens' },
+      { id: 'hoodies', name: 'Hoodies', href: '/clothings?sub=hoodies' },
+      { id: 'tshirts', name: 'T-Shirts', href: '/clothings?sub=tshirts' },
     ],
   },
   {
     id: 'perfume',
     name: 'Perfume',
     shortName: 'Perfumes',
-    tagline: 'Rare Olfactory Extraits & Artisanal Fragrances',
-    description: 'Distinctive artisanal scents crafted for men and women with rare botanicals and complimentary crystal flacon laser engraving.',
-    href: '/store?category=perfume',
-    image: '/images/perfume_flacon.jpg',
-    badge: 'Artisanal Perfumes',
+    tagline: 'Rare Olfactory Extraits & Botanical Elixirs',
+    description:
+      'Distinctive artisanal scents crafted in Grasse for men and women with Damascus rose petals, aged oud, and complimentary crystal flacon engraving.',
+    href: '/perfume',
+    image: '/images/perfume_floral_banner.jpg',
+    badge: 'Artisanal Extraits',
     subcategories: [
-      { id: 'mens', name: "Men's Perfume", href: '/store?category=perfume&sub=mens' },
-      { id: 'womens', name: "Women's Perfume", href: '/store?category=perfume&sub=womens' },
+      { id: 'mens', name: "Men's Perfume", href: '/perfume?sub=mens' },
+      { id: 'womens', name: "Women's Perfume", href: '/perfume?sub=womens' },
+    ],
+  },
+  {
+    id: 'watches',
+    name: 'Watches',
+    shortName: 'Watches',
+    tagline: 'Haute Horlogerie & Precision Timepieces',
+    description:
+      'Architectural mechanical, automatic, and chronograph timepieces forged in brushed 18K champagne gold tone, sapphire crystal, and titanium.',
+    href: '/watches',
+    image: '/images/watch_luxury.jpg',
+    badge: 'Haute Horlogerie',
+    subcategories: [
+      { id: 'mens', name: "Men's Watches", href: '/watches?sub=mens' },
+      { id: 'womens', name: "Women's Watches", href: '/watches?sub=womens' },
+      { id: 'automatic', name: 'Automatic', href: '/watches?sub=automatic' },
+      { id: 'chronograph', name: 'Chronograph', href: '/watches?sub=chronograph' },
     ],
   },
 ];
@@ -60,89 +80,121 @@ export const NAV_LINKS: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'Clothings',
-    href: '/store?category=clothings',
+    href: '/clothings',
     badge: 'Apparel',
     children: [
       {
-        label: "Men's",
-        href: '/store?category=clothings&sub=mens',
+        label: "Men's Couture",
+        href: '/clothings?sub=mens',
         description: 'Bespoke Italian virgin wool coats, structured silk blazers, and tailoring.',
       },
       {
-        label: "Women's",
-        href: '/store?category=clothings&sub=womens',
-        description: 'Fluid obsidian silk bias evening gowns and double-face cashmere cocoon coats.',
+        label: "Women's Couture",
+        href: '/clothings?sub=womens',
+        description: 'Fluid obsidian silk bias evening gowns and double-face cashmere coats.',
       },
       {
-        label: 'Hoodies',
-        href: '/store?category=clothings&sub=hoodies',
-        description: '450gsm heavyweight French Terry luxury hoodies with gold aglets and embossed crest.',
+        label: 'Luxury Hoodies',
+        href: '/clothings?sub=hoodies',
+        description: '450gsm heavyweight French Terry luxury hoodies with embossed crest.',
         badge: 'Trending',
       },
       {
-        label: 'T-Shirts',
-        href: '/store?category=clothings&sub=tshirts',
-        description: '280gsm compacted combed Egyptian cotton oversized luxury minimalist tees.',
+        label: 'Designer T-Shirts',
+        href: '/clothings?sub=tshirts',
+        description: '280gsm compacted combed Egyptian cotton oversized luxury tees.',
       },
     ],
   },
   {
     label: 'Perfume',
-    href: '/store?category=perfume',
+    href: '/perfume',
     badge: 'Extrait',
     children: [
       {
         label: "Men's Perfume",
-        href: '/store?category=perfume&sub=mens',
-        description: 'Smoky Cambodian Agarwood, Tuscan Leather, Cardamom, and Royal Mysore Sandalwood.',
+        href: '/perfume?sub=mens',
+        description: 'Smoky Cambodian Agarwood, Tuscan Leather, Cardamom, and Sandalwood.',
       },
       {
         label: "Women's Perfume",
-        href: '/store?category=perfume&sub=womens',
-        description: 'Grasse Damask Rose, Florentine Orris Butter, Madagascar Vanilla, and Bourbon Amber.',
+        href: '/perfume?sub=womens',
+        description: 'Grasse Damask Rose petals, Florentine Orris Butter, and Bourbon Amber.',
+      },
+      {
+        label: 'Scent Finder Quiz',
+        href: '/scent-finder',
+        description: '60-second bespoke olfactory consultation to find your signature elixir.',
+        badge: 'Interactive',
       },
     ],
   },
-  { label: 'Lookbook', href: '/store?view=lookbook' },
-  { label: 'Scent Finder', href: '/scent-finder' },
+  {
+    label: 'Watches',
+    href: '/watches',
+    badge: 'Horology',
+    children: [
+      {
+        label: "Men's Timepieces",
+        href: '/watches?sub=mens',
+        description: 'Bold architectural cases, brushed champagne bezels, and alligator straps.',
+      },
+      {
+        label: "Women's Timepieces",
+        href: '/watches?sub=womens',
+        description: 'Sculptural Slimline Mother-of-Pearl and golden link dress watches.',
+      },
+      {
+        label: 'Automatic Calibers',
+        href: '/watches?sub=automatic',
+        description: 'Self-winding mechanical movements visible through exhibition sapphire backs.',
+        badge: 'Heritage',
+      },
+      {
+        label: 'Chronographs',
+        href: '/watches?sub=chronograph',
+        description: 'Precision tachymeter chronographs crafted for timeless collectors.',
+      },
+    ],
+  },
+  { label: 'All Items', href: '/store' },
 ];
 
 export const FOOTER_LINKS = [
   {
     title: 'Clothings',
     links: [
-      { label: "Men's Clothings", href: '/store?category=clothings&sub=mens' },
-      { label: "Women's Clothings", href: '/store?category=clothings&sub=womens' },
-      { label: 'Luxury Hoodies', href: '/store?category=clothings&sub=hoodies' },
-      { label: 'Designer T-Shirts', href: '/store?category=clothings&sub=tshirts' },
-      { label: 'Autumn / Winter Lookbook', href: '/store?view=lookbook' },
+      { label: "Men's Clothings", href: '/clothings?sub=mens' },
+      { label: "Women's Clothings", href: '/clothings?sub=womens' },
+      { label: 'Luxury Hoodies', href: '/clothings?sub=hoodies' },
+      { label: 'Designer T-Shirts', href: '/clothings?sub=tshirts' },
     ],
   },
   {
     title: 'Perfume',
     links: [
-      { label: "Men's Perfume", href: '/store?category=perfume&sub=mens' },
-      { label: "Women's Perfume", href: '/store?category=perfume&sub=womens' },
+      { label: "Men's Perfume", href: '/perfume?sub=mens' },
+      { label: "Women's Perfume", href: '/perfume?sub=womens' },
       { label: 'The Scent Finder Quiz', href: '/scent-finder' },
-      { label: 'Complimentary Flacon Engraving', href: '/about#engraving' },
+      { label: 'Complimentary Engraving', href: '/perfume#engraving' },
     ],
   },
   {
-    title: 'The Maison QXYRA',
+    title: 'Watches',
     links: [
-      { label: 'Our Heritage & Philosophy', href: '/about' },
-      { label: 'Artisanal Craftsmanship', href: '/about#craftsmanship' },
-      { label: 'Bespoke Monogramming', href: '/about#engraving' },
+      { label: "Men's Timepieces", href: '/watches?sub=mens' },
+      { label: "Women's Timepieces", href: '/watches?sub=womens' },
+      { label: 'Automatic Calibers', href: '/watches?sub=automatic' },
+      { label: 'Luxury Chronographs', href: '/watches?sub=chronograph' },
+    ],
+  },
+  {
+    title: 'Client Care & Maison',
+    links: [
+      { label: 'All Collections', href: '/store' },
+      { label: 'Worldwide Delivery', href: '/shipping' },
+      { label: 'Returns & Exchanges', href: '/returns' },
       { label: 'Private Client Concierge', href: '/contact' },
-    ],
-  },
-  {
-    title: 'Client Care & Terms',
-    links: [
-      { label: 'Worldwide White-Glove Delivery', href: '/shipping' },
-      { label: 'Returns & Size Exchanges', href: '/returns' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Privacy Policy', href: '/privacy' },
     ],
   },
 ];

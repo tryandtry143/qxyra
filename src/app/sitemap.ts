@@ -2,40 +2,29 @@ import { MetadataRoute } from 'next';
 import { products, categories } from '@/lib/mock-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://methmimobilepvtltd.lk';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://qxyra.com';
   const currentDate = new Date().toISOString();
 
-  // Static core routes
   const staticRoutes = [
     '',
+    '/clothings',
+    '/perfume',
+    '/watches',
     '/store',
-    '/store/phones',
-    '/store/phones/apple',
-    '/store/phones/samsung',
-    '/store/phones/vivo',
-    '/store/phones/tecno-infinix',
-    '/store/phones/tecno',
-    '/store/phones/infinix',
-    '/store/phones/redmi',
-    '/store/accessories',
-    '/store/accessories/mobile',
-    '/store/accessories/computer',
-    '/store/fashion',
-    '/labs',
-    '/labs/software',
-    '/labs/solutions',
-    '/labs/quote',
-    '/deals',
+    '/scent-finder',
     '/about',
     '/contact',
+    '/shipping',
+    '/returns',
+    '/privacy',
+    '/terms',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: currentDate,
     changeFrequency: 'daily' as const,
-    priority: route === '' ? 1.0 : 0.8,
+    priority: route === '' ? 1.0 : 0.85,
   }));
 
-  // Dynamic product routes
   const productRoutes = products.map((product) => ({
     url: `${baseUrl}/store/${product.slug}`,
     lastModified: product.updatedAt || currentDate,
@@ -43,12 +32,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // Dynamic category routes
   const categoryRoutes = categories.map((category) => ({
-    url: `${baseUrl}/categories/${category.slug}`,
+    url: `${baseUrl}/${category.slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.7,
+    priority: 0.8,
   }));
 
   return [...staticRoutes, ...productRoutes, ...categoryRoutes];

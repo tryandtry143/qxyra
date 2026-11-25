@@ -28,18 +28,19 @@ const PerfumeIcon = ({ active }: { active: boolean }) => (
   </svg>
 );
 
+const WatchIcon = ({ active }: { active: boolean }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? "2" : "1.7"} strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="6" fill={active ? "currentColor" : "none"} fillOpacity={active ? "0.18" : "0"} />
+    <polyline points="12 9.5 12 12 13.8 13" />
+    <path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83" />
+  </svg>
+);
+
 const CartIcon = ({ active }: { active: boolean }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={active ? "currentColor" : "none"} stroke="currentColor" strokeWidth={active ? "1.6" : "1.7"} strokeLinecap="round" strokeLinejoin="round">
     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
     <line x1="3" y1="6" x2="21" y2="6" />
     <path d="M16 10a4 4 0 0 1-8 0" />
-  </svg>
-);
-
-const UserIcon = ({ active }: { active: boolean }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={active ? "currentColor" : "none"} stroke="currentColor" strokeWidth={active ? "1.6" : "1.7"} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
   </svg>
 );
 
@@ -66,15 +67,21 @@ function MobileBottomNavInner() {
     },
     {
       label: 'Clothings',
-      href: '/store?category=clothings',
-      active: pathname.startsWith('/store') && category === 'clothings',
+      href: '/clothings',
+      active: pathname === '/clothings' || (pathname.startsWith('/store') && category === 'clothings'),
       icon: (active: boolean) => <ClothingsIcon active={active} />,
     },
     {
       label: 'Perfume',
-      href: '/store?category=perfume',
-      active: (pathname.startsWith('/store') && category === 'perfume') || pathname === '/scent-finder',
+      href: '/perfume',
+      active: pathname === '/perfume' || (pathname.startsWith('/store') && category === 'perfume') || pathname === '/scent-finder',
       icon: (active: boolean) => <PerfumeIcon active={active} />,
+    },
+    {
+      label: 'Watches',
+      href: '/watches',
+      active: pathname === '/watches' || pathname === '/watch' || (pathname.startsWith('/store') && category === 'watches'),
+      icon: (active: boolean) => <WatchIcon active={active} />,
     },
     {
       label: 'Bag',
@@ -82,12 +89,6 @@ function MobileBottomNavInner() {
       active: pathname === '/cart',
       hasCount: true,
       icon: (active: boolean) => <CartIcon active={active} />,
-    },
-    {
-      label: 'Account',
-      href: '/account',
-      active: pathname.startsWith('/account'),
-      icon: (active: boolean) => <UserIcon active={active} />,
     },
   ];
 
@@ -134,7 +135,7 @@ function MobileBottomNavInner() {
               </div>
 
               {/* Micro Tracked Label */}
-              <span className="text-[9px] uppercase tracking-[0.1em] font-sans mt-1 leading-none">
+              <span className="text-[9px] uppercase tracking-[0.08em] font-sans mt-1 leading-none">
                 {item.label}
               </span>
             </Link>
