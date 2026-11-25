@@ -46,7 +46,7 @@ export function LabsShowcase() {
   const currentTier = notesData[activeNoteTier];
 
   return (
-    <section className="py-12 sm:py-20 lg:py-28 bg-[#06090F] border-b border-white/10 relative overflow-hidden text-white">
+    <section className="py-12 sm:py-20 lg:py-28 bg-[#06090F] border-b border-white/10 relative overflow-x-clip text-white">
       <div className="absolute top-1/3 -right-48 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 -left-48 w-96 h-96 bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
 
@@ -81,7 +81,7 @@ export function LabsShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-10 items-stretch">
           
           {/* LEFT: Scent Pyramid Explorer */}
-          <div className="lg:col-span-6 rounded-2xl bg-[#0B101A] border border-white/10 p-4 sm:p-8 flex flex-col justify-between">
+          <div className="min-w-0 lg:col-span-6 rounded-2xl bg-[#0B101A] border border-white/10 p-4 sm:p-8 flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-3.5 mb-5 border-b border-white/10">
                 <span className="text-[10px] sm:text-xs uppercase tracking-[0.18em] text-gray-400">Olfactory Pyramid</span>
@@ -160,7 +160,7 @@ export function LabsShowcase() {
           </div>
 
           {/* RIGHT: Studio Switcher */}
-          <div className="lg:col-span-6 flex flex-col justify-between space-y-3.5 sm:space-y-4">
+          <div className="min-w-0 lg:col-span-6 flex flex-col justify-between space-y-3.5 sm:space-y-4">
             
             {/* Studio Mode Selector Pills */}
             <div className="grid grid-cols-2 sm:inline-flex items-center gap-1.5 p-1 bg-[#090D15] rounded-xl border border-white/10 w-full sm:w-auto sm:self-start">
