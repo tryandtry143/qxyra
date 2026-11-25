@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { BRAND_NAME, BRAND_TAGLINE } from '@/lib/constants';
 import { GatewayHero } from '@/components/home/GatewayHero';
-import { ShopTheLook } from '@/components/home/ShopTheLook';
 import { StorePreview } from '@/components/home/StorePreview';
 import { LabsShowcase } from '@/components/home/LabsShowcase';
 import { BrandStory } from '@/components/home/BrandStory';
@@ -18,19 +17,16 @@ export default function HomePage() {
       {/* 1. Flagship Dual Division Split Hero */}
       <GatewayHero />
 
-      {/* 2. Interactive "Shop The Look" Editorial Hotspots */}
-      <ShopTheLook />
-
-      {/* 3. Store Collection Preview (Fashion & Haute Parfumerie) */}
+      {/* 2. Store Collection Preview (Fashion & Haute Parfumerie) */}
       <StorePreview />
 
-      {/* 4. Interactive Olfactory Atelier & Flacon Engraving Experience */}
+      {/* 3. Interactive Olfactory Atelier & Flacon Engraving Experience */}
       <LabsShowcase />
 
-      {/* 5. Brand Story & Craftsmanship Philosophy */}
+      {/* 4. Brand Story & Craftsmanship Philosophy */}
       <BrandStory />
 
-      {/* 6. Trust Badges & White-Glove Guarantees */}
+      {/* 5. Trust Badges & White-Glove Guarantees */}
       <TrustBadges />
     </div>
   );
