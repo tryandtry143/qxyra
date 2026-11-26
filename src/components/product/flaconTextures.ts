@@ -292,11 +292,11 @@ export function createLiquidVolumeCanvas(mood: FlaconMood): HTMLCanvasElement {
 
   const vGrad = ctx.createLinearGradient(0, 0, 0, 512);
   if (mood === 'amber') {
-    vGrad.addColorStop(0, '#5c2806');
-    vGrad.addColorStop(0.2, '#8b4108');
-    vGrad.addColorStop(0.55, '#c46a0d');
-    vGrad.addColorStop(0.85, '#8a3d07');
-    vGrad.addColorStop(1, '#4b1f03');
+    vGrad.addColorStop(0, '#6b3b07');
+    vGrad.addColorStop(0.22, '#9c590c');
+    vGrad.addColorStop(0.54, '#cf8819');
+    vGrad.addColorStop(0.84, '#914d09');
+    vGrad.addColorStop(1, '#592e04');
   } else {
     vGrad.addColorStop(0, '#0c1836');
     vGrad.addColorStop(0.25, '#172e66');
@@ -307,11 +307,11 @@ export function createLiquidVolumeCanvas(mood: FlaconMood): HTMLCanvasElement {
   ctx.fillStyle = vGrad;
   ctx.fillRect(0, 0, 512, 512);
 
-  // Luminous golden center heart glow
-  const core = ctx.createRadialGradient(256, 285, 24, 256, 285, 235);
+  // Luminous golden honey center heart glow
+  const core = ctx.createRadialGradient(256, 280, 24, 256, 280, 235);
   if (mood === 'amber') {
-    core.addColorStop(0, 'rgba(245, 168, 42, 0.72)');
-    core.addColorStop(0.55, 'rgba(180, 88, 12, 0.25)');
+    core.addColorStop(0, 'rgba(248, 190, 62, 0.72)');
+    core.addColorStop(0.55, 'rgba(196, 118, 22, 0.25)');
     core.addColorStop(1, 'rgba(0, 0, 0, 0)');
   } else {
     core.addColorStop(0, 'rgba(96, 165, 250, 0.55)');
@@ -344,20 +344,19 @@ export function createMarbleSlabCanvases(): {
 
   if (!ctx || !rCtx) return { colorCanvas, roughnessCanvas };
 
-  ctx.fillStyle = '#090b0f';
+  ctx.fillStyle = '#07080b';
   ctx.fillRect(0, 0, size, size);
 
-  rCtx.fillStyle = '#242424'; // Mirror-polished low roughness dark marble
+  rCtx.fillStyle = '#525252'; // Satin-honed dark marble so it stays deep obsidian black without blowing out glare
   rCtx.fillRect(0, 0, size, size);
 
-  // Subtle dark stone mineral variation
-  const stoneGlow = ctx.createRadialGradient(256, 256, 30, 256, 256, 280);
-  stoneGlow.addColorStop(0, 'rgba(28, 25, 22, 0.55)');
-  stoneGlow.addColorStop(1, 'rgba(6, 7, 10, 0)');
+  // Subtle dark charcoal clouding variation
+  const stoneGlow = ctx.createRadialGradient(256, 256, 40, 256, 256, 260);
+  stoneGlow.addColorStop(0, 'rgba(22, 24, 29, 0.5)');
+  stoneGlow.addColorStop(1, 'rgba(5, 6, 8, 0)');
   ctx.fillStyle = stoneGlow;
   ctx.fillRect(0, 0, size, size);
 
-  // Organic white & subtle warm gold diagonal calcite veins
   const drawVein = (
     points: [number, number][],
     color: string,
@@ -385,48 +384,60 @@ export function createMarbleSlabCanvases(): {
     rCtx.stroke();
   };
 
+  // Distinct crisp white & subtle warm quartz veins on black Nero Marquina stone
   drawVein(
     [
-      [15, 420],
-      [110, 355],
-      [185, 330],
-      [285, 255],
-      [390, 210],
-      [495, 130],
+      [15, 435],
+      [85, 385],
+      [165, 345],
+      [255, 295],
+      [330, 225],
+      [420, 175],
+      [498, 110],
     ],
-    'rgba(226, 232, 240, 0.36)',
-    2.2,
-    '#525252'
+    'rgba(241, 245, 249, 0.65)',
+    2.4,
+    '#6a6a6a'
   );
   drawVein(
     [
-      [185, 330],
-      [240, 395],
-      [330, 445],
-      [430, 495],
+      [165, 345],
+      [225, 400],
+      [310, 440],
+      [410, 495],
     ],
-    'rgba(226, 232, 240, 0.22)',
-    1.4,
-    '#444444'
+    'rgba(226, 232, 240, 0.48)',
+    1.5,
+    '#606060'
   );
   drawVein(
     [
-      [40, 145],
-      [140, 185],
-      [220, 175],
-      [355, 85],
-      [475, 45],
+      [30, 145],
+      [120, 178],
+      [215, 168],
+      [345, 88],
+      [475, 40],
     ],
-    'rgba(218, 175, 98, 0.24)',
-    1.6,
-    '#484848'
+    'rgba(228, 190, 118, 0.42)',
+    1.7,
+    '#606060'
+  );
+  drawVein(
+    [
+      [330, 225],
+      [385, 285],
+      [475, 325],
+    ],
+    'rgba(226, 232, 240, 0.35)',
+    1.2,
+    '#5c5c5c'
   );
 
   return { colorCanvas, roughnessCanvas };
 }
 
 /**
- * Soft optical glass caustic pool cast onto the marble around the flacon base.
+ * Subtle restrained optical caustic light glow right under the crystal bottle foot.
  */
 export function createCausticPoolCanvas(mood: FlaconMood): HTMLCanvasElement {
   const canvas = document.createElement('canvas');
@@ -436,16 +447,16 @@ export function createCausticPoolCanvas(mood: FlaconMood): HTMLCanvasElement {
   if (!ctx) return canvas;
 
   ctx.clearRect(0, 0, 512, 512);
-  const grad = ctx.createRadialGradient(256, 256, 28, 256, 256, 240);
+  const grad = ctx.createRadialGradient(256, 256, 24, 256, 256, 210);
   if (mood === 'amber') {
-    grad.addColorStop(0, 'rgba(245, 165, 35, 0.55)');
-    grad.addColorStop(0.35, 'rgba(217, 119, 6, 0.28)');
-    grad.addColorStop(0.7, 'rgba(146, 64, 14, 0.08)');
+    grad.addColorStop(0, 'rgba(235, 152, 32, 0.36)');
+    grad.addColorStop(0.42, 'rgba(180, 96, 14, 0.14)');
+    grad.addColorStop(0.75, 'rgba(120, 53, 15, 0.04)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
   } else {
-    grad.addColorStop(0, 'rgba(96, 165, 250, 0.45)');
-    grad.addColorStop(0.35, 'rgba(37, 99, 235, 0.22)');
-    grad.addColorStop(0.7, 'rgba(30, 58, 138, 0.06)');
+    grad.addColorStop(0, 'rgba(96, 165, 250, 0.3)');
+    grad.addColorStop(0.42, 'rgba(37, 99, 235, 0.12)');
+    grad.addColorStop(0.75, 'rgba(30, 58, 138, 0.03)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
   }
   ctx.fillStyle = grad;
@@ -456,8 +467,8 @@ export function createCausticPoolCanvas(mood: FlaconMood): HTMLCanvasElement {
 
 /**
  * Custom Dark Luxury Softbox Studio HDRI Environment via PMREMGenerator.
- * Eliminates the milky neutral gray reflections of RoomEnvironment so cut-crystal
- * shows razor-sharp specular highlights and deep glossy dark crystal contrast.
+ * Uses sleek thin light strips rather than large panels so cut crystal shows razor-sharp
+ * highlights instead of wide opaque mirror blocks.
  */
 export function createLuxuryStudioEnvTarget(
   THREE: typeof ThreeNS,
@@ -487,19 +498,19 @@ export function createLuxuryStudioEnvTarget(
     studioScene.add(mesh);
   };
 
-  // Tall crisp left & right photography strip softboxes -> vertical facet highlights
-  addSoftbox(2.2, 11.0, '#fff5e4', 5.2, [-8.5, 2.5, 5.5]);
-  addSoftbox(1.8, 11.0, mood === 'amber' ? '#ffd28a' : '#bfdbfe', 4.6, [8.5, 2.0, 5.0]);
+  // Thin crisp vertical studio strip softboxes -> natural photography rim edges
+  addSoftbox(0.85, 11.0, '#fff5e4', 4.6, [-8.5, 2.5, 5.5]);
+  addSoftbox(0.75, 11.0, mood === 'amber' ? '#ffd592' : '#bfdbfe', 4.0, [8.5, 2.0, 5.0]);
 
-  // Overhead diffused studio key hairlight -> illuminates 45° beveled shoulder & cap
-  addSoftbox(7.5, 4.0, '#fffaf0', 4.4, [0, 9.5, 2.0]);
+  // Subtle rim highlight angled from upper side
+  addSoftbox(4.5, 1.4, '#fffaf0', 3.4, [0, 8.5, 4.5]);
 
-  // Subtle rear amber/sapphire backlight bounce -> crystal edge refraction sparkle
-  addSoftbox(6.0, 8.0, mood === 'amber' ? '#e59a32' : '#3b82f6', 3.4, [0, 1.5, -8.5]);
+  // Warm rear translucent backlight glow -> illuminates honey/cognac oil core from behind
+  addSoftbox(5.0, 7.0, mood === 'amber' ? '#e59a32' : '#3b82f6', 2.6, [0, 1.0, -8.5]);
 
-  // Gentle side rim kicks
-  addSoftbox(1.2, 8.0, '#ffffff', 3.0, [-7.5, 0.5, -4.5]);
-  addSoftbox(1.2, 8.0, mood === 'amber' ? '#f5c26b' : '#93c5fd', 2.8, [7.5, 0.5, -4.5]);
+  // Narrow side kick rims
+  addSoftbox(0.65, 8.0, '#ffffff', 2.4, [-7.5, 0.5, -4.5]);
+  addSoftbox(0.65, 8.0, mood === 'amber' ? '#f5c26b' : '#93c5fd', 2.2, [7.5, 0.5, -4.5]);
 
   const pmrem = new THREE.PMREMGenerator(renderer);
   pmrem.compileEquirectangularShader();

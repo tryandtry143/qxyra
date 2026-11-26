@@ -137,19 +137,19 @@ export function FlaconViewer360({
         camera.lookAt(0, 0.18, 0);
 
         // Controlled Studio Key, Backlight Rim, and Caustic Core Lights
-        const keyLight = new THREE.DirectionalLight('#fff4de', 2.4);
+        const keyLight = new THREE.DirectionalLight('#fff4de', 1.65);
         keyLight.position.set(4.5, 6.0, 5.2);
         scene.add(keyLight);
 
-        const fillLight = new THREE.DirectionalLight('#ffd89c', 1.15);
+        const fillLight = new THREE.DirectionalLight('#ffd89c', 0.9);
         fillLight.position.set(-5.0, 2.0, 3.0);
         scene.add(fillLight);
 
-        const backWarmLight = new THREE.PointLight('#d97706', 16, 14);
+        const backWarmLight = new THREE.PointLight('#d98a1c', 12, 14);
         backWarmLight.position.set(0, 0.25, -3.2);
         scene.add(backWarmLight);
 
-        const rimTopLight = new THREE.SpotLight('#fff8eb', 28, 18, Math.PI / 4, 0.65);
+        const rimTopLight = new THREE.SpotLight('#fff8eb', 12, 18, Math.PI / 4, 0.75);
         rimTopLight.position.set(-2.5, 5.8, -2.5);
         scene.add(rimTopLight);
 
@@ -197,11 +197,11 @@ export function FlaconViewer360({
         const marbleMat = new THREE.MeshPhysicalMaterial({
           map: marbleMap,
           roughnessMap: marbleRoughMap,
-          roughness: 0.28,
-          metalness: 0.08,
-          clearcoat: 0.92,
-          clearcoatRoughness: 0.1,
-          envMapIntensity: 1.15,
+          roughness: 0.42,
+          metalness: 0.05,
+          clearcoat: 0.55,
+          clearcoatRoughness: 0.18,
+          envMapIntensity: 0.48,
         });
 
         const marbleEdgeMat = new THREE.MeshStandardMaterial({
@@ -238,11 +238,11 @@ export function FlaconViewer360({
         const causticMat = new THREE.MeshBasicMaterial({
           map: causticTex,
           transparent: true,
-          opacity: 0.85,
+          opacity: 0.48,
           blending: THREE.AdditiveBlending,
           depthWrite: false,
         });
-        const causticPlane = new THREE.Mesh(new THREE.PlaneGeometry(3.15, 2.15), causticMat);
+        const causticPlane = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 1.6), causticMat);
         causticPlane.rotation.x = -Math.PI / 2;
         causticPlane.position.y = -1.048;
         stageGroup.add(causticPlane);
@@ -263,13 +263,13 @@ export function FlaconViewer360({
           metalness: 0.0,
           ior: 1.56,
           thickness: 1.65,
-          specularIntensity: 1.0,
-          reflectivity: 1.0,
+          specularIntensity: 0.9,
+          reflectivity: 0.95,
           clearcoat: 1.0,
           clearcoatRoughness: 0.02,
           attenuationColor: new THREE.Color('#fff9ec'),
           attenuationDistance: 4.5,
-          envMapIntensity: 1.45,
+          envMapIntensity: 1.0,
         });
         const crystalMesh = new THREE.Mesh(crystalGeom, crystalMat);
         crystalMesh.renderOrder = 3;
@@ -283,15 +283,15 @@ export function FlaconViewer360({
         const liquidGeom = makeCrystalPrism(1.68, 0.74, 0.24, 1.18, 0.07, 0.07);
         const liquidMat = new THREE.MeshPhysicalMaterial({
           map: liquidTex,
-          color: '#d97706',
-          emissive: '#3a1400',
+          color: '#d98a1c',
+          emissive: '#3d1e04',
           emissiveIntensity: 0.14,
           transparent: false,
           roughness: 0.06,
           metalness: 0.02,
           clearcoat: 1.0,
           clearcoatRoughness: 0.05,
-          envMapIntensity: 1.15,
+          envMapIntensity: 1.0,
         });
         const liquidMesh = new THREE.Mesh(liquidGeom, liquidMat);
         liquidMesh.position.y = 0.02; // Base sits at -0.64 leaving crisp 0.38 solid crystal floor!
@@ -540,8 +540,8 @@ export function FlaconViewer360({
           lCtx?.drawImage(nextLiq, 0, 0);
           liquidTex.needsUpdate = true;
 
-          liquidMat.color.set(isAmber ? '#d97706' : '#1d4ed8');
-          liquidMat.emissive.set(isAmber ? '#3a1400' : '#0f172a');
+          liquidMat.color.set(isAmber ? '#d98a1c' : '#1d4ed8');
+          liquidMat.emissive.set(isAmber ? '#3d1e04' : '#0f172a');
           crystalMat.attenuationColor.set(isAmber ? '#fff9ec' : '#e0f2fe');
 
           brushedGoldMat.color.set(isAmber ? '#cbb178' : '#cbd5e1');
