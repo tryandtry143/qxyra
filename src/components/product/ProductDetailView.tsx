@@ -179,13 +179,13 @@ export function ProductDetailView({
             {/* Live Pricing */}
             <div
               className={cn(
-                "flex items-baseline gap-3 py-3 border-y",
+                "flex flex-wrap items-center gap-2.5 sm:gap-3 py-3 border-y",
                 isLight ? "border-gray-100" : "border-gray-800/80"
               )}
             >
               <span
                 className={cn(
-                  "text-3xl sm:text-4xl font-heading font-bold font-mono",
+                  "text-3xl sm:text-4xl font-heading font-bold font-mono whitespace-nowrap",
                   isLight ? "text-gray-950 font-black" : "text-white"
                 )}
               >
@@ -193,12 +193,12 @@ export function ProductDetailView({
               </span>
 
               {hasDiscount && (
-                <span className="text-base sm:text-lg text-gray-500 line-through font-mono">
+                <span className="text-base sm:text-lg text-gray-500 line-through font-mono whitespace-nowrap">
                   {formatProductPrice(product.basePrice, product.lkrPrice)}
                 </span>
               )}
 
-              <span className="bg-brand-gold/15 text-brand-gold border border-brand-gold/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ml-auto">
+              <span className="bg-brand-gold/15 text-brand-gold border border-brand-gold/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider sm:ml-auto whitespace-nowrap">
                 {product.warranty || 'Complimentary Gift Coffret'}
               </span>
             </div>
