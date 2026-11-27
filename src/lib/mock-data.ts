@@ -8,7 +8,7 @@ export const categories: Category[] = [
     description:
       'Bespoke tailoring, evening gowns, 450gsm heavyweight luxury hoodies, and compact combed cotton t-shirts.',
     image: '/images/clothings_editorial_banner.jpg',
-    productCount: 3,
+    productCount: 4,
     children: [
       {
         id: 'smartwatch',
@@ -17,7 +17,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 3,
+        productCount: 4,
       },
       {
         id: 'mens',
@@ -64,7 +64,7 @@ export const categories: Category[] = [
     description:
       'Rare olfactory extracts, 35-38% pure Extrait de Parfum concentration, distilled in Grasse with Damascus rose petals and custom engraving.',
     image: '/images/perfume_floral_banner.jpg',
-    productCount: 3,
+    productCount: 4,
     children: [
       {
         id: 'smartwatch',
@@ -73,7 +73,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 3,
+        productCount: 4,
       },
       {
         id: 'mens',
@@ -102,7 +102,7 @@ export const categories: Category[] = [
     description:
       'Precision mechanical, automatic, and chronograph timepieces sculpted with sapphire glass, architectural cases, and heirloom straps.',
     image: '/images/watch_luxury.jpg',
-    productCount: 3,
+    productCount: 4,
     children: [
       {
         id: 'smartwatch',
@@ -111,7 +111,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 3,
+        productCount: 4,
       },
       {
         id: 'mens',
@@ -154,6 +154,110 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
+  {
+    id: 'sk37-smart-watch',
+    name: 'SK37 Smart Watch',
+    slug: 'sk37-smart-watch',
+    brand: 'Maison QXYRA Curated · SK37 Series',
+    warranty: '1-Year Hardware Warranty',
+    seoTitle: 'SK37 Smart Watch Price in Sri Lanka (Rs. 7,950) | Black & Silver | Maison QXYRA',
+    seoDescription:
+      'Buy the SK37 Smart Watch at Maison QXYRA Sri Lanka for Rs. 7,950 with 1 Year Warranty. Round HD Always-On display, 3D rotating crown, Bluetooth 5.3 calling, heart rate & SpO2 monitoring, NFC support, and wireless charging in Matte Black and Brushed Silver.',
+    seoKeywords: [
+      'SK37 Smart Watch',
+      'SK37 Smart Watch price in Sri Lanka',
+      'SK37 smartwatch Rs 7950',
+      'GT3 SK37 smart watch Black Silver',
+      'Bluetooth calling watch 1 year warranty',
+      'Stainless steel smartwatch Sri Lanka',
+      'Maison QXYRA watches',
+    ],
+    description:
+      'Designed around a timeless circular tachymeter bezel and 3-link metallic bracelet, the SK37 Smart Watch features a vibrant round HD display with Always-On mode, a responsive 3D rotating crown, and warm rose-gold dial detailing. Answer Bluetooth calls directly from your wrist using the integrated microphone and speaker, track real-time heart rate, SpO2 blood oxygen, sleep stages, and multi-sport workouts, and enjoy daily IP67/IP68 splash resistance with effortless wireless magnetic charging. Available in Matte Black and Brushed Silver, complete with a 1-Year Hardware Warranty.',
+    basePrice: 24.06,
+    lkrPrice: 7950,
+    categoryId: 'watches',
+    subcategoryId: 'smartwatch',
+    gender: 'Unisex',
+    rating: 4.9,
+    totalSold: 0,
+    isActive: true,
+    isFeatured: true,
+    specsHighlights: [
+      'Round HD Display',
+      'Rotating 3D Crown',
+      'Bluetooth Calling',
+      'Heart Rate & SpO2',
+      'Wireless Charging',
+      '1-Year Warranty',
+    ],
+    technicalSpecs: [
+      { label: 'Model', value: 'SK37 Smart Watch (Steel-Link Edition)' },
+      { label: 'Display', value: '~1.53" Round HD Full-Touch Display (360 × 360 px) · Always-On Mode' },
+      { label: 'Case & Controls', value: 'Round Alloy Bezel · 3D Rotating Crown + Quick Sport Button' },
+      { label: 'Finishes', value: 'Matte Black Steel-Link & Brushed Silver Steel-Link Editions' },
+      { label: 'Bluetooth Calling', value: 'BT 3.0 & BLE 5.3 · Built-in Microphone, Speaker & Message Alerts' },
+      { label: 'Health Tracking', value: '24/7 Heart Rate, SpO2 Blood Oxygen, Sleep & Sedentary Monitoring' },
+      { label: 'Smart Features', value: 'Multi-Sport Modes, NFC Support, AI Voice Assistant & Weather' },
+      { label: 'Battery & Charge', value: '315–450 mAh Polymer Battery · 3–7 Days Typical Use · Wireless Charger' },
+      { label: 'Water Resistance', value: 'IP67 / IP68 Daily Splash & Sweat Resistant' },
+      { label: 'Warranty', value: '1-Year Hardware Warranty Included' },
+    ],
+    colorOptions: [
+      {
+        name: 'Black',
+        hex: '#141518',
+        image: '/images/products/sk37-smart-watch-black.jpg',
+      },
+      {
+        name: 'Silver',
+        hex: '#C8CDD3',
+        image: '/images/products/sk37-smart-watch-silver.jpg',
+      },
+    ],
+    images: [
+      {
+        id: 'sk37-img-1',
+        productId: 'sk37-smart-watch',
+        url: '/images/products/sk37-smart-watch-black.jpg',
+        alt: 'SK37 Smart Watch in Matte Black metallic bracelet with rose-gold dial accents',
+        isPrimary: true,
+        sortOrder: 0,
+      },
+      {
+        id: 'sk37-img-2',
+        productId: 'sk37-smart-watch',
+        url: '/images/products/sk37-smart-watch-silver.jpg',
+        alt: 'SK37 Smart Watch in Brushed Silver metallic bracelet with black tachymeter bezel',
+        isPrimary: false,
+        sortOrder: 1,
+      },
+    ],
+    variants: [
+      {
+        id: 'sk37-black',
+        productId: 'sk37-smart-watch',
+        color: 'Black',
+        size: 'Black Steel-Link Bracelet',
+        price: 24.06,
+        lkrPrice: 7950,
+        stock: 15,
+        sku: 'QXYRA-SK37-BLK',
+      },
+      {
+        id: 'sk37-silver',
+        productId: 'sk37-smart-watch',
+        color: 'Silver',
+        size: 'Silver Steel-Link Bracelet',
+        price: 24.06,
+        lkrPrice: 7950,
+        stock: 15,
+        sku: 'QXYRA-SK37-SLV',
+      },
+    ],
+    createdAt: '2026-11-27T15:10:00.000Z',
+    updatedAt: '2026-11-27T15:10:00.000Z',
+  },
   {
     id: 'sk27-smart-watch',
     name: 'SK27 Smart Watch',
