@@ -167,12 +167,14 @@ export function VariantSelector({
         </div>
       )}
 
-      {/* Storage / RAM Selection */}
+      {/* Edition / Size / Storage Selection */}
       {sizes.length > 0 && (
         <div className="flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <span className="font-heading font-medium text-xs sm:text-sm tracking-wider uppercase text-gray-400">
-              Storage &amp; Memory:
+              {sizes.some((s) => /\b(GB|TB)\b/i.test(s))
+                ? 'Storage & Memory:'
+                : 'Edition / Size:'}
             </span>
             <span className={cn(
               "font-mono text-xs font-semibold px-2.5 py-0.5 rounded-full border",

@@ -8,7 +8,7 @@ export const categories: Category[] = [
     description:
       'Bespoke tailoring, evening gowns, 450gsm heavyweight luxury hoodies, and compact combed cotton t-shirts.',
     image: '/images/clothings_editorial_banner.jpg',
-    productCount: 1,
+    productCount: 2,
     children: [
       {
         id: 'smartwatch',
@@ -17,7 +17,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 1,
+        productCount: 2,
       },
       {
         id: 'mens',
@@ -64,7 +64,7 @@ export const categories: Category[] = [
     description:
       'Rare olfactory extracts, 35-38% pure Extrait de Parfum concentration, distilled in Grasse with Damascus rose petals and custom engraving.',
     image: '/images/perfume_floral_banner.jpg',
-    productCount: 1,
+    productCount: 2,
     children: [
       {
         id: 'smartwatch',
@@ -73,7 +73,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 1,
+        productCount: 2,
       },
       {
         id: 'mens',
@@ -102,7 +102,7 @@ export const categories: Category[] = [
     description:
       'Precision mechanical, automatic, and chronograph timepieces sculpted with sapphire glass, architectural cases, and heirloom straps.',
     image: '/images/watch_luxury.jpg',
-    productCount: 1,
+    productCount: 2,
     children: [
       {
         id: 'smartwatch',
@@ -111,7 +111,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 1,
+        productCount: 2,
       },
       {
         id: 'mens',
@@ -154,6 +154,110 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
+  {
+    id: 'h4-pro-max-smart-watch',
+    name: 'H4 Pro Max Smart Watch',
+    slug: 'h4-pro-max-smart-watch',
+    brand: 'Maison QXYRA Curated · H4 Pro Max',
+    warranty: '1-Year Hardware Warranty',
+    seoTitle: 'H4 Pro Max Smart Watch Price in Sri Lanka (Rs. 9,100) | Maison QXYRA',
+    seoDescription:
+      'Buy the H4 Pro Max Smart Watch at Maison QXYRA Sri Lanka for Rs. 9,100 with 1 Year Warranty. Round HD full-touch display with rotating crown, skeleton chronograph dials, Bluetooth calling with built-in mic & speaker, heart rate & SpO2 monitoring, 290mAh wireless charging, and IP68 splash resistance in Black and Silver.',
+    seoKeywords: [
+      'H4 Pro Max Smart Watch',
+      'H4 Pro Max Smart Watch price in Sri Lanka',
+      'H4 Pro Max Smartwatch Rs 9100',
+      'Round luxury smartwatch Sri Lanka',
+      'Bluetooth calling watch Black Silver',
+      '1 year warranty smartwatch Sri Lanka',
+      'Maison QXYRA watches',
+    ],
+    description:
+      'Commanding the wrist with an octagonal architectural silhouette inspired by classic haute horlogerie, the H4 Pro Max Smart Watch pairs a round HD full-touch display and tactile rotating crown with everyday smart connectivity. Answer or dial calls via Bluetooth directly from your wrist with the built-in microphone and speaker, monitor heart rate, blood oxygen (SpO2), sleep cycles, and multi-sport workouts, and power through days effortlessly with a 290 mAh polymer battery and wireless charging. Available in matte Black silicone strap and brushed Silver steel-link bezel editions, backed by IP68 daily splash resistance and a 1-Year Hardware Warranty.',
+    basePrice: 27.54,
+    lkrPrice: 9100,
+    categoryId: 'watches',
+    subcategoryId: 'smartwatch',
+    gender: 'Unisex',
+    rating: 4.9,
+    totalSold: 0,
+    isActive: true,
+    isFeatured: true,
+    specsHighlights: [
+      'Round HD Touch',
+      'Rotating Crown',
+      'Bluetooth Calling',
+      '290mAh Wireless',
+      'Heart Rate & SpO2',
+      '1-Year Warranty',
+    ],
+    technicalSpecs: [
+      { label: 'Model', value: 'H4 Pro Max Smart Watch' },
+      { label: 'Display', value: 'Round Full-Touch HD Display · Mechanical & Dynamic Dials' },
+      { label: 'Bezel & Controls', value: 'Architectural Octagonal Zinc-Alloy Bezel · Rotating Crown + Side Button' },
+      { label: 'Bluetooth Calling', value: 'Bluetooth Voice Calling · Built-in Microphone & Speaker + App Alerts' },
+      { label: 'Health Tracking', value: '24/7 Heart Rate, SpO2 Blood Oxygen, Sleep Analysis & Multi-Sport Modes' },
+      { label: 'Finishes & Straps', value: 'Black (Silicone Sport Strap) & Silver (Metallic Tachymeter Steel-Link Band)' },
+      { label: 'Battery & Charge', value: '290 mAh Polymer Battery · 3–7 Days Typical Use · Wireless Charging' },
+      { label: 'Water Resistance', value: 'IP68 Daily Sweat & Splash Resistant' },
+      { label: 'Compatibility', value: 'Android 5.0+ & iOS 9.0+' },
+      { label: 'Warranty', value: '1-Year Hardware Warranty Included' },
+    ],
+    colorOptions: [
+      {
+        name: 'Black',
+        hex: '#141518',
+        image: '/images/products/h4-pro-max-smart-watch-black.jpg',
+      },
+      {
+        name: 'Silver',
+        hex: '#C8CDD3',
+        image: '/images/products/h4-pro-max-smart-watch-silver.jpg',
+      },
+    ],
+    images: [
+      {
+        id: 'h4-promax-img-1',
+        productId: 'h4-pro-max-smart-watch',
+        url: '/images/products/h4-pro-max-smart-watch-black.jpg',
+        alt: 'H4 Pro Max Smart Watch in Matte Black octagonal case with mechanical skeleton dial',
+        isPrimary: true,
+        sortOrder: 0,
+      },
+      {
+        id: 'h4-promax-img-2',
+        productId: 'h4-pro-max-smart-watch',
+        url: '/images/products/h4-pro-max-smart-watch-silver.jpg',
+        alt: 'H4 Pro Max Smart Watch in Brushed Silver with tachymeter bezel and metal link strap',
+        isPrimary: false,
+        sortOrder: 1,
+      },
+    ],
+    variants: [
+      {
+        id: 'h4-pro-max-black',
+        productId: 'h4-pro-max-smart-watch',
+        color: 'Black',
+        size: 'Silicone Sport Strap',
+        price: 27.54,
+        lkrPrice: 9100,
+        stock: 15,
+        sku: 'QXYRA-H4PM-BLK',
+      },
+      {
+        id: 'h4-pro-max-silver',
+        productId: 'h4-pro-max-smart-watch',
+        color: 'Silver',
+        size: 'Stainless Steel-Link Strap',
+        price: 27.54,
+        lkrPrice: 9100,
+        stock: 15,
+        sku: 'QXYRA-H4PM-SLV',
+      },
+    ],
+    createdAt: '2026-11-27T14:30:00.000Z',
+    updatedAt: '2026-11-27T14:30:00.000Z',
+  },
   {
     id: 'gw11-mini-smart-watch',
     name: 'GW11 Mini Smart Watch',
