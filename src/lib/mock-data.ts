@@ -8,7 +8,7 @@ export const categories: Category[] = [
     description:
       'Bespoke tailoring, evening gowns, 450gsm heavyweight luxury hoodies, and compact combed cotton t-shirts.',
     image: '/images/clothings_editorial_banner.jpg',
-    productCount: 2,
+    productCount: 3,
     children: [
       {
         id: 'smartwatch',
@@ -17,7 +17,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 2,
+        productCount: 3,
       },
       {
         id: 'mens',
@@ -64,7 +64,7 @@ export const categories: Category[] = [
     description:
       'Rare olfactory extracts, 35-38% pure Extrait de Parfum concentration, distilled in Grasse with Damascus rose petals and custom engraving.',
     image: '/images/perfume_floral_banner.jpg',
-    productCount: 2,
+    productCount: 3,
     children: [
       {
         id: 'smartwatch',
@@ -73,7 +73,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 2,
+        productCount: 3,
       },
       {
         id: 'mens',
@@ -102,7 +102,7 @@ export const categories: Category[] = [
     description:
       'Precision mechanical, automatic, and chronograph timepieces sculpted with sapphire glass, architectural cases, and heirloom straps.',
     image: '/images/watch_luxury.jpg',
-    productCount: 2,
+    productCount: 3,
     children: [
       {
         id: 'smartwatch',
@@ -111,7 +111,7 @@ export const categories: Category[] = [
         parentId: 'watches',
         description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
         image: '/images/products/gw11-mini-smart-watch-black.jpg',
-        productCount: 2,
+        productCount: 3,
       },
       {
         id: 'mens',
@@ -154,6 +154,87 @@ export const categories: Category[] = [
 ];
 
 export const products: Product[] = [
+  {
+    id: 'sk27-smart-watch',
+    name: 'SK27 Smart Watch',
+    slug: 'sk27-smart-watch',
+    brand: 'Maison QXYRA Curated · SK27 Series',
+    warranty: '1-Year Hardware Warranty',
+    seoTitle: 'SK27 Smart Watch Price in Sri Lanka (Rs. 11,800) | Silver | Maison QXYRA',
+    seoDescription:
+      'Shop the SK27 Smart Watch in Brushed Silver at Maison QXYRA Sri Lanka for Rs. 11,800 with 1 Year Warranty. High-resolution 466 × 466 circular full-touch display, metal bezel with rotating crown & pushers, Bluetooth calling, 100+ sport modes, SpO2 & heart rate tracking, and IP68 water resistance.',
+    seoKeywords: [
+      'SK27 Smart Watch',
+      'SK27 Smart Watch price in Sri Lanka',
+      'SK27 Silver smartwatch Rs 11800',
+      'Stainless steel smartwatch Sri Lanka',
+      '466x466 HD round smartwatch',
+      'Bluetooth calling watch 1 year warranty',
+      'Maison QXYRA watches',
+    ],
+    description:
+      'Finished in brushed Silver with a sculpted 3-link steel bracelet and architectural circular bezel, the SK27 Smart Watch delivers flagship wrist presence with a crisp 466 × 466 HD circular full-touch display. Effortlessly handle Bluetooth calls via the built-in microphone and speaker, navigate chronograph-inspired faces with the tactile rotating crown and dual side pushers, monitor 24/7 heart rate, blood oxygen (SpO2), sleep cycles, and 100+ fitness modes, and enjoy daily IP68 water resistance powered by a high-capacity battery with wireless magnetic charging. Backed by a 1-Year Hardware Warranty.',
+    basePrice: 35.71,
+    lkrPrice: 11800,
+    categoryId: 'watches',
+    subcategoryId: 'smartwatch',
+    gender: 'Men',
+    rating: 4.9,
+    totalSold: 0,
+    isActive: true,
+    isFeatured: true,
+    specsHighlights: [
+      '466 × 466 HD Dial',
+      'Brushed Silver Steel',
+      'Bluetooth Calling',
+      '100+ Sport Modes',
+      'IP68 Water-Resistant',
+      '1-Year Warranty',
+    ],
+    technicalSpecs: [
+      { label: 'Model', value: 'SK27 Smart Watch (Brushed Silver Edition)' },
+      { label: 'Display', value: '1.52"–1.58" Circular HD Full-Touch Screen (466 × 466 px)' },
+      { label: 'Case & Controls', value: 'Circular Metal Bezel · Fluted Rotating Crown + Dual Push Buttons' },
+      { label: 'Strap Style', value: 'Brushed Silver 3-Link Stainless-Steel Style Bracelet' },
+      { label: 'Bluetooth Calling', value: 'Bluetooth BLE 5.1 / 5.2 · Built-in Mic, Speaker & Social Alerts' },
+      { label: 'Health & Sports', value: 'Heart Rate, SpO2, Sleep Tracking & 100+ Multi-Sport Modes' },
+      { label: 'Smart Features', value: 'NFC Access Control, Outdoor Compass, AI Voice Assistant & Music' },
+      { label: 'Battery & Charge', value: '300–400 mAh Polymer Battery · Magnetic Wireless Charging' },
+      { label: 'Water Resistance', value: 'IP68 Daily Dust & Splash Resistance' },
+      { label: 'Warranty', value: '1-Year Hardware Warranty Included' },
+    ],
+    colorOptions: [
+      {
+        name: 'Silver',
+        hex: '#C8CDD3',
+        image: '/images/products/sk27-smart-watch-silver.jpg',
+      },
+    ],
+    images: [
+      {
+        id: 'sk27-img-1',
+        productId: 'sk27-smart-watch',
+        url: '/images/products/sk27-smart-watch-silver.jpg',
+        alt: 'SK27 Smart Watch in Brushed Silver with 3-link steel strap and chronograph dial',
+        isPrimary: true,
+        sortOrder: 0,
+      },
+    ],
+    variants: [
+      {
+        id: 'sk27-silver',
+        productId: 'sk27-smart-watch',
+        color: 'Silver',
+        size: 'Brushed Steel Link Bracelet',
+        price: 35.71,
+        lkrPrice: 11800,
+        stock: 15,
+        sku: 'QXYRA-SK27-SLV',
+      },
+    ],
+    createdAt: '2026-11-27T14:50:00.000Z',
+    updatedAt: '2026-11-27T14:50:00.000Z',
+  },
   {
     id: 'h4-pro-max-smart-watch',
     name: 'H4 Pro Max Smart Watch',
