@@ -8,8 +8,17 @@ export const categories: Category[] = [
     description:
       'Bespoke tailoring, evening gowns, 450gsm heavyweight luxury hoodies, and compact combed cotton t-shirts.',
     image: '/images/clothings_editorial_banner.jpg',
-    productCount: 0,
+    productCount: 1,
     children: [
+      {
+        id: 'smartwatch',
+        name: 'Smartwatches',
+        slug: 'smartwatch',
+        parentId: 'watches',
+        description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
+        image: '/images/products/gw11-mini-smart-watch-black.jpg',
+        productCount: 1,
+      },
       {
         id: 'mens',
         name: "Men's",
@@ -55,8 +64,17 @@ export const categories: Category[] = [
     description:
       'Rare olfactory extracts, 35-38% pure Extrait de Parfum concentration, distilled in Grasse with Damascus rose petals and custom engraving.',
     image: '/images/perfume_floral_banner.jpg',
-    productCount: 0,
+    productCount: 1,
     children: [
+      {
+        id: 'smartwatch',
+        name: 'Smartwatches',
+        slug: 'smartwatch',
+        parentId: 'watches',
+        description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
+        image: '/images/products/gw11-mini-smart-watch-black.jpg',
+        productCount: 1,
+      },
       {
         id: 'mens',
         name: "Men's Perfume",
@@ -84,8 +102,17 @@ export const categories: Category[] = [
     description:
       'Precision mechanical, automatic, and chronograph timepieces sculpted with sapphire glass, architectural cases, and heirloom straps.',
     image: '/images/watch_luxury.jpg',
-    productCount: 0,
+    productCount: 1,
     children: [
+      {
+        id: 'smartwatch',
+        name: 'Smartwatches',
+        slug: 'smartwatch',
+        parentId: 'watches',
+        description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
+        image: '/images/products/gw11-mini-smart-watch-black.jpg',
+        productCount: 1,
+      },
       {
         id: 'mens',
         name: "Men's Watches",
@@ -126,6 +153,126 @@ export const categories: Category[] = [
   },
 ];
 
-export const products: Product[] = [];
+export const products: Product[] = [
+  {
+    id: 'gw11-mini-smart-watch',
+    name: 'GW11 Mini Smart Watch',
+    slug: 'gw11-mini-smart-watch',
+    brand: 'Maison QXYRA Curated · GW11 Mini',
+    warranty: '1-Year Hardware Warranty',
+    seoTitle: 'GW11 Mini Smart Watch Price in Sri Lanka (Rs. 7,999) | Maison QXYRA',
+    seoDescription:
+      'Shop the GW11 Mini Smart Watch at Maison QXYRA Sri Lanka for Rs. 7,999 with 1 Year Warranty. Compact 1.75" HD touch display, Bluetooth calling with built-in mic & speaker, 24/7 heart rate & SpO2 monitoring, multi-sport fitness tracking, IP67 splash resistance, and wireless charging in Black, Pink, and Silver.',
+    seoKeywords: [
+      'GW11 Mini Smart Watch',
+      'GW11 Mini Smart Watch Sri Lanka',
+      'GW11 Mini Smartwatch price',
+      'Bluetooth calling smartwatch Rs 7999',
+      'Mini smart watch Black Pink Silver',
+      '1 year warranty smart watch Sri Lanka',
+      'Maison QXYRA watches',
+    ],
+    description:
+      'Designed with a refined compact profile ideal for slimmer wrists and everyday sophistication, the GW11 Mini Smart Watch unites a crisp 1.75-inch HD color touch display (240 × 296 px) with a precision CNC zinc-alloy frame. Stay effortlessly connected with Bluetooth 5.3 voice calling via its integrated microphone and speaker, track real-time heart rate, SpO2 blood oxygen, sleep stages, and daily multi-sport activity through the DaFit app, and recharge cable-free on its wireless charging dock. Available in Black, Pink, and Silver with quick-release silicone bands, IP67 daily splash resistance, and a 1-Year Hardware Warranty.',
+    basePrice: 24.21,
+    lkrPrice: 7999,
+    categoryId: 'watches',
+    subcategoryId: 'smartwatch',
+    gender: 'Unisex',
+    rating: 4.9,
+    totalSold: 0,
+    isActive: true,
+    isFeatured: true,
+    specsHighlights: [
+      '1.75" HD Display',
+      'Bluetooth Calling',
+      'Heart Rate & SpO2',
+      'Wireless Charging',
+      'IP67 Splash Proof',
+      '1-Year Warranty',
+    ],
+    technicalSpecs: [
+      { label: 'Model', value: 'GW11 Mini Smart Watch' },
+      { label: 'Display', value: '1.75" TFT HD Touch Screen (240 × 296 px)' },
+      { label: 'Case Material', value: 'CNC-Processed Zinc Alloy Body with Rotating Crown' },
+      { label: 'Bluetooth Calling', value: 'BT 3.0 & BLE 5.3 · Built-in Microphone & Speaker' },
+      { label: 'Health Tracking', value: 'Heart Rate (VC30F), Blood Oxygen (SpO2), Sleep & Steps' },
+      { label: 'Colors Available', value: 'Black, Pink, Silver (Quick-Release Silicone Straps)' },
+      { label: 'Battery & Charge', value: '225 mAh Polymer Battery · Magnetic Wireless Charger' },
+      { label: 'Water Resistance', value: 'IP67 Sweat & Light Rain Resistant' },
+      { label: 'App & System', value: 'DaFit App · Android 5.0+ & iOS 10.0+' },
+      { label: 'Warranty', value: '1-Year Hardware Warranty Included' },
+    ],
+    colorOptions: [
+      {
+        name: 'Black',
+        hex: '#141518',
+        image: '/images/products/gw11-mini-smart-watch-black.jpg',
+      },
+      {
+        name: 'Pink',
+        hex: '#F4B6C2',
+        image: '/images/products/gw11-mini-smart-watch-straps.webp',
+      },
+      {
+        name: 'Silver',
+        hex: '#C8CDD3',
+        image: '/images/products/gw11-mini-smart-watch-black.jpg',
+      },
+    ],
+    images: [
+      {
+        id: 'gw11-mini-img-1',
+        productId: 'gw11-mini-smart-watch',
+        url: '/images/products/gw11-mini-smart-watch-black.jpg',
+        alt: 'GW11 Mini Smart Watch in Midnight Black with rotating digital crown',
+        isPrimary: true,
+        sortOrder: 0,
+      },
+      {
+        id: 'gw11-mini-img-2',
+        productId: 'gw11-mini-smart-watch',
+        url: '/images/products/gw11-mini-smart-watch-straps.webp',
+        alt: 'GW11 Mini Smart Watch interchangeable Pink and alternate silicone straps',
+        isPrimary: false,
+        sortOrder: 1,
+      },
+    ],
+    variants: [
+      {
+        id: 'gw11-mini-black',
+        productId: 'gw11-mini-smart-watch',
+        color: 'Black',
+        size: 'One Size · Quick-Release Strap',
+        price: 24.21,
+        lkrPrice: 7999,
+        stock: 15,
+        sku: 'QXYRA-GW11M-BLK',
+      },
+      {
+        id: 'gw11-mini-pink',
+        productId: 'gw11-mini-smart-watch',
+        color: 'Pink',
+        size: 'One Size · Quick-Release Strap',
+        price: 24.21,
+        lkrPrice: 7999,
+        stock: 15,
+        sku: 'QXYRA-GW11M-PNK',
+      },
+      {
+        id: 'gw11-mini-silver',
+        productId: 'gw11-mini-smart-watch',
+        color: 'Silver',
+        size: 'One Size · Quick-Release Strap',
+        price: 24.21,
+        lkrPrice: 7999,
+        stock: 15,
+        sku: 'QXYRA-GW11M-SLV',
+      },
+    ],
+    createdAt: '2026-11-27T13:55:00.000Z',
+    updatedAt: '2026-11-27T13:55:00.000Z',
+  },
+];
 
 export const reviews: Review[] = [];

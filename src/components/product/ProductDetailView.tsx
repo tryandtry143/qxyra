@@ -27,7 +27,7 @@ export function ProductDetailView({
   );
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  const { format } = useCurrency();
+  const { formatProductPrice } = useCurrency();
   const { theme } = useTheme();
   const isLight = theme === 'light';
 
@@ -79,6 +79,9 @@ export function ProductDetailView({
 
   const currentPrice = selectedVariant?.price || product.salePrice || product.basePrice;
   const hasDiscount = product.salePrice != null && product.salePrice < product.basePrice;
+  const currentLkrPrice =
+    selectedVariant?.lkrPrice ??
+    (hasDiscount ? (product.lkrSalePrice ?? product.lkrPrice) : product.lkrPrice);
 
   return (
     <div className="w-full">
@@ -186,17 +189,17 @@ export function ProductDetailView({
                   isLight ? "text-gray-950 font-black" : "text-white"
                 )}
               >
-                {format(currentPrice)}
+                {formatProductPrice(currentPrice, currentLkrPrice)}
               </span>
 
               {hasDiscount && (
                 <span className="text-base sm:text-lg text-gray-500 line-through font-mono">
-                  {format(product.basePrice)}
+                  {formatProductPrice(product.basePrice, product.lkrPrice)}
                 </span>
               )}
 
               <span className="bg-brand-gold/15 text-brand-gold border border-brand-gold/30 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider ml-auto">
-                Complimentary Gift Coffret
+                {product.warranty || 'Complimentary Gift Coffret'}
               </span>
             </div>
 
@@ -221,18 +224,20 @@ export function ProductDetailView({
             </div>
           </div>
 
-          {/* Official TRCSL & Company Warranty Badges */}
+          {/* Maison Quality & Warranty Badges */}
           <div className={cn("pt-6 border-t", isLight ? "border-gray-100" : "border-gray-800/80")}>
-            <TrustBadges />
+            <TrustBadges warranty={product.warranty} />
           </div>
         </div>
       </div>
 
-      {/* Frequently Bought Together Bundle */}
-      <FrequentlyBoughtTogether
-        product={product}
-        selectedVariant={selectedVariant}
-      />
+      {/* Frequently Bought Together Bundle (Phone accessories only) */}
+      {product.categoryId === 'phones' && (
+        <FrequentlyBoughtTogether
+          product={product}
+          selectedVariant={selectedVariant}
+        />
+      )}
     </div>
   );
 }

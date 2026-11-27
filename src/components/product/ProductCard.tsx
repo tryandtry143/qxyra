@@ -21,7 +21,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
   const [justAdded, setJustAdded] = useState(false);
   const [activeColorImage, setActiveColorImage] = useState<string | null>(null);
 
-  const { format } = useCurrency();
+  const { formatProductPrice } = useCurrency();
   const { theme } = useTheme();
   const isLight = theme === 'light';
   const addItem = useCartStore((s) => s.addItem);
@@ -31,6 +31,9 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
 
   const hasDiscount = product.salePrice != null && product.salePrice < product.basePrice;
   const displayPrice = hasDiscount ? product.salePrice! : product.basePrice;
+  const displayLkrPrice = hasDiscount
+    ? (product.lkrSalePrice ?? product.lkrPrice)
+    : product.lkrPrice;
   const discountPercent = hasDiscount
     ? Math.round(((product.basePrice - product.salePrice!) / product.basePrice) * 100)
     : 0;
@@ -69,7 +72,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     const msg = encodeURIComponent(
-      `Hello Maison QXYRA! I would like to inquire about ordering:\n\n✨ *Piece*: ${product.name}\n💰 *Price*: ${format(displayPrice)}\n\nPlease assist me with bespoke availability, sizing or flacon engraving.`
+      `Hello Maison QXYRA! I would like to inquire about ordering:\n\n✨ *Piece*: ${product.name}\n💰 *Price*: ${formatProductPrice(displayPrice, displayLkrPrice)}\n\nPlease assist me with availability and ordering.`
     );
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
   };
@@ -287,7 +290,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
                 isLight ? "text-gray-950 font-bold" : "text-white"
               )}
             >
-              {format(displayPrice)}
+              {formatProductPrice(displayPrice, displayLkrPrice)}
             </span>
             {hasDiscount && (
               <span
@@ -296,7 +299,7 @@ export function ProductCard({ product, categoryName }: ProductCardProps) {
                   isLight ? "text-gray-400" : "text-gray-500"
                 )}
               >
-                {format(product.basePrice)}
+                {formatProductPrice(product.basePrice, product.lkrPrice)}
               </span>
             )}
           </div>

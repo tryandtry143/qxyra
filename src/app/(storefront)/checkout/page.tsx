@@ -13,8 +13,8 @@ import { ShieldCheck, Truck, Lock } from 'lucide-react';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getTotal, clearCart } = useCartStore();
-  const { format } = useCurrency();
+  const { items, getTotal, getLkrTotal, clearCart } = useCartStore();
+  const { formatProductPrice } = useCurrency();
 
   const [isMounted, setIsMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -48,16 +48,18 @@ export default function CheckoutPage() {
   };
 
   const subtotal = getTotal();
+  const lkrSubtotal = getLkrTotal();
   const shippingCost = 0; // 100% Free islandwide delivery
   const total = subtotal + shippingCost;
+  const lkrTotal = lkrSubtotal != null ? lkrSubtotal : undefined;
 
   const handlePlaceOrder = () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const orderNumber = `MM-COD-${Math.floor(100000 + Math.random() * 900000)}`;
-    const formattedTotal = format(total);
-    const formattedSubtotal = format(subtotal);
+    const orderNumber = `QXY-COD-${Math.floor(100000 + Math.random() * 900000)}`;
+    const formattedTotal = formatProductPrice(total, lkrTotal);
+    const formattedSubtotal = formatProductPrice(subtotal, lkrSubtotal);
     const orderDate = new Date();
     const dateFormatted = orderDate.toLocaleDateString('en-GB');
     const timeFormatted = orderDate.toLocaleTimeString('en-US', {
@@ -69,11 +71,19 @@ export default function CheckoutPage() {
     const itemsList = items
       .map((it, idx) => {
         const itemPrice = it.product.salePrice || it.variant.price || it.product.basePrice;
-        const lineTotal = format(itemPrice * it.quantity);
+        const lkrUnit =
+          it.variant.lkrPrice ??
+          (it.product.salePrice != null && it.product.salePrice < it.product.basePrice
+            ? (it.product.lkrSalePrice ?? it.product.lkrPrice)
+            : it.product.lkrPrice);
+        const lineTotal = formatProductPrice(
+          itemPrice * it.quantity,
+          lkrUnit != null ? lkrUnit * it.quantity : undefined
+        );
         return (
           `${idx + 1}. *${it.product.name}*\n` +
           `   • Color: ${it.variant.color || 'Standard'}\n` +
-          `   • Storage: ${it.variant.size || 'Standard'}\n` +
+          `   • Option: ${it.variant.size || 'Standard'}\n` +
           `   • Qty: ${it.quantity}\n` +
           `   • Price: ${lineTotal}`
         );
@@ -103,7 +113,7 @@ export default function CheckoutPage() {
       `• *Islandwide Delivery*: FREE (Cash on Delivery)\n` +
       `• *TOTAL CASH TO COLLECT*: ${formattedTotal}\n` +
       `• *Payment Method*: Cash on Delivery (COD) 🚚\n\n` +
-      `Please confirm order verification & islandwide dispatch from Methmi Mobile Showroom.`;
+      `Please confirm order verification & dispatch from Maison QXYRA.`;
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
       whatsappMessage
@@ -121,7 +131,7 @@ export default function CheckoutPage() {
         size: it.variant.size || 'Standard',
         quantity: it.quantity,
         price: it.product.salePrice || it.variant.price || it.product.basePrice,
-        image: it.product.images?.[0]?.url || '/products/vivo-y05-summit-platinum.jpg',
+        image: it.product.images?.[0]?.url || '/images/watch_luxury.jpg',
       })),
       subtotal,
       shippingCost,
@@ -235,8 +245,14 @@ export default function CheckoutPage() {
                 {items.map((item) => {
                   const price =
                     item.product.salePrice || item.variant.price || item.product.basePrice;
+                  const lkrUnit =
+                    item.variant.lkrPrice ??
+                    (item.product.salePrice != null && item.product.salePrice < item.product.basePrice
+                      ? (item.product.lkrSalePrice ?? item.product.lkrPrice)
+                      : item.product.lkrPrice);
+                  const lkrItemTotal = lkrUnit != null ? lkrUnit * item.quantity : undefined;
                   const itemImg =
-                    item.product.images?.[0]?.url || '/products/vivo-y05-summit-platinum.jpg';
+                    item.product.images?.[0]?.url || '/images/watch_luxury.jpg';
 
                   return (
                     <div key={item.id} className="flex gap-3 text-xs">
@@ -261,7 +277,7 @@ export default function CheckoutPage() {
                           {item.variant.size} • {item.variant.color}
                         </p>
                         <p className="font-mono font-bold text-gray-950 mt-1">
-                          {format(price * item.quantity)}
+                          {formatProductPrice(price * item.quantity, lkrItemTotal)}
                         </p>
                       </div>
                     </div>
@@ -273,7 +289,7 @@ export default function CheckoutPage() {
               <div className="space-y-2.5 pt-4 border-t border-gray-100 text-xs">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span className="font-mono font-medium text-gray-900">{format(subtotal)}</span>
+                  <span className="font-mono font-medium text-gray-900">{formatProductPrice(subtotal, lkrSubtotal)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Islandwide Delivery</span>
@@ -287,7 +303,7 @@ export default function CheckoutPage() {
                 <div className="pt-3 border-t border-gray-100 flex justify-between items-baseline">
                   <span className="text-sm font-bold text-brand-black">Total to Pay (COD)</span>
                   <span className="text-xl font-bold font-mono text-brand-black">
-                    {format(total)}
+                    {formatProductPrice(total, lkrTotal)}
                   </span>
                 </div>
               </div>
@@ -296,7 +312,7 @@ export default function CheckoutPage() {
               <div className="pt-4 border-t border-gray-100 space-y-2 text-[11px] text-gray-600 font-mono">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>100% Genuine TRCSL Approved Phones</span>
+                  <span>Maison QXYRA Quality Authenticated</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Truck className="w-4 h-4 text-emerald-600 shrink-0" />

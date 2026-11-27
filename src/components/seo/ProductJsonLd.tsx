@@ -4,46 +4,100 @@ import { Product } from '@/types';
 interface ProductJsonLdProps {
   product: Product;
   url: string;
+  categoryName?: string;
+  categoryUrl?: string;
 }
 
-export function ProductJsonLd({ product, url }: ProductJsonLdProps) {
-  const siteUrl = 'https://methmimobilepvtltd.lk';
-  const lkrPrice = Math.round((product.salePrice || product.basePrice) * 330.41);
+export function ProductJsonLd({
+  product,
+  url,
+  categoryName = 'Collections',
+  categoryUrl = 'https://qxyra.com/store',
+}: ProductJsonLdProps) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://qxyra.com';
+  const lkrPrice = Math.round(
+    product.lkrSalePrice ||
+      product.lkrPrice ||
+      (product.salePrice || product.basePrice) * 330.41
+  );
 
-  const schema = {
+  const productSchema: Record<string, unknown> = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
     name: product.name,
-    image: product.images.map((img) => img.url.startsWith('/') ? `${siteUrl}${img.url}` : img.url),
-    description: product.description,
-    sku: product.variants[0]?.sku || `MM-${product.id}`,
+    image: product.images.map((img) =>
+      img.url.startsWith('/') ? `${siteUrl}${img.url}` : img.url
+    ),
+    description: product.seoDescription || product.description,
+    sku: product.variants[0]?.sku || `QXYRA-${product.id.toUpperCase()}`,
     brand: {
       '@type': 'Brand',
-      name: product.categoryId === 'vivo' ? 'Vivo' : product.categoryId === 'apple' ? 'Apple' : product.categoryId === 'samsung' ? 'Samsung' : 'Methmi Mobile',
+      name: product.brand || 'Maison QXYRA',
     },
     offers: {
       '@type': 'Offer',
-      url: url,
+      url,
       priceCurrency: 'LKR',
       price: lkrPrice.toString(),
-      availability: 'https://schema.org/InStock',
+      availability:
+        product.variants.some((v) => v.stock > 0)
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
       itemCondition: 'https://schema.org/NewCondition',
       seller: {
         '@type': 'Organization',
-        name: 'Methmi Mobile (Pvt) Ltd',
+        name: 'Maison QXYRA',
       },
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: product.rating.toString(),
-      reviewCount: (product.reviews?.length || 18).toString(),
     },
   };
 
+  if (product.warranty) {
+    productSchema.warranty = product.warranty;
+  }
+
+  if (product.reviews && product.reviews.length > 0) {
+    productSchema.aggregateRating = {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating.toString(),
+      reviewCount: product.reviews.length.toString(),
+    };
+  }
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: categoryName,
+        item: categoryUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.name,
+        item: url,
+      },
+    ],
+  };
+
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+    </>
   );
 }

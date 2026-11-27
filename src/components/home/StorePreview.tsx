@@ -20,6 +20,7 @@ type FilterKey =
   | 'perfume-mens'
   | 'perfume-womens'
   | 'watches'
+  | 'watches-smartwatch'
   | 'watches-mens'
   | 'watches-womens'
   | 'watches-automatic'
@@ -53,6 +54,7 @@ export function StorePreview() {
       if (activeFilter === 'perfume-mens') return p.categoryId === 'perfume' && p.subcategoryId === 'mens';
       if (activeFilter === 'perfume-womens') return p.categoryId === 'perfume' && p.subcategoryId === 'womens';
       if (activeFilter === 'watches') return p.categoryId === 'watches';
+      if (activeFilter === 'watches-smartwatch') return p.categoryId === 'watches' && p.subcategoryId === 'smartwatch';
       if (activeFilter === 'watches-mens') return p.categoryId === 'watches' && p.subcategoryId === 'mens';
       if (activeFilter === 'watches-womens') return p.categoryId === 'watches' && p.subcategoryId === 'womens';
       if (activeFilter === 'watches-automatic') return p.categoryId === 'watches' && p.subcategoryId === 'automatic';
@@ -238,6 +240,17 @@ export function StorePreview() {
           {(activeFilter === 'watches' || activeFilter.startsWith('watches-')) && (
             <div className="flex items-center gap-2 overflow-x-auto py-1.5 no-scrollbar animate-in fade-in">
               <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest mr-1 shrink-0">Watches:</span>
+              <button
+                onClick={() => setActiveFilter('watches-smartwatch')}
+                className={cn(
+                  "px-3.5 py-1.5 rounded-full text-xs font-serif transition-colors cursor-pointer whitespace-nowrap shrink-0",
+                  activeFilter === 'watches-smartwatch'
+                    ? "bg-white text-black font-bold"
+                    : "bg-[#0D121D] border border-white/10 text-gray-300 hover:text-white"
+                )}
+              >
+                Smartwatches
+              </button>
               <button
                 onClick={() => setActiveFilter('watches-mens')}
                 className={cn(

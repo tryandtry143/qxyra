@@ -127,6 +127,7 @@ export default function WatchesPage() {
         sectionAccent="Timepieces"
         subcategories={[
           { id: null, label: 'All Timepieces' },
+          { id: 'smartwatch', label: 'Smartwatches' },
           { id: 'mens', label: "Men's Watches" },
           { id: 'womens', label: "Women's Watches" },
           { id: 'automatic', label: 'Automatic' },

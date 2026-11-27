@@ -40,6 +40,7 @@ export const CATEGORIES = [
     subcategories: [
       { id: 'mens', name: "Men's Watches", href: '/watches?sub=mens' },
       { id: 'womens', name: "Women's Watches", href: '/watches?sub=womens' },
+      { id: 'smartwatch', name: 'Smartwatches', href: '/watches?sub=smartwatch' },
       { id: 'automatic', name: 'Automatic', href: '/watches?sub=automatic' },
       { id: 'chronograph', name: 'Chronograph', href: '/watches?sub=chronograph' },
     ],
@@ -122,6 +123,12 @@ export const NAV_LINKS: NavItem[] = [
         description: 'Sculptural Slimline Mother-of-Pearl and golden link dress watches.',
       },
       {
+        label: 'Smartwatches',
+        href: '/watches?sub=smartwatch',
+        description: 'Compact Bluetooth calling & wellness smartwatches with wireless charging.',
+        badge: 'New',
+      },
+      {
         label: 'Automatic Calibers',
         href: '/watches?sub=automatic',
         description: 'Self-winding mechanical movements visible through exhibition sapphire backs.',
@@ -177,8 +184,8 @@ export const FOOTER_LINKS = [
     links: [
       { label: "Men's Timepieces", href: '/watches?sub=mens' },
       { label: "Women's Timepieces", href: '/watches?sub=womens' },
-      { label: 'Automatic Calibers', href: '/watches?sub=automatic' },
-      { label: 'Luxury Chronographs', href: '/watches?sub=chronograph' },
+      { label: 'Luxury Smartwatches', href: '/watches?sub=smartwatch' },
+      { label: 'Automatic & Chronographs', href: '/watches?sub=automatic' },
     ],
   },
   {

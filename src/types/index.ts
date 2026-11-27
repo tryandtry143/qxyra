@@ -60,6 +60,7 @@ export interface ProductVariant {
   size?: string;
   color?: string;
   price: number;
+  lkrPrice?: number;
   stock: number;
   sku: string;
   cjVariantId?: string;
@@ -81,8 +82,12 @@ export interface Product {
   name: string;
   slug: string;
   description: string;
+  brand?: string;
+  warranty?: string;
   basePrice: number;
   salePrice?: number;
+  lkrPrice?: number;
+  lkrSalePrice?: number;
   images: ProductImage[];
   categoryId: string;
   subcategoryId?: string;
@@ -95,6 +100,10 @@ export interface Product {
   isFeatured: boolean;
   cjProductId?: string;
   specsHighlights?: string[];
+  technicalSpecs?: { label: string; value: string }[];
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string[];
   colorOptions?: { name: string; hex: string; image?: string }[];
   olfactoryNotes?: { top: string[]; heart: string[]; base: string[] };
   concentration?: string;

@@ -204,6 +204,9 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             {watchesExpanded && (
               <div className="pl-5 space-y-1 pt-1 text-xs">
                 <div className="pl-3.5 space-y-1 border-l border-amber-500/30">
+                  <Link href="/watches?sub=smartwatch" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
+                    Smartwatches &amp; Fitness
+                  </Link>
                   <Link href="/watches?sub=mens" onClick={onClose} className="block py-1.5 font-light opacity-85 hover:text-amber-500">
                     Men&apos;s Luxury Timepieces
                   </Link>

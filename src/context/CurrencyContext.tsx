@@ -46,6 +46,7 @@ interface CurrencyContextType {
   convert: (amountInUSD: number) => number;
   convertToUSD: (amountInLocal: number) => number;
   format: (amountInUSD: number, showSign?: boolean) => string;
+  formatProductPrice: (usdAmount: number, lkrOverride?: number) => string;
   formatAmount: (amount: number, targetCurrency?: Currency, showSign?: boolean) => string;
 }
 
@@ -130,7 +131,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         const detected = detectVisitorLocation();
         setCurrencyState(detected.currency);
         setDetectedCountry(detected.country);
-        console.log(`[Methmi Geo-Currency] Detected visitor from ${detected.country} -> Auto-selected ${detected.currency}`);
+        console.log(`[QXYRA Geo-Currency] Detected visitor from ${detected.country} -> Auto-selected ${detected.currency}`);
       }
 
       // Load cached rates if available
@@ -243,6 +244,26 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     return `${prefix}${meta.symbol}${formattedNumber}`;
   }, [currency, rates]);
 
+  // Format a catalog item price honoring exact LKR retail price when currency is LKR
+  const formatProductPrice = useCallback((
+    usdAmount: number,
+    lkrOverride?: number
+  ): string => {
+    if (lkrOverride != null && lkrOverride > 0) {
+      if (currency === 'LKR') {
+        const wholeFormatted = new Intl.NumberFormat('en-US', {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }).format(Math.round(lkrOverride));
+        return `Rs. ${wholeFormatted}`;
+      }
+      const lkrRate = rates.LKR || DEFAULT_RATES.LKR;
+      const derivedUsd = lkrOverride / lkrRate;
+      return format(derivedUsd);
+    }
+    return format(usdAmount);
+  }, [currency, rates, format]);
+
   // Format an explicit amount with optional target currency
   const formatAmount = useCallback((
     amount: number,
@@ -285,6 +306,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         convert,
         convertToUSD,
         format,
+        formatProductPrice,
         formatAmount,
       }}
     >

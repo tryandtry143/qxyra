@@ -1,48 +1,45 @@
 'use client';
 
 import { useCartStore } from '@/store/cartStore';
-import { formatPrice } from '@/lib/utils';
-import { FREE_SHIPPING_THRESHOLD } from '@/lib/constants';
+import { useCurrency } from '@/context/CurrencyContext';
 import Link from 'next/link';
 import { useState } from 'react';
 
 export function CartSummary() {
-  const { getTotal } = useCartStore();
+  const { getTotal, getLkrTotal } = useCartStore();
+  const { formatProductPrice } = useCurrency();
   const subtotal = getTotal();
-  const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
-  const shippingCost = isFreeShipping || subtotal === 0 ? 0 : 15.00; // Mock fixed shipping cost
+  const lkrSubtotal = getLkrTotal();
+  const shippingCost = 0; // Islandwide Express COD
   const total = subtotal + shippingCost;
-  
+  const lkrTotal = lkrSubtotal != null ? lkrSubtotal : undefined;
+
   const [promoCode, setPromoCode] = useState('');
 
   return (
-    <div className="bg-brand-gray-50 p-6 md:p-8 rounded-xl border border-gray-100 shadow-sm">
-      <h2 className="text-xl font-bold text-brand-black mb-6 font-heading">Order Summary</h2>
+    <div className="bg-[#0B101A] p-6 md:p-8 rounded-2xl border border-white/10 shadow-xl text-white">
+      <h2 className="text-xl font-light text-white mb-6 font-serif tracking-wide">Order Summary</h2>
       
-      <div className="space-y-4 mb-6 text-brand-black">
-        <div className="flex justify-between">
-          <span className="text-gray-600">Subtotal</span>
-          <span className="font-medium">{formatPrice(subtotal)}</span>
-        </div>
-        
-        <div className="flex justify-between">
-          <span className="text-gray-600">Shipping</span>
-          <span className="font-medium">
-            {isFreeShipping ? <span className="text-green-600 font-bold">Free</span> : formatPrice(shippingCost)}
+      <div className="space-y-4 mb-6">
+        <div className="flex justify-between text-sm">
+          <span className="text-gray-400">Subtotal</span>
+          <span className="font-medium font-mono text-white">
+            {formatProductPrice(subtotal, lkrSubtotal)}
           </span>
         </div>
         
-        {!isFreeShipping && subtotal > 0 && (
-          <div className="text-sm text-gray-500 text-right mt-1">
-            Spend <span className="font-medium text-brand-black">{formatPrice(FREE_SHIPPING_THRESHOLD - subtotal)}</span> more for free shipping
-          </div>
-        )}
+        <div className="flex justify-between text-sm">
+          <span className="text-gray-400">Delivery</span>
+          <span className="font-medium text-emerald-400 font-mono">Complimentary</span>
+        </div>
       </div>
       
-      <div className="border-t border-gray-200 py-6 mb-2">
+      <div className="border-t border-white/10 py-6 mb-2">
         <div className="flex justify-between items-center mb-6">
-          <span className="text-lg font-bold text-brand-black">Total</span>
-          <span className="text-2xl font-bold text-brand-gold">{formatPrice(total)}</span>
+          <span className="text-lg font-light font-serif text-white">Total</span>
+          <span className="text-2xl font-bold font-mono text-amber-300">
+            {formatProductPrice(total, lkrTotal)}
+          </span>
         </div>
         
         <div className="flex gap-2 mb-6">
@@ -51,34 +48,34 @@ export function CartSummary() {
             placeholder="Promo code" 
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
-            className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold bg-white text-sm"
+            className="flex-grow px-4 py-2 border border-white/15 rounded-xl focus:outline-none focus:border-amber-400 bg-black/50 text-white placeholder:text-gray-500 text-sm"
           />
-          <button className="px-4 py-2 bg-brand-black text-white rounded-md hover:bg-brand-gold hover:text-brand-black transition-colors whitespace-nowrap text-sm font-medium">
+          <button
+            type="button"
+            className="px-4 py-2 bg-white/10 border border-white/15 text-white rounded-xl hover:bg-amber-400 hover:text-black transition-colors whitespace-nowrap text-sm font-medium cursor-pointer"
+          >
             Apply
           </button>
         </div>
         
         <Link 
           href="/checkout"
-          className="block text-center w-full bg-brand-gold text-brand-black font-bold py-4 rounded-md hover:bg-brand-black hover:text-white transition-colors mb-4 text-lg shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className="block text-center w-full bg-amber-400 text-black font-semibold py-4 rounded-xl hover:bg-amber-300 transition-colors mb-4 text-xs uppercase tracking-[0.18em] shadow-lg"
         >
           Proceed to Checkout (Cash on Delivery)
         </Link>
         
         <div className="text-center mt-4">
-          <Link href="/store" className="text-gray-500 underline hover:text-brand-gold transition-colors text-sm">
+          <Link href="/store" className="text-gray-400 underline hover:text-amber-300 transition-colors text-xs uppercase tracking-wider font-mono">
             Continue Shopping
           </Link>
         </div>
       </div>
       
-      <div className="flex flex-col items-center gap-3 pt-6 border-t border-gray-200">
-        <div className="flex gap-4 opacity-60">
-          <span className="text-2xl grayscale hover:grayscale-0 transition-all" title="Secure Payment">🔒</span>
-          <span className="text-2xl grayscale hover:grayscale-0 transition-all" title="Visa">💳</span>
-          <span className="text-2xl grayscale hover:grayscale-0 transition-all" title="Mastercard">💳</span>
-        </div>
-        <span className="text-xs text-gray-500 uppercase tracking-widest font-medium">100% Secure Checkout</span>
+      <div className="flex flex-col items-center gap-2 pt-4 border-t border-white/10">
+        <span className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-mono">
+          Maison QXYRA • Secure Checkout
+        </span>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { useCurrency } from '@/context/CurrencyContext';
 import { Truck, ShieldCheck, MapPin, Phone, User, CheckCircle } from 'lucide-react';
 import Image from 'next/image';
 import { ShippingAddressData } from './AddressForm';
+import { WHATSAPP_DISPLAY_NUMBER } from '@/lib/constants';
 
 interface OrderReviewProps {
   onPlaceOrder: () => void;
@@ -14,12 +15,14 @@ interface OrderReviewProps {
 }
 
 export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderReviewProps) {
-  const { items, getTotal } = useCartStore();
-  const { format } = useCurrency();
+  const { items, getTotal, getLkrTotal } = useCartStore();
+  const { formatProductPrice } = useCurrency();
 
   const subtotal = getTotal();
+  const lkrSubtotal = getLkrTotal();
   const shippingCost = 0; // 100% Free islandwide delivery
   const total = subtotal + shippingCost;
+  const lkrTotal = lkrSubtotal != null ? lkrSubtotal : undefined;
 
   return (
     <div className="space-y-6">
@@ -39,7 +42,7 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
             Selected Items ({items.reduce((s, i) => s + i.quantity, 0)})
           </h3>
           <span className="text-[11px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-            100% Genuine TRCSL
+            Maison Authenticated
           </span>
         </div>
 
@@ -47,8 +50,14 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
           {items.map((item) => {
             const unitPrice =
               item.product.salePrice || item.variant.price || item.product.basePrice;
+            const lkrUnit =
+              item.variant.lkrPrice ??
+              (item.product.salePrice != null && item.product.salePrice < item.product.basePrice
+                ? (item.product.lkrSalePrice ?? item.product.lkrPrice)
+                : item.product.lkrPrice);
             const itemTotal = unitPrice * item.quantity;
-            const primaryImg = item.product.images?.[0]?.url || '/products/vivo-y05-summit-platinum.jpg';
+            const lkrItemTotal = lkrUnit != null ? lkrUnit * item.quantity : undefined;
+            const primaryImg = item.product.images?.[0]?.url || '/images/watch_luxury.jpg';
 
             return (
               <div key={item.id} className="p-4 sm:p-5 flex items-center gap-4">
@@ -74,7 +83,7 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
                     )}
                     {item.variant.size && (
                       <span className="bg-gray-100 px-2 py-0.5 rounded">
-                        Storage: <strong className="text-gray-800">{item.variant.size}</strong>
+                        Option: <strong className="text-gray-800">{item.variant.size}</strong>
                       </span>
                     )}
                     <span className="bg-gray-100 px-2 py-0.5 rounded">
@@ -85,11 +94,11 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
 
                 <div className="text-right shrink-0">
                   <span className="font-mono font-bold text-xs sm:text-sm text-gray-950 block">
-                    {format(itemTotal)}
+                    {formatProductPrice(itemTotal, lkrItemTotal)}
                   </span>
                   {item.quantity > 1 && (
                     <span className="text-[10px] text-gray-400 font-mono">
-                      {format(unitPrice)} each
+                      {formatProductPrice(unitPrice, lkrUnit)} each
                     </span>
                   )}
                 </div>
@@ -177,7 +186,7 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
           ) : (
             <>
               <CheckCircle className="w-5 h-5 text-brand-black" />
-              <span>Confirm &amp; Place COD Order — {format(total)}</span>
+              <span>Confirm &amp; Place COD Order — {formatProductPrice(total, lkrTotal)}</span>
             </>
           )}
         </button>
@@ -185,7 +194,7 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
         <p className="text-center text-[11px] text-gray-500 mt-2.5 flex items-center justify-center gap-1.5">
           <span>💬</span>
           <span>
-            Clicking will confirm your COD order and open WhatsApp to send your order details directly to <strong>074 303 1990</strong>.
+            Clicking will confirm your COD order and open WhatsApp to send your order details directly to <strong>{WHATSAPP_DISPLAY_NUMBER}</strong>.
           </span>
         </p>
       </div>

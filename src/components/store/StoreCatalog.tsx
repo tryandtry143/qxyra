@@ -78,6 +78,7 @@ export function StoreCatalog() {
           image="/images/watch_luxury.jpg"
           itemCount={watchesProducts.length}
           subcategories={[
+            { name: "Smartwatches", href: '/watches?sub=smartwatch' },
             { name: "Men's Watches", href: '/watches?sub=mens' },
             { name: "Women's Watches", href: '/watches?sub=womens' },
             { name: "Automatic Calibers", href: '/watches?sub=automatic' },
@@ -268,6 +269,7 @@ export function StoreCatalog() {
             </span>
             {[
               { id: null, label: 'All Watches' },
+              { id: 'smartwatch', label: 'Smartwatches' },
               { id: 'mens', label: "Men's Watches" },
               { id: 'womens', label: "Women's Watches" },
               { id: 'automatic', label: 'Automatic' },

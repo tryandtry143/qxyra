@@ -49,9 +49,10 @@ export const COLOR_MAP: Record<string, string> = {
   'Mist Titanium': '#A6ACAF',
   'Frost Silver': '#E5E7E9',
   // Fallbacks
-  'Black': '#000000',
+  'Black': '#141518',
+  'Pink': '#F4B6C2',
   'White': '#ffffff',
-  'Silver': '#c0c0c0',
+  'Silver': '#C8CDD3',
   'Blue': '#2980B9',
   'Gold': '#d4af37',
 };

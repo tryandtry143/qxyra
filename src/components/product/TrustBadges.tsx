@@ -4,21 +4,25 @@ import { ShieldCheck, Award, Truck, RotateCcw } from 'lucide-react';
 import { useTheme } from '@/context/ThemeContext';
 import { cn } from '@/lib/utils';
 
-export function TrustBadges() {
+interface TrustBadgesProps {
+  warranty?: string;
+}
+
+export function TrustBadges({ warranty }: TrustBadgesProps = {}) {
   const { theme } = useTheme();
   const isLight = theme === 'light';
 
   const badges = [
     {
       icon: ShieldCheck,
-      title: '100% TRCSL Approved',
-      subtitle: 'Telecommunications Regulatory Commission Registered',
-      highlight: 'Official IMEI Registered',
+      title: 'Maison Authenticated',
+      subtitle: '100% Quality-Inspected & Genuine Brand Creation',
+      highlight: 'Verified Unit',
     },
     {
       icon: Award,
-      title: '1-Year Company Warranty',
-      subtitle: 'Official Brand Warranty & Authorized Service Support',
+      title: warranty || '1-Year Warranty',
+      subtitle: 'Comprehensive Coverage & Dedicated Support Service',
       highlight: 'Sealed Box Unit',
     },
     {

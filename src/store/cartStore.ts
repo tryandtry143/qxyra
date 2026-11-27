@@ -9,6 +9,7 @@ interface CartState {
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   getTotal: () => number;
+  getLkrTotal: () => number | undefined;
   getItemCount: () => number;
 }
 
@@ -55,6 +56,21 @@ export const useCartStore = create<CartState>()(
           const price = item.product.salePrice || item.variant.price || item.product.basePrice;
           return total + price * item.quantity;
         }, 0);
+      },
+      getLkrTotal: () => {
+        const items = get().items;
+        if (items.length === 0) return 0;
+        let total = 0;
+        for (const item of items) {
+          const lkrUnit =
+            item.variant.lkrPrice ??
+            (item.product.salePrice != null && item.product.salePrice < item.product.basePrice
+              ? (item.product.lkrSalePrice ?? item.product.lkrPrice)
+              : item.product.lkrPrice);
+          if (lkrUnit == null) return undefined;
+          total += lkrUnit * item.quantity;
+        }
+        return total;
       },
       getItemCount: () => {
         return get().items.reduce((count, item) => count + item.quantity, 0);
