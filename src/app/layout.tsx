@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { TrackingPixels } from "@/components/analytics/TrackingPixels";
 import { CurrencyProvider } from "@/context/CurrencyContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { WhatsAppFloatingButton } from "@/components/common/WhatsAppFloatingButton";
+import { UrlPromoListener } from "@/components/promo/UrlPromoListener";
 import { BRAND_NAME, BRAND_FULL_NAME, BRAND_TAGLINE } from "@/lib/constants";
 
 const cormorant = Cormorant_Garamond({
@@ -95,6 +97,9 @@ export default function RootLayout({
         <ThemeProvider>
           <CurrencyProvider>
             <TrackingPixels />
+            <Suspense fallback={null}>
+              <UrlPromoListener />
+            </Suspense>
             {children}
             <WhatsAppFloatingButton />
           </CurrencyProvider>

@@ -5,21 +5,42 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useCartStore } from '@/store/cartStore';
 import { useCurrency } from '@/context/CurrencyContext';
+import {
+  getCartEffectiveLkrSubtotal,
+  redeemPromoOnServer,
+  validatePromoOnServer,
+} from '@/lib/promo-client';
 import { AddressForm, PaymentForm, OrderReview, CheckoutSteps } from '@/components/checkout';
 import { ShippingAddressData } from '@/components/checkout/AddressForm';
 import { WHATSAPP_NUMBER } from '@/lib/constants';
 import Image from 'next/image';
-import { ShieldCheck, Truck, Lock } from 'lucide-react';
+import { ShieldCheck, Truck, Lock, Tag, Loader2, X, Gift } from 'lucide-react';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, getTotal, getLkrTotal, clearCart } = useCartStore();
-  const { formatProductPrice } = useCurrency();
+  const {
+    items,
+    appliedPromo,
+    pendingPromoCode,
+    setAppliedPromo,
+    clearPromo,
+    setPendingPromoCode,
+    getTotal,
+    getLkrTotal,
+    clearCart,
+  } = useCartStore();
+  const { formatProductPrice, rates } = useCurrency();
 
   const [isMounted, setIsMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [shippingData, setShippingData] = useState<ShippingAddressData | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [promoInput, setPromoInput] = useState('');
+  const [isValidatingPromo, setIsValidatingPromo] = useState(false);
+  const [promoError, setPromoError] = useState<string | null>(null);
+
+  const lkrRate = rates?.LKR || 330.41;
 
   useEffect(() => {
     setIsMounted(true);
@@ -27,6 +48,35 @@ export default function CheckoutPage() {
       router.push('/cart');
     }
   }, [items, router]);
+
+  // Auto-apply pending QR promo code on Checkout if not already validated
+  useEffect(() => {
+    if (isMounted && pendingPromoCode && items.length > 0 && !appliedPromo) {
+      handleApplyPromo(pendingPromoCode);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted, pendingPromoCode, items.length]);
+
+  const handleApplyPromo = async (codeToUse: string, phoneOverride?: string) => {
+    if (!codeToUse.trim() || items.length === 0) return;
+    setIsValidatingPromo(true);
+    setPromoError(null);
+    const res = await validatePromoOnServer({
+      code: codeToUse,
+      items,
+      usdToLkrRate: lkrRate,
+      customerPhone: phoneOverride ?? shippingData?.phone,
+    });
+    setIsValidatingPromo(false);
+    if (res.ok && res.promo) {
+      setAppliedPromo(res.promo);
+      setPendingPromoCode(null);
+      setPromoInput('');
+    } else {
+      setAppliedPromo(null);
+      setPromoError(res.message);
+    }
+  };
 
   if (!isMounted || items.length === 0) {
     return (
@@ -36,8 +86,12 @@ export default function CheckoutPage() {
     );
   }
 
-  const handleAddressSubmit = (data: ShippingAddressData) => {
+  const handleAddressSubmit = async (data: ShippingAddressData) => {
     setShippingData(data);
+    // Re-check per-customer limit if customer already applied a promo code
+    if (appliedPromo?.code) {
+      await handleApplyPromo(appliedPromo.code, data.phone);
+    }
     setCurrentStep(2);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -49,23 +103,42 @@ export default function CheckoutPage() {
 
   const subtotal = getTotal();
   const lkrSubtotal = getLkrTotal();
+  const effectiveLkrSubtotal = lkrSubtotal ?? getCartEffectiveLkrSubtotal(items, lkrRate);
+  const discountLkr = appliedPromo
+    ? Math.min(appliedPromo.discountLkr || 0, effectiveLkrSubtotal)
+    : 0;
+  const discountUsd = discountLkr / lkrRate;
   const shippingCost = 0; // 100% Free islandwide delivery
-  const total = subtotal + shippingCost;
-  const lkrTotal = lkrSubtotal != null ? lkrSubtotal : undefined;
+  const total = Math.max(0, subtotal - discountUsd + shippingCost);
+  const lkrTotal = lkrSubtotal != null ? Math.max(0, lkrSubtotal - discountLkr) : undefined;
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     if (isSubmitting) return;
     setIsSubmitting(true);
 
-    const orderNumber = `QXY-COD-${Math.floor(100000 + Math.random() * 900000)}`;
+    const orderNumber = `MM-COD-${Math.floor(100000 + Math.random() * 900000)}`;
     const formattedTotal = formatProductPrice(total, lkrTotal);
     const formattedSubtotal = formatProductPrice(subtotal, lkrSubtotal);
+    const formattedDiscount =
+      discountLkr > 0 ? formatProductPrice(discountUsd, discountLkr) : '';
     const orderDate = new Date();
     const dateFormatted = orderDate.toLocaleDateString('en-GB');
     const timeFormatted = orderDate.toLocaleTimeString('en-US', {
       hour: '2-digit',
       minute: '2-digit',
     });
+
+    // Sync Promo Redemption back to POS Firestore (increments usedCount & logs in POS Redemptions & ROI!)
+    if (appliedPromo?.code) {
+      await redeemPromoOnServer({
+        code: appliedPromo.code,
+        orderNumber,
+        discountLkr,
+        billTotalLkr: lkrTotal ?? Math.max(0, effectiveLkrSubtotal - discountLkr),
+        customerName: shippingData?.fullName,
+        customerPhone: shippingData?.phone,
+      });
+    }
 
     // 1. Build Item list string
     const itemsList = items
@@ -98,6 +171,12 @@ export default function CheckoutPage() {
       `${shippingData?.notes ? `• *Landmark / Note*: ${shippingData.notes}\n` : ''}` +
       `• *Country*: Sri Lanka 🇱🇰`;
 
+    const promoLine = appliedPromo
+      ? appliedPromo.discountType === 'free_item' && discountLkr <= 0
+        ? `• *Promo Code*: ${appliedPromo.code} (🎁 FREE Gift: ${appliedPromo.rewardItemName || 'Gift'})\n`
+        : `• *Promo Discount (${appliedPromo.code})*: - ${formattedDiscount}\n`
+      : '';
+
     // 3. Build Full WhatsApp Message
     const whatsappMessage =
       `📦 *NEW CASH ON DELIVERY (COD) ORDER!* 📦\n` +
@@ -110,10 +189,11 @@ export default function CheckoutPage() {
       `${itemsList}\n\n` +
       `💰 *BILLING & DELIVERY*:\n` +
       `• *Subtotal*: ${formattedSubtotal}\n` +
+      `${promoLine}` +
       `• *Islandwide Delivery*: FREE (Cash on Delivery)\n` +
       `• *TOTAL CASH TO COLLECT*: ${formattedTotal}\n` +
       `• *Payment Method*: Cash on Delivery (COD) 🚚\n\n` +
-      `Please confirm order verification & dispatch from Maison QXYRA.`;
+      `Please confirm order verification & dispatch from Methmi Mobile Store.`;
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
       whatsappMessage
@@ -134,6 +214,9 @@ export default function CheckoutPage() {
         image: it.product.images?.[0]?.url || '/images/watch_luxury.jpg',
       })),
       subtotal,
+      promoCode: appliedPromo?.code || null,
+      discountLkr,
+      rewardItemName: appliedPromo?.rewardItemName || null,
       shippingCost,
       total,
       formattedTotal,
@@ -152,7 +235,7 @@ export default function CheckoutPage() {
     // 5. Open WhatsApp directly to send the message
     window.open(whatsappUrl, '_blank');
 
-    // 6. Clear cart & redirect to confirmation screen
+    // 6. Clear cart & promo & redirect to confirmation screen
     clearCart();
     router.push(`/order/${orderNumber}`);
   };
@@ -285,12 +368,79 @@ export default function CheckoutPage() {
                 })}
               </div>
 
+              {/* Promo Code Box inside Checkout */}
+              <div className="pt-3 border-t border-gray-100">
+                {appliedPromo ? (
+                  <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+                        {appliedPromo.discountType === 'free_item' ? (
+                          <Gift className="w-3.5 h-3.5 text-amber-600" />
+                        ) : (
+                          <Tag className="w-3.5 h-3.5 text-emerald-700" />
+                        )}
+                        Promo: {appliedPromo.code}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          clearPromo();
+                          setPromoError(null);
+                        }}
+                        className="text-gray-400 hover:text-red-500 cursor-pointer"
+                        aria-label="Remove promo code"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-emerald-700 leading-snug">
+                      {appliedPromo.message}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-1.5">
+                    <div className="flex gap-1.5">
+                      <input
+                        type="text"
+                        placeholder="Promo Code (Optional)"
+                        value={promoInput}
+                        onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                        className="flex-1 px-3 py-2 border border-gray-200 rounded-xl text-xs font-mono uppercase text-gray-900 focus:outline-none focus:border-amber-500"
+                      />
+                      <button
+                        type="button"
+                        disabled={isValidatingPromo || !promoInput.trim()}
+                        onClick={() => handleApplyPromo(promoInput)}
+                        className="px-3.5 py-2 bg-gray-900 text-white rounded-xl text-xs font-semibold hover:bg-gray-800 disabled:opacity-50 cursor-pointer flex items-center gap-1"
+                      >
+                        {isValidatingPromo ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Apply'}
+                      </button>
+                    </div>
+                    {promoError && (
+                      <p className="text-[11px] text-red-600 font-medium">{promoError}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
               {/* Totals */}
               <div className="space-y-2.5 pt-4 border-t border-gray-100 text-xs">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal</span>
-                  <span className="font-mono font-medium text-gray-900">{formatProductPrice(subtotal, lkrSubtotal)}</span>
+                  <span className="font-mono font-medium text-gray-900">
+                    {formatProductPrice(subtotal, lkrSubtotal)}
+                  </span>
                 </div>
+                {appliedPromo && (
+                  <div className="flex justify-between text-emerald-700 font-semibold">
+                    <span>Promo ({appliedPromo.code})</span>
+                    <span className="font-mono">
+                      {appliedPromo.discountType === 'free_item' && discountLkr <= 0
+                        ? `Free ${appliedPromo.rewardItemName || 'Gift'}`
+                        : `- ${formatProductPrice(discountUsd, discountLkr > 0 ? discountLkr : undefined)}`}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between text-gray-600">
                   <span>Islandwide Delivery</span>
                   <span className="font-mono font-bold text-emerald-600">FREE</span>
@@ -312,7 +462,7 @@ export default function CheckoutPage() {
               <div className="pt-4 border-t border-gray-100 space-y-2 text-[11px] text-gray-600 font-mono">
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Maison QXYRA Quality Authenticated</span>
+                  <span>Methmi Mobile Official Quality</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Truck className="w-4 h-4 text-emerald-600 shrink-0" />

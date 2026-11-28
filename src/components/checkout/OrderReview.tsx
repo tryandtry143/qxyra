@@ -15,14 +15,17 @@ interface OrderReviewProps {
 }
 
 export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderReviewProps) {
-  const { items, getTotal, getLkrTotal } = useCartStore();
-  const { formatProductPrice } = useCurrency();
+  const { items, appliedPromo, getTotal, getLkrTotal } = useCartStore();
+  const { formatProductPrice, rates } = useCurrency();
 
+  const lkrRate = rates?.LKR || 330.41;
   const subtotal = getTotal();
   const lkrSubtotal = getLkrTotal();
+  const discountLkr = appliedPromo ? (appliedPromo.discountLkr || 0) : 0;
+  const discountUsd = discountLkr / lkrRate;
   const shippingCost = 0; // 100% Free islandwide delivery
-  const total = subtotal + shippingCost;
-  const lkrTotal = lkrSubtotal != null ? lkrSubtotal : undefined;
+  const total = Math.max(0, subtotal - discountUsd + shippingCost);
+  const lkrTotal = lkrSubtotal != null ? Math.max(0, lkrSubtotal - discountLkr) : undefined;
 
   return (
     <div className="space-y-6">
@@ -167,6 +170,16 @@ export function OrderReview({ onPlaceOrder, shippingData, isSubmitting }: OrderR
               <span className="text-gray-600">Warranty:</span>
               <span className="font-medium text-gray-800">1-Year Official Company Warranty</span>
             </div>
+            {appliedPromo && (
+              <div className="pt-2 border-t border-amber-200/70 flex items-center justify-between text-emerald-800 font-bold">
+                <span>Promo ({appliedPromo.code}):</span>
+                <span>
+                  {appliedPromo.discountType === 'free_item' && discountLkr <= 0
+                    ? `🎁 Free ${appliedPromo.rewardItemName || 'Gift'}`
+                    : `- ${formatProductPrice(discountUsd, discountLkr > 0 ? discountLkr : undefined)}`}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

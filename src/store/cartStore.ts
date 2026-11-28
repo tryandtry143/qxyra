@@ -2,12 +2,29 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { CartItem, Product, ProductVariant } from '@/types';
 
+export interface AppliedPromo {
+  code: string;
+  promoDocId?: string;
+  title: string;
+  discountType: string;
+  discountValue: number;
+  discountLkr: number;
+  rewardItemName?: string;
+  validUntilIso?: string | null;
+  message: string;
+}
+
 interface CartState {
   items: CartItem[];
+  appliedPromo: AppliedPromo | null;
+  pendingPromoCode: string | null;
   addItem: (product: Product, variant: ProductVariant, quantity: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  setAppliedPromo: (promo: AppliedPromo | null) => void;
+  clearPromo: () => void;
+  setPendingPromoCode: (code: string | null) => void;
   getTotal: () => number;
   getLkrTotal: () => number | undefined;
   getItemCount: () => number;
@@ -17,6 +34,8 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      appliedPromo: null,
+      pendingPromoCode: null,
       addItem: (product, variant, quantity) => {
         set((state) => {
           const existingItemIndex = state.items.findIndex(
@@ -39,9 +58,13 @@ export const useCartStore = create<CartState>()(
         });
       },
       removeItem: (id) => {
-        set((state) => ({
-          items: state.items.filter((item) => item.id !== id),
-        }));
+        set((state) => {
+          const nextItems = state.items.filter((item) => item.id !== id);
+          return {
+            items: nextItems,
+            appliedPromo: nextItems.length === 0 ? null : state.appliedPromo,
+          };
+        });
       },
       updateQuantity: (id, quantity) => {
         set((state) => ({
@@ -50,7 +73,11 @@ export const useCartStore = create<CartState>()(
           ),
         }));
       },
-      clearCart: () => set({ items: [] }),
+      clearCart: () => set({ items: [], appliedPromo: null, pendingPromoCode: null }),
+      setAppliedPromo: (promo) => set({ appliedPromo: promo }),
+      clearPromo: () => set({ appliedPromo: null, pendingPromoCode: null }),
+      setPendingPromoCode: (code) =>
+        set({ pendingPromoCode: code ? code.trim().toUpperCase() : null }),
       getTotal: () => {
         return get().items.reduce((total, item) => {
           const price = item.product.salePrice || item.variant.price || item.product.basePrice;
